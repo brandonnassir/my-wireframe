@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SAT Diagnostic - Instructions</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .instructions-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .instruction-block {
+      background-color: var(--white);
+      border-radius: var(--card-border-radius);
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+    }
+    
+    .instruction-block h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      color: var(--gray-900);
+      border-bottom: 1px solid var(--gray-200);
+      padding-bottom: 0.75rem;
+    }
+    
+    .instruction-block ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .instruction-block li {
+      margin-bottom: 0.75rem;
+      color: var(--gray-700);
+    }
+    
+    .instruction-block p {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+      color: var(--gray-700);
+    }
+    
+    .module-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+    
+    .module-table th, .module-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    
+    .module-table th {
+      background-color: var(--gray-100);
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+    
+    .module-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    
+    .btn-secondary {
+      background-color: var(--gray-200);
+      color: var(--gray-700);
+      border: none;
+      border-radius: var(--border-radius);
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--gray-300);
+      transform: translateY(-2px);
+    }
+    
+    .btn-large {
+      padding: 0.75rem 2rem;
+      font-size: 1.125rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Student Portal</h2>
+      <!-- Close/hide button for mobile -->
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="student_home.html">Home</a></li>
+      <li><a href="my_performance.html">My Performance</a></li>
+      <li class="active"><a href="assignments.html">Assignments</a></li>
+      <li><a href="practice.html">Practice</a></li>
+      <li><a href="profile.html">Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h1>SAT Diagnostic Exam Instructions</h1>
+        <p>Please read all instructions carefully before beginning.</p>
+      </div>
+      
+      <div class="instructions-container">
+        <div class="instruction-block">
+          <h2>About This Diagnostic</h2>
+          <p>This diagnostic exam is designed to assess your current SAT readiness and identify areas for improvement. The test simulates the actual SAT exam structure and timing, but is shortened for demonstration purposes.</p>
+          <p>Your results will help your tutor create a personalized study plan targeting your specific strengths and weaknesses.</p>
+        </div>
+        
+        <div class="instruction-block">
+          <h2>Exam Structure</h2>
+          <p>This diagnostic exam consists of 4 modules divided into 2 sections: Reading/Writing and Math. Each section has 2 modules with 3 questions per module for demonstration purposes.</p>
+          
+          <table class="module-table">
+            <thead>
+              <tr>
+                <th>Section</th>
+                <th>Module</th>
+                <th>Questions</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="2">Reading and Writing</td>
+                <td>Module 1</td>
+                <td>3 questions</td>
+                <td>8 minutes</td>
+              </tr>
+              <tr>
+                <td>Module 2</td>
+                <td>3 questions</td>
+                <td>8 minutes</td>
+              </tr>
+              <tr>
+                <td rowspan="2">Math</td>
+                <td>Module 1</td>
+                <td>3 questions</td>
+                <td>8 minutes</td>
+              </tr>
+              <tr>
+                <td>Module 2</td>
+                <td>3 questions</td>
+                <td>8 minutes</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <p><strong>Total exam time:</strong> 32 minutes (excluding breaks)</p>
+          <p><strong>Note:</strong> The actual SAT exam is approximately 2 hours and 14 minutes with 98 total questions.</p>
+        </div>
+        
+        <div class="instruction-block">
+          <h2>Important Rules</h2>
+          <ul>
+            <li>Once you begin a module, the timer will start. You must complete the module within the allocated time.</li>
+            <li>You cannot pause the timer during a module.</li>
+            <li>You can mark questions for review and revisit them within the same module.</li>
+            <li>After completing a module, you cannot return to it.</li>
+            <li>There is a short 1-minute break between modules.</li>
+            <li>You can use the provided digital calculator for the Math sections only.</li>
+          </ul>
+        </div>
+        
+        <div class="instruction-block">
+          <h2>Tips for Success</h2>
+          <ul>
+            <li>Read each question carefully before answering.</li>
+            <li>Manage your time wisely. Don't spend too much time on any single question.</li>
+            <li>Use the "Mark for Review" feature to flag questions you want to revisit within the module.</li>
+            <li>For Reading passages, read the questions first to know what to look for in the passage.</li>
+            <li>For Math, use the digital calculator strategically but rely on mental math for simpler calculations.</li>
+            <li>Answer all questions—there is no penalty for wrong answers.</li>
+          </ul>
+        </div>
+        
+        <div class="instruction-block">
+          <h2>After the Exam</h2>
+          <p>Once you complete all modules, you'll receive a comprehensive score report that breaks down your performance by section and topic. Your tutor will review these results with you to develop a targeted study plan.</p>
+        </div>
+        
+        <div class="action-buttons">
+          <a href="assignments.html" class="btn-secondary">Return to Assignments</a>
+          <a href="diagnostic_exam.html" class="btn-primary btn-large">Begin Diagnostic</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html> 

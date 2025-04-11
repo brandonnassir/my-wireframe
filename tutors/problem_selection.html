@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutor Dashboard - Problem Selection</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Tutor Portal</h2>
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="tutor_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <!-- Highlight 'Create a Practice Set' as active -->
+      <li class="active"><a href="create_practice_students.html"><i class="fas fa-plus-circle"></i> Create a Practice Set</a></li>
+      <li><a href="my_practice_sets.html"><i class="fas fa-book"></i> My Practice Sets</a></li>
+      <li><a href="students.html"><i class="fas fa-user-graduate"></i> Students</a></li>
+      <li><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h1>Problem Selection</h1>
+      </div>
+
+      <!-- Action Buttons Row -->
+      <div class="top-actions">
+        <button id="clearSelectionsBtn" class="clear-btn">
+          <span class="btn-icon">↺</span> Clear All Selections
+        </button>
+        <button id="exportProblemsBtn" class="export-btn">
+          <span class="btn-icon">↓</span> Export Selected Problems
+        </button>
+      </div>
+      
+      <!-- Selected Problem Counter -->
+      <div class="selection-summary">
+        <div class="counter">
+          <span id="selectedCount">0</span> problems selected
+        </div>
+      </div>
+      
+      <!-- Flexible container for left (filters) & right (problem list) columns -->
+      <div class="selection-layout">
+        
+        <!-- Left Column: Filters -->
+        <div class="filter-column">
+          
+          <!-- Select a Difficulty (always visible) -->
+          <div class="filter-block">
+            <h2>Select a Difficulty</h2>
+            <div class="card-scroll-container" id="difficultyContainer">
+              <!-- Difficulty cards are inserted here -->
+            </div>
+          </div>
+
+          <!-- Select a Content Domain (always visible) -->
+          <div class="filter-block">
+            <h2>Select a Content Domain</h2>
+            <div class="card-scroll-container" id="domainContainer">
+              <!-- Domain cards are inserted here -->
+            </div>
+          </div>
+
+          <!-- Select a Topic (hidden by default, shown only after domain selection) -->
+          <div class="filter-block" id="topicBlock" style="display: none;">
+            <h2>Select a Topic</h2>
+            <div id="topicSection">
+              <!-- Domain headings & subtopics appear here if domain is selected -->
+            </div>
+          </div>
+
+          <!-- Select a Knowledge Testing Point (hidden by default, shown only after topic selection) -->
+          <div class="filter-block" id="ktpBlock" style="display: none;">
+            <h2>Select a Knowledge Testing Point</h2>
+            <div class="card-scroll-container" id="ktpContainer">
+              <!-- KTP cards appear here based on selected topics -->
+            </div>
+          </div>
+
+          <!-- Micro Skills remain visible at all times (optional) -->
+          <div class="filter-block">
+            <h2>Select a Micro Skill</h2>
+            <div class="card-scroll-container" id="microSkillContainer">
+              <!-- Cards for In Context, Tables, Graphs, etc. -->
+            </div>
+          </div>
+
+        </div> <!-- end filter-column -->
+
+        <!-- Right Column: Problem List Preview -->
+        <div class="problem-list-column">
+          <div class="problem-list-header">
+            <h2>Matching Problems</h2>
+            <span id="matchCount" class="match-count">0 matches</span>
+          </div>
+          
+          <div class="problem-list" id="problemList">
+            <!-- Problems that match the filters go here -->
+          </div>
+          
+          <!-- Create Practice Set Button -->
+          <div class="create-set-action">
+            <button id="createSetBtn" class="create-set-btn" disabled>
+              Create Practice Set with Selected Problems
+            </button>
+          </div>
+        </div>
+
+      </div> <!-- end selection-layout -->
+
+    </div> <!-- end content-wrapper -->
+  </div> <!-- end main-content -->
+
+  <!-- Export Modal -->
+  <div id="exportModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <h3>Export Problems</h3>
+      <p>You have selected <span id="exportCount">0</span> problems for export.</p>
+      
+      <div class="export-options">
+        <h4>Export Format</h4>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="exportFormat" value="pdf" checked> PDF
+          </label>
+          <label>
+            <input type="radio" name="exportFormat" value="word"> Word
+          </label>
+          <label>
+            <input type="radio" name="exportFormat" value="csv"> CSV
+          </label>
+        </div>
+        
+        <h4>Options</h4>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" id="includeSolutions" checked> Include Solutions
+          </label>
+          <label>
+            <input type="checkbox" id="includeMetadata" checked> Include Metadata
+          </label>
+        </div>
+      </div>
+      
+      <div class="modal-actions">
+        <button id="cancelExport" class="cancel-btn">Cancel</button>
+        <button id="confirmExport" class="confirm-btn">Export</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Solution Modal -->
+  <div id="solutionModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalProblemTitle">Problem Solution</h3>
+        <span class="modal-close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div id="modalProblemText" class="modal-problem-text"></div>
+        <div id="modalSolution" class="modal-solution"></div>
+        <div id="modalMetadata" class="modal-metadata">
+          <div class="metadata-item">
+            <strong>Domain:</strong> <span id="modalDomain"></span>
+          </div>
+          <div class="metadata-item">
+            <strong>Topic:</strong> <span id="modalTopic"></span>
+          </div>
+          <div class="metadata-item">
+            <strong>Knowledge Point:</strong> <span id="modalKTP"></span>
+          </div>
+          <div class="metadata-item">
+            <strong>Difficulty:</strong> <span id="modalDifficulty"></span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="prevProblemBtn" class="nav-btn">← Previous Problem</button>
+        <button id="closeModalBtn" class="primary-btn">Close</button>
+        <button id="nextProblemBtn" class="nav-btn">Next Problem →</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script_problem_selection.js"></script>
+</body>
+</html>

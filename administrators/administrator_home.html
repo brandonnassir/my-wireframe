@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Administrator Dashboard - Home</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Admin Portal</h2>
+      <!-- Close/hide button for mobile -->
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <!-- The "active" class here designates that we are on the Home page -->
+      <li class="active"><a href="administrator_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+      <li><a href="tutor_management.html"><i class="fas fa-chalkboard-teacher"></i> Tutor Management</a></li>
+      <li><a href="student_management.html"><i class="fas fa-user-graduate"></i> Student Management</a></li>
+      <li><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <h1>Administrator Dashboard</h1>
+      <p>
+        Welcome to your tutoring center's administrative dashboard! Here you can:
+      </p>
+      <p>
+        - View center-wide analytics and performance data<br>
+        - Manage tutors associated with your center<br>
+        - Oversee student progress and assignments<br>
+        - Create diagnostic exams and focus plans<br>
+        - Configure your account settings
+      </p>
+      <p>
+        This platform is designed to help you efficiently manage your tutoring center by providing 
+        comprehensive tools for overseeing both tutors and students, tracking performance metrics, 
+        and optimizing educational outcomes.
+      </p>
+      
+      <div class="section-header">
+        <h2>Center Overview</h2>
+      </div>
+      
+      <div class="horizontal-scroll-container">
+        <div class="card">
+          <div class="diagnostic-title">Active Students</div>
+          <div class="diagnostic-score">42</div>
+          <div class="diagnostic-date">Updated: Today</div>
+          <a href="student_management.html" class="view-details-btn">View Details</a>
+        </div>
+        
+        <div class="card">
+          <div class="diagnostic-title">Active Tutors</div>
+          <div class="diagnostic-score">8</div>
+          <div class="diagnostic-date">Updated: Today</div>
+          <a href="tutor_management.html" class="view-details-btn">View Details</a>
+        </div>
+        
+        <div class="card">
+          <div class="diagnostic-title">Diagnostic Completion</div>
+          <div class="diagnostic-score">92%</div>
+          <div class="diagnostic-date">Last 30 days</div>
+          <a href="analytics.html" class="view-details-btn">View Analytics</a>
+        </div>
+      </div>
+      
+      <div class="section-header">
+        <h2>Center Activity</h2>
+      </div>
+      
+      <div class="card-container">
+        <div class="subject-card">
+          <h3>Recent Diagnostics</h3>
+          <p>12 diagnostic exams were completed in the past week. Overall average score has improved by 5%.</p>
+          <a href="analytics.html#diagnostics" class="view-details-btn">View Details</a>
+        </div>
+        
+        <div class="subject-card">
+          <h3>Student Progress</h3>
+          <p>8 students have completed all assigned practice sets. 3 students require additional support.</p>
+          <a href="student_management.html" class="view-details-btn">Manage Students</a>
+        </div>
+        
+        <div class="subject-card">
+          <h3>Tutor Performance</h3>
+          <p>Top performing tutors: Sarah Johnson and Michael Chen. All tutors have updated their profiles.</p>
+          <a href="tutor_management.html" class="view-details-btn">Manage Tutors</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SAT Diagnostic Exam</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="diagnostic_styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <div id="examContainer" class="exam-container">
+    <!-- Exam Header -->
+    <div class="exam-header">
+      <div class="exam-title" id="moduleTitle">Section I, Module 1: Reading and Writing</div>
+      <div class="exam-timer" id="timerDisplay">8:00</div>
+      <div class="exam-controls">
+        <span class="exam-status" id="questionCounter">Question 1 of 3</span>
+        <div id="toolsBtn" style="cursor: pointer; font-size: 1.25rem;">
+          <i class="fas fa-ellipsis-v"></i>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Exam Tools Box (Initially Hidden) -->
+    <div id="examToolsBox" class="exam-tools-box">
+      <div class="tools-header">Tools</div>
+      <div class="tools-content">
+        <div class="tools-option">
+          <i class="fas fa-calculator tools-option-icon"></i>
+          <span>Calculator</span>
+        </div>
+        <div class="tools-option">
+          <i class="fas fa-pen tools-option-icon"></i>
+          <span>Notes</span>
+        </div>
+        <div class="tools-option">
+          <i class="fas fa-pause tools-option-icon"></i>
+          <span>Pause Exam</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Exam Body: Two-Panel Layout -->
+    <div class="exam-body">
+      <!-- Left Panel: Reading Passage -->
+      <div class="passage-panel">
+        <div class="passage-content" id="passageContent">
+          <p>In the early 1800s, the Cherokee scholar Sequoyah created the first script, or writing system, for an Indigenous language in the United States. Because it represented the sounds of spoken Cherokee so accurately, his script was easy to learn and thus quickly achieved _____ use: by 1830, over 90 percent of the Cherokee people could read and write it.</p>
+        </div>
+      </div>
+      
+      <!-- Right Panel: Question -->
+      <div class="question-panel">
+        <div class="question-content">
+          <div class="question-number">
+            <div class="question-number-circle" id="questionNumber">1</div>
+            <div class="question-number-text">Mark for Review</div>
+            <div class="question-mark-review" id="markReviewBtn">
+              <i class="far fa-bookmark"></i>
+              <span>Mark for Review</span>
+            </div>
+          </div>
+          
+          <div class="question-text" id="questionText">
+            Which choice completes the text with the most logical and precise word or phrase?
+          </div>
+          
+          <div class="question-options" id="questionOptions">
+            <div class="question-option" data-option-id="A">
+              <div class="option-letter">A</div>
+              <div class="option-text">widespread</div>
+            </div>
+            <div class="question-option" data-option-id="B">
+              <div class="option-letter">B</div>
+              <div class="option-text">careful</div>
+            </div>
+            <div class="question-option" data-option-id="C">
+              <div class="option-letter">C</div>
+              <div class="option-text">unintended</div>
+            </div>
+            <div class="question-option" data-option-id="D">
+              <div class="option-letter">D</div>
+              <div class="option-text">infrequent</div>
+            </div>
+          </div>
+          
+          <div class="question-navigation">
+            <button class="nav-btn nav-btn-secondary" id="prevBtn" disabled>
+              <i class="fas fa-chevron-left nav-btn-icon"></i>
+              <span class="nav-btn-text">Previous Question</span>
+            </button>
+            <button class="nav-btn nav-btn-primary" id="nextBtn">
+              <span class="nav-btn-text">Next Question</span>
+              <i class="fas fa-chevron-right nav-btn-icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Exam Footer: Question Progress Indicator -->
+    <div class="exam-footer">
+      <div class="question-indicator active" data-question="0">1</div>
+      <div class="question-indicator" data-question="1">2</div>
+      <div class="question-indicator" data-question="2">3</div>
+    </div>
+  </div>
+  
+  <!-- Include JavaScript Files -->
+  <script src="diagnostic_script.js"></script>
+  <script>
+    // Additional initialization to ensure everything loads correctly
+    window.addEventListener('load', function() {
+      console.log('Window loaded, initializing exam...');
+      
+      // Re-initialize in case the DOMContentLoaded event had issues
+      if (typeof initializeExam === 'function') {
+        initializeExam();
+        
+        // Re-attach event listeners to ensure they work
+        document.getElementById('nextBtn').addEventListener('click', goToNextQuestion);
+        document.getElementById('prevBtn').addEventListener('click', goToPrevQuestion);
+        document.getElementById('markReviewBtn').addEventListener('click', toggleMarkForReview);
+        document.getElementById('toolsBtn').addEventListener('click', toggleToolsBox);
+        
+        // Re-attach option selection handlers
+        document.querySelectorAll('.question-option').forEach(option => {
+          option.addEventListener('click', function() {
+            selectOption(this);
+          });
+        });
+        
+        // Re-attach question indicators
+        document.querySelectorAll('.question-indicator').forEach(indicator => {
+          indicator.addEventListener('click', function() {
+            goToQuestion(parseInt(this.dataset.question));
+          });
+        });
+      } else {
+        console.error('Diagnostic script functions not found. Check for JavaScript errors.');
+      }
+    });
+  </script>
+</body>
+</html> 

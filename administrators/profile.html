@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Administrator Dashboard - Profile/Settings</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Admin Portal</h2>
+      <!-- Close/hide button for mobile -->
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="administrator_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+      <li><a href="tutor_management.html"><i class="fas fa-chalkboard-teacher"></i> Tutor Management</a></li>
+      <li><a href="student_management.html"><i class="fas fa-user-graduate"></i> Student Management</a></li>
+      <li class="active"><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h1>Profile & Settings</h1>
+      </div>
+      
+      <!-- Tabs for different sections like in tutors interface -->
+      <div class="profile-tabs">
+        <button class="tab-btn active" data-tab="profile">Profile</button>
+        <button class="tab-btn" data-tab="center">Center Information</button>
+        <button class="tab-btn" data-tab="subscription">Subscription</button>
+        <button class="tab-btn" data-tab="notifications">Notifications</button>
+      </div>
+      
+      <!-- Profile Tab Content -->
+      <div class="tab-content active" id="profile-tab">
+        <div class="form-section">
+          <h3>Profile Information</h3>
+          <form>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="adminName">Admin Name</label>
+                <input type="text" id="adminName" value="John Doe">
+              </div>
+              
+              <div class="form-group">
+                <label for="adminEmail">Email Address</label>
+                <input type="email" id="adminEmail" value="john.doe@example.com">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="adminPhone">Phone Number</label>
+                <input type="tel" id="adminPhone" value="(555) 123-4567">
+              </div>
+              
+              <div class="form-group">
+                <label for="adminPassword">Password</label>
+                <input type="password" id="adminPassword" value="••••••••">
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <button type="button" class="btn-primary">Update Profile</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <!-- Center Information Tab -->
+      <div class="tab-content" id="center-tab">
+        <div class="form-section">
+          <h3>Center Information</h3>
+          <form>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="centerName">Center Name</label>
+                <input type="text" id="centerName" value="Accelerate Learning Center">
+              </div>
+              
+              <div class="form-group">
+                <label for="centerAddress">Address</label>
+                <input type="text" id="centerAddress" value="123 Education Lane, Suite 200">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="centerLocation">City, State, ZIP</label>
+                <input type="text" id="centerLocation" value="San Francisco, CA 94107">
+              </div>
+              
+              <div class="form-group">
+                <label for="centerWebsite">Website</label>
+                <input type="url" id="centerWebsite" value="https://acceleratelearning.edu">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="centerDescription">Center Description</label>
+              <textarea id="centerDescription" rows="4">Accelerate Learning Center specializes in personalized SAT preparation and academic tutoring. Our mission is to help students achieve their highest potential through customized learning approaches and dedicated tutoring.</textarea>
+            </div>
+            
+            <div class="form-actions">
+              <button type="button" class="btn-primary">Update Center Info</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <!-- Subscription Tab -->
+      <div class="tab-content" id="subscription-tab">
+        <div class="form-section">
+          <h3>Subscription & Billing</h3>
+          <div class="subscription-header">
+            <div>
+              <h4>Current Plan: Premium</h4>
+              <p>Your plan renews on January 15, 2024</p>
+            </div>
+            <button type="button" class="btn-outline">Change Plan</button>
+          </div>
+          
+          <div class="features-list">
+            <h4>Plan Features</h4>
+            <ul>
+              <li><span class="check-mark">✓</span> Unlimited student accounts</li>
+              <li><span class="check-mark">✓</span> Up to 15 tutor accounts</li>
+              <li><span class="check-mark">✓</span> Advanced analytics and reporting</li>
+              <li><span class="check-mark">✓</span> Custom diagnostic exams</li>
+              <li><span class="check-mark">✓</span> Parent portal access</li>
+            </ul>
+          </div>
+          
+          <div class="payment-info">
+            <h4>Payment Information</h4>
+            <p>Credit Card ending in 4242</p>
+            <div class="button-group">
+              <button type="button" class="btn-outline">Update Payment Method</button>
+              <button type="button" class="btn-outline">Billing History</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Notifications Tab -->
+      <div class="tab-content" id="notifications-tab">
+        <div class="form-section">
+          <h3>Notification Preferences</h3>
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <h4>Student Activity Updates</h4>
+              <p>Receive updates about student activities and progress</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <h4>Tutor Activity Updates</h4>
+              <p>Get notified about tutor activities and session completions</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <h4>Billing Notifications</h4>
+              <p>Receive updates about billing and subscription status</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <h4>Marketing Emails</h4>
+              <p>Receive marketing emails and product updates</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="btn-primary">Save Preferences</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html> 

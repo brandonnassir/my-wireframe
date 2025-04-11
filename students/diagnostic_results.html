@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SAT Diagnostic - Results</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .results-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .score-overview {
+      background-color: var(--white);
+      border-radius: var(--card-border-radius);
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    .total-score {
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .score-label {
+      font-size: 1.25rem;
+      color: var(--gray-600);
+      margin-bottom: 2rem;
+    }
+    
+    .score-breakdown {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 1.5rem;
+    }
+    
+    .score-section {
+      text-align: center;
+    }
+    
+    .section-score {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 0.5rem;
+    }
+    
+    .section-label {
+      font-size: 1rem;
+      color: var(--gray-600);
+    }
+    
+    .score-progress {
+      height: 0.5rem;
+      background-color: var(--gray-200);
+      border-radius: 1rem;
+      margin: 2rem 0 1rem;
+      position: relative;
+    }
+    
+    .score-progress-bar {
+      position: absolute;
+      height: 100%;
+      background-color: var(--primary);
+      border-radius: 1rem;
+    }
+    
+    .section-block {
+      background-color: var(--white);
+      border-radius: var(--card-border-radius);
+      padding: 1.75rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      color: var(--gray-900);
+      border-bottom: 1px solid var(--gray-200);
+      padding-bottom: 0.75rem;
+    }
+    
+    .topic-performance {
+      margin-bottom: 1.5rem;
+    }
+    
+    .topic-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    
+    .topic-name {
+      font-weight: 500;
+      color: var(--gray-800);
+    }
+    
+    .topic-score {
+      font-weight: 600;
+    }
+    
+    .topic-bar {
+      height: 0.5rem;
+      background-color: var(--gray-200);
+      border-radius: 1rem;
+      position: relative;
+    }
+    
+    .topic-progress {
+      position: absolute;
+      height: 100%;
+      border-radius: 1rem;
+    }
+    
+    .high {
+      background-color: var(--success);
+    }
+    
+    .medium {
+      background-color: var(--warning);
+    }
+    
+    .low {
+      background-color: var(--danger);
+    }
+    
+    .recommendation-block {
+      background-color: var(--white);
+      border-radius: var(--card-border-radius);
+      padding: 1.75rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--primary);
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .score-breakdown {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Student Portal</h2>
+      <!-- Close/hide button for mobile -->
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="student_home.html">Home</a></li>
+      <li><a href="my_performance.html">My Performance</a></li>
+      <li class="active"><a href="assignments.html">Assignments</a></li>
+      <li><a href="practice.html">Practice</a></li>
+      <li><a href="profile.html">Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h1>SAT Diagnostic Results</h1>
+        <p>Here's how you performed on your diagnostic exam.</p>
+      </div>
+      
+      <div class="results-container">
+        <!-- Overall Score Overview -->
+        <div class="score-overview">
+          <div class="total-score">1350</div>
+          <div class="score-label">Total Score (out of 1600)</div>
+          
+          <div class="score-progress">
+            <div class="score-progress-bar" style="width: 84%;"></div>
+          </div>
+          <div style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 2rem;">
+            Your score is better than 84% of test takers
+          </div>
+          
+          <div class="score-breakdown">
+            <div class="score-section">
+              <div class="section-score">690</div>
+              <div class="section-label">Reading and Writing</div>
+            </div>
+            
+            <div class="score-section">
+              <div class="section-score">660</div>
+              <div class="section-label">Math</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Reading and Writing Section -->
+        <div class="section-block">
+          <div class="section-title">Reading and Writing Performance</div>
+          
+          <div class="topic-performance">
+            <div class="topic-header">
+              <div class="topic-name">Reading Comprehension</div>
+              <div class="topic-score">85%</div>
+            </div>
+            <div class="topic-bar">
+              <div class="topic-progress high" style="width: 85%;"></div>
+            </div>
+          </div>
+          
+          <div class="topic-performance">
+            <div class="topic-header">
+              <div class="topic-name">Vocabulary in Context</div>
+              <div class="topic-score">80%</div>
+            </div>
+            <div class="topic-bar">
+              <div class="topic-progress high" style="width: 80%;"></div>
+            </div>
+          </div>
+          
+          <div class="topic-performance">
+            <div class="topic-header">
+              <div class="topic-name">Grammar & Usage</div>
+              <div class="topic-score">75%</div>
+            </div>
+            <div class="topic-bar">
+              <div class="topic-progress medium" style="width: 75%;"></div>
+            </div>
+          </div>
+          
+          <div class="topic-performance">
+            <div class="topic-header">
+              <div class="topic-name">Rhetoric</div>
+              <div class="topic-score">65%</div>
+            </div>
+            <div class="topic-bar">
+              <div class="topic-progress medium" style="width: 65%;"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Math Section -->
+        <div class="section-block">
+          <div class="section-title">Math Performance</div>
+          
+          <div class="topic-performance">
+            <div class="topic-header">
+              <div class="topic-name">Algebra</div>
+              <div class="topic-score">70%</div>
+            </div>
+            <div class="topic-bar">
+              <div class="topic-progress medium" style="width: 70%;"></div>
+            </div>
+          </div>
+          
+          <div class="topic-performance">
+            <div class="topic-header">
+              <div class="topic-name">Problem Solving & Data Analysis</div>
+              <div class="topic-score">60%</div>
+            </div>
+            <div class="topic-bar">
+              <div class="topic-progress medium" style="width: 60%;"></div>
+            </div>
+          </div>
+          
+          <div class="topic-performance">
+            <div class="topic-header">
+              <div class="topic-name">Advanced Math</div>
+              <div class="topic-score">90%</div>
+            </div>
+            <div class="topic-bar">
+              <div class="topic-progress high" style="width: 90%;"></div>
+            </div>
+          </div>
+          
+          <div class="topic-performance">
+            <div class="topic-header">
+              <div class="topic-name">Geometry & Trigonometry</div>
+              <div class="topic-score">50%</div>
+            </div>
+            <div class="topic-bar">
+              <div class="topic-progress low" style="width: 50%;"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Personalized Recommendations -->
+        <div class="recommendation-block">
+          <div class="section-title">Personalized Recommendations</div>
+          <p>Based on your diagnostic results, we recommend focusing on the following areas:</p>
+          <ul>
+            <li><strong>Geometry & Trigonometry:</strong> This is your lowest-scoring area. Focus on triangle properties, coordinate geometry, and basic trigonometric ratios.</li>
+            <li><strong>Problem Solving & Data Analysis:</strong> Practice with data interpretation, statistics, and real-world problem solving.</li>
+            <li><strong>Rhetoric:</strong> Work on understanding author's purpose, text structure, and evidence analysis.</li>
+          </ul>
+          <p>Your tutor will review these results with you in your next session and provide a personalized study plan.</p>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <a href="assignments.html" class="btn-secondary">Back to Assignments</a>
+          <a href="practice.html" class="btn-primary">Practice These Skills</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html> 

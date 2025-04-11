@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutor Dashboard - SAT Math Performance</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Add link to performance.css -->
+  <link rel="stylesheet" href="../students/performance.css" />
+  <!-- Add link to practice styles -->
+  <link rel="stylesheet" href="../students/practice_styles.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Add Chart.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Additional style to give visual indication that topic cards are clickable */
+    .topic-performance-item:after {
+      content: '→';
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary);
+      font-size: 1.2rem;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .topic-performance-item {
+      position: relative;
+    }
+    
+    .topic-performance-item:hover:after {
+      opacity: 1;
+      right: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Tutor Portal</h2>
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="tutor_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="create_practice_students.html"><i class="fas fa-plus-circle"></i> Create a Practice Set</a></li>
+      <li><a href="my_practice_sets.html"><i class="fas fa-book"></i> My Practice Sets</a></li>
+      <!-- 'active' because we are still in the Students workflow -->
+      <li class="active"><a href="students.html"><i class="fas fa-user-graduate"></i> Students</a></li>
+      <li><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1>SAT Math - Student Performance</h1>
+      </div>
+
+      <!-- Student Info Block -->
+      <div class="student-info-block">
+        <h2>Cole Stone</h2>
+        <p><strong>Grade:</strong> 9th</p>
+        <p><strong>Age:</strong> 14 y/o</p>
+        <p><strong>School:</strong> Scarsdale Highschool</p>
+        <p><strong>Most Recent Score:</strong> 530/800</p>
+      </div>  
+
+      <!-- Top action buttons -->
+      <div class="top-actions">
+        <button id="assignPracticeBtn">Assign Practice Problems</button>
+      </div>
+      
+      <!-- Current Assignments Section -->
+      <div class="section-header">
+        <h2>Current Assignments</h2>
+      </div>
+      
+      <div class="assignments-container">
+        <div class="assignment-card">
+          <div class="assignment-header">
+            <h3>Algebra Fundamentals</h3>
+            <span class="assignment-status started">Started</span>
+          </div>
+          <div class="assignment-details">
+            <p><strong>Due Date:</strong> April 15, 2024</p>
+            <p><strong>Progress:</strong> 3/10 problems completed</p>
+            <p><strong>Last Activity:</strong> 2 days ago</p>
+          </div>
+          <div class="assignment-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 30%"></div>
+            </div>
+            <span class="progress-text">30% Complete</span>
+          </div>
+        </div>
+
+        <div class="assignment-card">
+          <div class="assignment-header">
+            <h3>Geometry Practice Set</h3>
+            <span class="assignment-status not-started">Not Started</span>
+          </div>
+          <div class="assignment-details">
+            <p><strong>Due Date:</strong> April 20, 2024</p>
+            <p><strong>Progress:</strong> 0/8 problems completed</p>
+            <p><strong>Last Activity:</strong> Not started</p>
+          </div>
+          <div class="assignment-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <span class="progress-text">0% Complete</span>
+          </div>
+        </div>
+
+        <div class="assignment-card">
+          <div class="assignment-header">
+            <h3>Data Analysis Review</h3>
+            <span class="assignment-status started">Started</span>
+          </div>
+          <div class="assignment-details">
+            <p><strong>Due Date:</strong> April 18, 2024</p>
+            <p><strong>Progress:</strong> 5/12 problems completed</p>
+            <p><strong>Last Activity:</strong> Yesterday</p>
+          </div>
+          <div class="assignment-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 42%"></div>
+            </div>
+            <span class="progress-text">42% Complete</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Domain Breakdown Section -->
+      <div class="section-header">
+        <h2>Content Domain Breakdown</h2>
+      </div>
+
+      <!-- Performance Level Key -->
+      <div class="performance-key">
+        <h3>Performance Level Guide</h3>
+        <div class="performance-key-container">
+          <div class="key-item">
+            <div class="performance-bar easy-level">
+              <div class="segment filled"></div>
+              <div class="segment"></div>
+              <div class="segment"></div>
+              <div class="segment"></div>
+            </div>
+            <div class="key-label">
+              <span class="key-title easy-level-text">Easy Level</span>
+              <span class="key-description">Students at this level usually score between 200-400 on SAT Math</span>
+            </div>
+          </div>
+          
+          <div class="key-item">
+            <div class="performance-bar medium-level">
+              <div class="segment filled"></div>
+              <div class="segment filled"></div>
+              <div class="segment"></div>
+              <div class="segment"></div>
+            </div>
+            <div class="key-label">
+              <span class="key-title medium-level-text">Medium Level</span>
+              <span class="key-description">Students at this level usually score between 400-650 on SAT Math</span>
+            </div>
+          </div>
+          
+          <div class="key-item">
+            <div class="performance-bar hard-level">
+              <div class="segment filled"></div>
+              <div class="segment filled"></div>
+              <div class="segment filled"></div>
+              <div class="segment"></div>
+            </div>
+            <div class="key-label">
+              <span class="key-title hard-level-text">Hard Level</span>
+              <span class="key-description">Students at this level usually score between 650-750 on SAT Math</span>
+            </div>
+          </div>
+          
+          <div class="key-item">
+            <div class="performance-bar advanced-level">
+              <div class="segment filled"></div>
+              <div class="segment filled"></div>
+              <div class="segment filled"></div>
+              <div class="segment filled"></div>
+            </div>
+            <div class="key-label">
+              <span class="key-title advanced-level-text">Advanced Level</span>
+              <span class="key-description">Students at this level usually score between 750-800 on SAT Math</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="horizontal-scroll-container">
+        <div class="card">
+          <div class="diagnostic-title">Algebra</div>
+          <div class="performance-bar medium-level">
+            <div class="segment filled"></div>
+            <div class="segment filled"></div>
+            <div class="segment"></div>
+            <div class="segment"></div>
+          </div>
+          <div class="performance-label medium-level-text">Medium Level</div>
+          <div class="diagnostic-subscore">Good progress</div>
+          <button class="view-details-btn" onclick="assignPracticeDomain('Algebra')">Assign Practice</button>
+        </div>
+        
+        <div class="card">
+          <div class="diagnostic-title">Advanced Mathematics</div>
+          <div class="performance-bar medium-level">
+            <div class="segment filled"></div>
+            <div class="segment filled"></div>
+            <div class="segment"></div>
+            <div class="segment"></div>
+          </div>
+          <div class="performance-label medium-level-text">Medium Level</div>
+          <div class="diagnostic-subscore">Good progress</div>
+          <button class="view-details-btn" onclick="assignPracticeDomain('Advanced Mathematics')">Assign Practice</button>
+        </div>
+        
+        <div class="card">
+          <div class="diagnostic-title">Problem Solving</div>
+          <div class="performance-bar easy-level">
+            <div class="segment filled"></div>
+            <div class="segment"></div>
+            <div class="segment"></div>
+            <div class="segment"></div>
+          </div>
+          <div class="performance-label easy-level-text">Easy Level</div>
+          <div class="diagnostic-subscore">Needs improvement</div>
+          <button class="view-details-btn" onclick="assignPracticeDomain('Problem Solving')">Assign Practice</button>
+        </div>
+        
+        <div class="card">
+          <div class="diagnostic-title">Data Analysis</div>
+          <div class="performance-bar easy-level">
+            <div class="segment filled"></div>
+            <div class="segment"></div>
+            <div class="segment"></div>
+            <div class="segment"></div>
+          </div>
+          <div class="performance-label easy-level-text">Easy Level</div>
+          <div class="diagnostic-subscore">Needs improvement</div>
+          <button class="view-details-btn" onclick="assignPracticeDomain('Data Analysis')">Assign Practice</button>
+        </div>
+      </div>
+      
+      <!-- Performance by Topic Section -->
+      <div class="section-header">
+        <h2>Performance by Topic</h2>
+        <p class="section-description">Click on a topic card to see in-depth performance analysis and related problems.</p>
+      </div>
+      <div class="performance-chart">
+        <div class="domain-performance-container">
+          <!-- Algebra Domain -->
+          <div class="domain-performance-card">
+            <h3 class="domain-name">Algebra</h3>
+            
+            <div class="topic-performance-item" onclick="viewTopicDetail('Linear Equations in Two Variables')">
+              <div class="topic-name">Linear Equations in Two Variables</div>
+              <div class="performance-bar medium-level">
+                <div class="segment filled"></div>
+                <div class="segment filled"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+              </div>
+              <div class="performance-label medium-level-text">Medium Level</div>
+            </div>
+            
+            <div class="topic-performance-item" onclick="viewTopicDetail('Linear Functions')">
+              <div class="topic-name">Linear Functions</div>
+              <div class="performance-bar medium-level">
+                <div class="segment filled"></div>
+                <div class="segment filled"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+              </div>
+              <div class="performance-label medium-level-text">Medium Level</div>
+            </div>
+            
+            <div class="topic-performance-item" onclick="viewTopicDetail('Linear Inequalities in One or Two Variables')">
+              <div class="topic-name">Linear Inequalities in One or Two Variables</div>
+              <div class="performance-bar easy-level">
+                <div class="segment filled"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+              </div>
+              <div class="performance-label easy-level-text">Easy Level</div>
+            </div>
+            
+            <div class="topic-performance-item" onclick="viewTopicDetail('Systems of Two Linear Equations in Two Variables')">
+              <div class="topic-name">Systems of Two Linear Equations in Two Variables</div>
+              <div class="performance-bar medium-level">
+                <div class="segment filled"></div>
+                <div class="segment filled"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+              </div>
+              <div class="performance-label medium-level-text">Medium Level</div>
+            </div>
+          </div>
+          
+          <!-- Advanced Math Domain -->
+          <div class="domain-performance-card">
+            <h3 class="domain-name">Advanced Math</h3>
+            
+            <div class="topic-performance-item" onclick="viewTopicDetail('Equivalent Expressions')">
+              <div class="topic-name">Equivalent Expressions</div>
+              <div class="performance-bar medium-level">
+                <div class="segment filled"></div>
+                <div class="segment filled"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+              </div>
+              <div class="performance-label medium-level-text">Medium Level</div>
+            </div>
+            
+            <div class="topic-performance-item" onclick="viewTopicDetail('Nonlinear Equations in One Variable and Systems of Equations')">
+              <div class="topic-name">Nonlinear Equations in One Variable and Systems of Equations</div>
+              <div class="performance-bar easy-level">
+                <div class="segment filled"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+              </div>
+              <div class="performance-label easy-level-text">Easy Level</div>
+            </div>
+            
+            <div class="topic-performance-item" onclick="viewTopicDetail('Nonlinear Functions')">
+              <div class="topic-name">Nonlinear Functions</div>
+              <div class="performance-bar medium-level">
+                <div class="segment filled"></div>
+                <div class="segment filled"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+              </div>
+              <div class="performance-label medium-level-text">Medium Level</div>
+            </div>
+          </div>
+          
+          <!-- Problem Solving and Data Analysis Domain -->
+          <div class="domain-performance-card">
+            <h3 class="domain-name">Problem Solving and Data Analysis</h3>
+            
+            <div class="topic-performance-item" onclick="viewTopicDetail('Evaluating Statistical Claims')">
+              <div class="topic-name">Evaluating Statistical Claims</div>
+              <div class="performance-bar easy-level">
+                <div class="segment filled"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+              </div>
+              <div class="performance-label easy-level-text">Easy Level</div>
+            </div>
+            
+            <div class="topic-performance-item" onclick="viewTopicDetail('Inference from Sample Statistics and Margin of Error')">
+              <div class="topic-name">Inference from Sample Statistics and Margin of Error</div>
+              <div class="performance-bar easy-level">
+                <div class="segment filled"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+              </div>
+              <div class="performance-label easy-level-text">Easy Level</div>
+            </div>
+            
+            <div class="topic-performance-item" onclick="viewTopicDetail('One-Variable Data: Distributions and Measures')">
+              <div class="topic-name">One-Variable Data: Distributions and Measures</div>
+              <div class="performance-bar easy-level">
+                <div class="segment filled"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+              </div>
+              <div class="performance-label easy-level-text">Easy Level</div>
+            </div>
+          </div>
+          
+          <!-- Geometry and Trigonometry Domain -->
+          <div class="domain-performance-card">
+            <h3 class="domain-name">Geometry and Trigonometry</h3>
+            
+            <div class="topic-performance-item" onclick="viewTopicDetail('Area and Volume')">
+              <div class="topic-name">Area and Volume</div>
+              <div class="performance-bar easy-level">
+                <div class="segment filled"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+              </div>
+              <div class="performance-label easy-level-text">Easy Level</div>
+            </div>
+            
+            <div class="topic-performance-item" onclick="viewTopicDetail('Circles')">
+              <div class="topic-name">Circles</div>
+              <div class="performance-bar easy-level">
+                <div class="segment filled"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+              </div>
+              <div class="performance-label easy-level-text">Easy Level</div>
+            </div>
+            
+            <div class="topic-performance-item" onclick="viewTopicDetail('Lines, Angles, and Triangles')">
+              <div class="topic-name">Lines, Angles, and Triangles</div>
+              <div class="performance-bar medium-level">
+                <div class="segment filled"></div>
+                <div class="segment filled"></div>
+                <div class="segment"></div>
+                <div class="segment"></div>
+              </div>
+              <div class="performance-label medium-level-text">Medium Level</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diagnostic Exams Section -->
+      <div class="section-header">
+        <h2>Diagnostic Exams</h2>
+      </div>
+      <div class="card-container" id="diagnosticContainer">
+        <!-- Cards for diagnostic exams will be generated by JS -->
+      </div>
+
+      <!-- Practice Sets Section -->
+      <div class="section-header">
+        <h2>Practice Sets</h2>
+      </div>
+      <div class="card-container" id="practiceSetContainer">
+        <!-- Cards for practice sets will be generated by JS -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script_subject_sat_math.js"></script>
+</body>
+</html>

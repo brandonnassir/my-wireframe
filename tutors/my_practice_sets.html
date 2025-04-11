@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutor Dashboard - My Practice Sets</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- FontAwesome for better icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Tutor Portal</h2>
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="tutor_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="create_practice_students.html"><i class="fas fa-plus-circle"></i> Create a Practice Set</a></li>
+      <li class="active"><a href="#"><i class="fas fa-book"></i> My Practice Sets</a></li>
+      <li><a href="students.html"><i class="fas fa-user-graduate"></i> Students</a></li>
+      <li><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h1>My Practice Sets</h1>
+        <p>Manage, review, and assign your custom practice sets to students</p>
+      </div>
+
+      <!-- Create New Set Button -->
+      <div class="top-actions">
+        <button class="primary-btn" onclick="window.location.href='create_practice_students.html'">
+          <i class="fas fa-plus"></i> Create New Practice Set
+        </button>
+      </div>
+
+      <!-- Filter and Search Controls -->
+      <div class="controls-container">
+        <div class="filter-group">
+          <select id="subjectFilter">
+            <option value="all">All Subjects</option>
+            <option value="Math">SAT Math</option>
+            <option value="English">SAT Reading & Writing</option>
+          </select>
+          
+          <select id="sortFilter">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="name-asc">Name (A-Z)</option>
+            <option value="name-desc">Name (Z-A)</option>
+          </select>
+        </div>
+
+        <div class="search-group">
+          <i class="fas fa-search search-icon"></i>
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Search practice sets..." 
+          />
+        </div>
+      </div>
+
+      <!-- Practice Sets Section -->
+      <div class="section-header">
+        <h2>Your Practice Sets</h2>
+      </div>
+
+      <!-- Loading state -->
+      <div id="loadingIndicator" style="display: none;" class="loading-indicator">
+        <div class="spinner"></div>
+        <p>Loading your practice sets...</p>
+      </div>
+
+      <!-- Empty state -->
+      <div id="emptyState" style="display: none;" class="empty-state">
+        <i class="fas fa-folder-open empty-icon"></i>
+        <h3>No practice sets found</h3>
+        <p>You don't have any practice sets yet or none match your search criteria.</p>
+        <button onclick="window.location.href='create_practice_students.html'" class="primary-btn">
+          Create Your First Set
+        </button>
+      </div>
+
+      <!-- Practice Sets Grid -->
+      <div id="practiceSetsList" class="practice-sets-grid">
+        <!-- Practice set cards will be rendered here dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for delete confirmation -->
+  <div id="deleteModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-exclamation-triangle"></i> Confirm Deletion</h3>
+        <span class="modal-close" id="closeDeleteModal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this practice set? This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button id="cancelDelete" class="secondary-btn">Cancel</button>
+        <button id="confirmDelete" class="danger-btn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for assigning practice sets to students -->
+  <div id="assignModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-user-plus"></i> Assign Practice Set to Student</h3>
+        <span class="modal-close" id="closeAssignModal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p>Select a student to assign this practice set to:</p>
+        
+        <!-- Search for students -->
+        <div class="student-search">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" id="studentSearchInput" placeholder="Search students...">
+        </div>
+        
+        <!-- Student list container -->
+        <div id="studentsList" class="students-list">
+          <!-- Student options will be populated dynamically -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="cancelAssign" class="secondary-btn">Cancel</button>
+        <button id="confirmAssign" class="primary-btn">Assign</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for problem card stack preview -->
+  <div id="cardStackModal" class="modal">
+    <div class="modal-content card-stack-modal">
+      <div class="modal-header">
+        <h3 id="cardStackTitle"><i class="fas fa-book-open"></i> Practice Set Preview</h3>
+        <div class="modal-tools">
+          <button id="editModeToggle" class="icon-btn"><i class="fas fa-edit"></i></button>
+          <span class="modal-close" id="closeCardStackModal">&times;</span>
+        </div>
+      </div>
+      
+      <div class="modal-body card-stack-body">
+        <!-- Card counter -->
+        <div class="card-counter">
+          Problem <span id="currentCard">1</span> of <span id="totalCards">0</span>
+        </div>
+        
+        <!-- Card stack container -->
+        <div class="card-stack-container">
+          <div id="cardStackContent">
+            <!-- Cards will be populated here -->
+          </div>
+          
+          <!-- Navigation buttons -->
+          <div class="card-navigation">
+            <button id="prevCard" class="nav-btn"><i class="fas fa-chevron-left"></i></button>
+            <button id="nextCard" class="nav-btn"><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <div id="editButtonsContainer" style="display: none;">
+          <button id="saveChanges" class="primary-btn">Save Changes</button>
+        </div>
+        <button id="closePreview" class="secondary-btn">Close Preview</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script_my_practice_sets.js"></script>
+</body>
+</html>

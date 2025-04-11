@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Administrator Dashboard - Tutor Management</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Admin Portal</h2>
+      <!-- Close/hide button for mobile -->
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="administrator_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+      <li class="active"><a href="tutor_management.html"><i class="fas fa-chalkboard-teacher"></i> Tutor Management</a></li>
+      <li><a href="student_management.html"><i class="fas fa-user-graduate"></i> Student Management</a></li>
+      <li><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h1>Tutor Management</h1>
+        <p>Search, add, and manage tutors for your center.</p>
+      </div>
+      
+      <div class="controls-container">
+        <input type="text" id="tutorSearch" placeholder="Search tutors by name or specialty...">
+        <select id="specialtyFilter">
+          <option value="all">All Specialties</option>
+          <option value="math">SAT Math</option>
+          <option value="reading">SAT Reading & Writing</option>
+          <option value="science">Science</option>
+          <option value="general">General Test Prep</option>
+        </select>
+        <button class="btn-primary" id="addTutorBtn">Add New Tutor</button>
+      </div>
+      
+      <div class="section-header">
+        <h2>Your Center's Tutors</h2>
+      </div>
+      
+      <div class="card-container">
+        <div class="tutor-card">
+          <h2>Sarah Johnson</h2>
+          <p><strong>Email:</strong> sarah.johnson@example.com</p>
+          <p><strong>Students:</strong> 12</p>
+          <p><strong>Specialties:</strong></p>
+          <div>
+            <span class="specialty">SAT Math</span>
+            <span class="specialty">Calculus</span>
+          </div>
+          <a href="#" class="view-details-btn">View Profile</a>
+        </div>
+        
+        <div class="tutor-card">
+          <h2>Michael Chen</h2>
+          <p><strong>Email:</strong> michael.chen@example.com</p>
+          <p><strong>Students:</strong> 9</p>
+          <p><strong>Specialties:</strong></p>
+          <div>
+            <span class="specialty">SAT Reading</span>
+            <span class="specialty">Grammar</span>
+          </div>
+          <a href="#" class="view-details-btn">View Profile</a>
+        </div>
+        
+        <div class="tutor-card">
+          <h2>Jessica Rodriguez</h2>
+          <p><strong>Email:</strong> jessica.rodriguez@example.com</p>
+          <p><strong>Students:</strong> 8</p>
+          <p><strong>Specialties:</strong></p>
+          <div>
+            <span class="specialty">SAT Math</span>
+            <span class="specialty">Algebra</span>
+          </div>
+          <a href="#" class="view-details-btn">View Profile</a>
+        </div>
+        
+        <div class="tutor-card">
+          <h2>David Thompson</h2>
+          <p><strong>Email:</strong> david.thompson@example.com</p>
+          <p><strong>Students:</strong> 7</p>
+          <p><strong>Specialties:</strong></p>
+          <div>
+            <span class="specialty">SAT Reading</span>
+            <span class="specialty">Vocabulary</span>
+          </div>
+          <a href="#" class="view-details-btn">View Profile</a>
+        </div>
+      </div>
+      
+      <div class="section-header">
+        <h2>Search for Available Tutors</h2>
+      </div>
+      
+      <div class="controls-container">
+        <input type="text" id="tutorSearchDatabase" placeholder="Search tutor database...">
+        <select id="databaseSpecialtyFilter">
+          <option value="all">All Specialties</option>
+          <option value="math">SAT Math</option>
+          <option value="reading">SAT Reading & Writing</option>
+          <option value="science">Science</option>
+          <option value="general">General Test Prep</option>
+        </select>
+        <button class="btn-outline" id="searchBtn">Search</button>
+      </div>
+      
+      <div class="card-container">
+        <div class="tutor-card">
+          <h2>Alexandra Wilson</h2>
+          <p><strong>Experience:</strong> 5 years</p>
+          <p><strong>Rating:</strong> 4.9/5.0</p>
+          <p><strong>Specialties:</strong></p>
+          <div>
+            <span class="specialty">SAT Math</span>
+            <span class="specialty">Statistics</span>
+          </div>
+          <button class="btn-primary" style="width: 100%; margin-top: 1rem;">Add to Center</button>
+        </div>
+        
+        <div class="tutor-card">
+          <h2>Jonathan Hayes</h2>
+          <p><strong>Experience:</strong> 3 years</p>
+          <p><strong>Rating:</strong> 4.8/5.0</p>
+          <p><strong>Specialties:</strong></p>
+          <div>
+            <span class="specialty">SAT Math</span>
+            <span class="specialty">Geometry</span>
+          </div>
+          <button class="btn-primary" style="width: 100%; margin-top: 1rem;">Add to Center</button>
+        </div>
+        
+        <div class="tutor-card">
+          <h2>Maria Garcia</h2>
+          <p><strong>Experience:</strong> 7 years</p>
+          <p><strong>Rating:</strong> 4.9/5.0</p>
+          <p><strong>Specialties:</strong></p>
+          <div>
+            <span class="specialty">SAT Reading</span>
+            <span class="specialty">Writing</span>
+          </div>
+          <button class="btn-primary" style="width: 100%; margin-top: 1rem;">Add to Center</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html> 

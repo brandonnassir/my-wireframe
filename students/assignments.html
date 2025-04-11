@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard - Assignments</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Student Portal</h2>
+      <!-- Close/hide button for mobile -->
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="student_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="my_performance.html"><i class="fas fa-chart-line"></i> My Performance</a></li>
+      <li class="active"><a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a></li>
+      <li><a href="practice.html"><i class="fas fa-book"></i> Practice</a></li>
+      <li><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h1>Assignments</h1>
+        <p>View and complete assignments from your tutor.</p>
+      </div>
+      
+
+      
+      <!-- Upcoming Assignments Section -->
+      <div class="section-header">
+        <h2>Upcoming Assignments</h2>
+      </div>
+      
+      <div class="card-container">
+        <div class="subject-card" style="border-left: 4px solid var(--primary);">
+          <h3>Full Length SAT Diagnostic</h3>
+          <p>Assigned by: Mr. Johnson</p>
+          <p>Due Date: April 16, 2023</p>
+          <p>Status: <span style="color: var(--primary); font-weight: 600;">Priority</span></p>
+          <p>Time Required: 2 hours 14 minutes</p>
+          <a href="diagnostic_instructions.html" class="view-details-btn">Start Diagnostic</a>
+        </div>
+        
+        <div class="subject-card">
+          <h3>Advanced Algebra Practice</h3>
+          <p>Assigned by: Mr. Johnson</p>
+          <p>Due Date: April 15, 2023</p>
+          <p>Status: <span style="color: var(--gray-500);">Not Started</span></p>
+          <p>Focus on quadratic equations, polynomials, and complex numbers.</p>
+          <a href="algebra_practice.html" class="view-details-btn">Start Assignment</a>
+        </div>
+        
+        <div class="subject-card">
+          <h3>Reading Comprehension</h3>
+          <p>Assigned by: Ms. Thompson</p>
+          <p>Due Date: April 18, 2023</p>
+          <p>Status: <span style="color: var(--warning);">Incomplete</span></p>
+          <p>Focus on main idea identification and inference questions.</p>
+          <a href="#" class="view-details-btn">Start Assignment</a>
+        </div>
+        
+        <div class="subject-card">
+          <h3>Problem Solving & Data Analysis</h3>
+          <p>Assigned by: Mr. Johnson</p>
+          <p>Due Date: April 20, 2023</p>
+          <p>Status: <span style="color: var(--gray-500);">Not Started</span></p>
+          <p>Focus on scatterplots, statistics, and probability.</p>
+          <a href="#" class="view-details-btn">Start Assignment</a>
+        </div>
+      </div>
+      
+      <!-- Completed Assignments Section -->
+      <div class="section-header">
+        <h2>Recently Completed</h2>
+      </div>
+      
+      <div class="card-container">
+        <div class="subject-card">
+          <h3>Linear Equations Practice</h3>
+          <p>Assigned by: Mr. Johnson</p>
+          <p>Completed: April 5, 2023</p>
+          <p>Score: <span style="color: var(--warning);">13/20 (65%)</span></p>
+          <p><strong></strong>Comments:</strong> Excellent work on systems of equations. Continue practicing word problems.</p>
+          <a href="#" class="view-details-btn">View Details</a>
+        </div>
+        
+        <div class="subject-card">
+          <h3>Grammar & Usage</h3>
+          <p>Assigned by: Ms. Thompson</p>
+          <p>Completed: April 2, 2023</p>
+          <p>Score: <span style="color: var(--success);">18/20 (90%)</span></p>
+          <p><strong></strong>Comments:</strong> Outstanding performance on sentence structure and punctuation.</p>
+          <a href="#" class="view-details-btn">View Details</a>
+        </div>
+        
+        <div class="subject-card">
+          <h3>Geometry & Trigonometry</h3>
+          <p>Assigned by: Mr. Johnson</p>
+          <p>Completed: March 30, 2023</p>
+          <p>Score: <span style="color: var(--primary);">15/20 (75%)</span></p>
+          <p><strong></strong>Comments:</strong> Good work on coordinate geometry. Need more practice with trigonometric ratios.</p>
+          <a href="#" class="view-details-btn">View Details</a>
+        </div>
+      </div>
+
+      <!-- Assignment Calendar -->
+      <div class="section-header">
+        <h2>Assignment Calendar</h2>
+      </div>
+      
+      <div class="student-info-block">
+        <p>View your upcoming assignment schedule to plan your study time effectively.</p>
+        
+        <!-- Calendar Component -->
+        <div class="calendar-container">
+          <div class="calendar-header">
+            <div class="calendar-nav">
+              <button class="calendar-nav-btn">&lt;</button>
+              <h3>April 2023</h3>
+              <button class="calendar-nav-btn">&gt;</button>
+            </div>
+          </div>
+          
+          <div class="calendar-grid">
+            <div class="calendar-weekday">Sun</div>
+            <div class="calendar-weekday">Mon</div>
+            <div class="calendar-weekday">Tue</div>
+            <div class="calendar-weekday">Wed</div>
+            <div class="calendar-weekday">Thu</div>
+            <div class="calendar-weekday">Fri</div>
+            <div class="calendar-weekday">Sat</div>
+            
+            <!-- Calendar Days -->
+            <div class="calendar-day">26</div>
+            <div class="calendar-day">27</div>
+            <div class="calendar-day">28</div>
+            <div class="calendar-day">29</div>
+            <div class="calendar-day">30</div>
+            <div class="calendar-day">31</div>
+            <div class="calendar-day">1</div>
+            <div class="calendar-day">2</div>
+            <div class="calendar-day">3</div>
+            <div class="calendar-day">4</div>
+            <div class="calendar-day">5</div>
+            <div class="calendar-day">6</div>
+            <div class="calendar-day">7</div>
+            <div class="calendar-day">8</div>
+            <div class="calendar-day">9</div>
+            <div class="calendar-day">10</div>
+            <div class="calendar-day">11</div>
+            <div class="calendar-day">12</div>
+            <div class="calendar-day">13</div>
+            <div class="calendar-day">14</div>
+            <div class="calendar-day has-assignment">15</div>
+            <div class="calendar-day has-assignment">16</div>
+            <div class="calendar-day">17</div>
+            <div class="calendar-day has-assignment">18</div>
+            <div class="calendar-day">19</div>
+            <div class="calendar-day has-assignment">20</div>
+            <div class="calendar-day">21</div>
+            <div class="calendar-day">22</div>
+            <div class="calendar-day">23</div>
+            <div class="calendar-day">24</div>
+            <div class="calendar-day">25</div>
+            <div class="calendar-day">26</div>
+            <div class="calendar-day">27</div>
+            <div class="calendar-day">28</div>
+            <div class="calendar-day">29</div>
+            <div class="calendar-day">30</div>
+          </div>
+          
+          <div class="calendar-legend">
+            <div class="legend-item">
+              <span class="legend-dot" style="background-color: var(--primary);"></span>
+              <span>Assignment Due</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html> 

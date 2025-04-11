@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Administrator Dashboard - Student Management</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Admin Portal</h2>
+      <!-- Close/hide button for mobile -->
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="administrator_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+      <li><a href="tutor_management.html"><i class="fas fa-chalkboard-teacher"></i> Tutor Management</a></li>
+      <li class="active"><a href="student_management.html"><i class="fas fa-user-graduate"></i> Student Management</a></li>
+      <li><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h1>Student Management</h1>
+        <p>Manage students, assign diagnostic exams, and create personalized focus plans.</p>
+      </div>
+      
+      <div class="controls-container">
+        <input type="text" id="studentSearch" placeholder="Search students by name...">
+        <select id="tutorFilter">
+          <option value="all">All Tutors</option>
+          <option value="sarah">Sarah Johnson</option>
+          <option value="michael">Michael Chen</option>
+          <option value="jessica">Jessica Rodriguez</option>
+          <option value="david">David Thompson</option>
+        </select>
+        <button class="btn-primary" id="addStudentBtn">Add New Student</button>
+      </div>
+      
+      <div class="section-header">
+        <h2>Students</h2>
+      </div>
+      
+      <div class="card-container">
+        <div class="student-card">
+          <h2>Ethan Brown</h2>
+          <p><strong>Email:</strong> ethan.brown@example.com</p>
+          <p><strong>Tutor:</strong> Sarah Johnson</p>
+          <p><strong>Current Focus:</strong> Advanced Algebra</p>
+          <p><strong>Progress:</strong> 75% complete</p>
+          <a href="#" class="view-details-btn">View Profile</a>
+        </div>
+        
+        <div class="student-card">
+          <h2>Olivia Martinez</h2>
+          <p><strong>Email:</strong> olivia.martinez@example.com</p>
+          <p><strong>Tutor:</strong> Michael Chen</p>
+          <p><strong>Current Focus:</strong> Critical Reading</p>
+          <p><strong>Progress:</strong> 82% complete</p>
+          <a href="#" class="view-details-btn">View Profile</a>
+        </div>
+        
+        <div class="student-card">
+          <h2>Lucas Kim</h2>
+          <p><strong>Email:</strong> lucas.kim@example.com</p>
+          <p><strong>Tutor:</strong> Sarah Johnson</p>
+          <p><strong>Current Focus:</strong> Data Analysis</p>
+          <p><strong>Progress:</strong> 60% complete</p>
+          <a href="#" class="view-details-btn">View Profile</a>
+        </div>
+        
+        <div class="student-card">
+          <h2>Sophia Johnson</h2>
+          <p><strong>Email:</strong> sophia.johnson@example.com</p>
+          <p><strong>Tutor:</strong> Jessica Rodriguez</p>
+          <p><strong>Current Focus:</strong> Problem Solving</p>
+          <p><strong>Progress:</strong> 45% complete</p>
+          <a href="#" class="view-details-btn">View Profile</a>
+        </div>
+      </div>
+      
+      <div class="section-header">
+        <h2>Administrative Actions</h2>
+      </div>
+      
+      <div class="card-container">
+        <div class="subject-card">
+          <h3>Assign Diagnostic Exam</h3>
+          <p>Assign a comprehensive diagnostic exam to assess student strengths and weaknesses.</p>
+          <select style="width: 100%; margin-bottom: 1rem; padding: 0.5rem; border-radius: 8px; border: 1px solid var(--gray-300);">
+            <option>Select Student...</option>
+            <option>Ethan Brown</option>
+            <option>Olivia Martinez</option>
+            <option>Lucas Kim</option>
+            <option>Sophia Johnson</option>
+          </select>
+          <a href="#" class="btn-primary" style="width: 100%; text-align: center;">Assign Exam</a>
+        </div>
+        
+        <div class="subject-card">
+          <h3>Create Focus Plan</h3>
+          <p>Create a personalized focus plan based on student performance and diagnostic results.</p>
+          <select style="width: 100%; margin-bottom: 1rem; padding: 0.5rem; border-radius: 8px; border: 1px solid var(--gray-300);">
+            <option>Select Student...</option>
+            <option>Ethan Brown</option>
+            <option>Olivia Martinez</option>
+            <option>Lucas Kim</option>
+            <option>Sophia Johnson</option>
+          </select>
+          <a href="#" class="btn-primary" style="width: 100%; text-align: center;">Create Plan</a>
+        </div>
+        
+        <div class="subject-card">
+          <h3>Generate Progress Report</h3>
+          <p>Generate a detailed progress report to share with students and parents.</p>
+          <select style="width: 100%; margin-bottom: 1rem; padding: 0.5rem; border-radius: 8px; border: 1px solid var(--gray-300);">
+            <option>Select Student...</option>
+            <option>Ethan Brown</option>
+            <option>Olivia Martinez</option>
+            <option>Lucas Kim</option>
+            <option>Sophia Johnson</option>
+          </select>
+          <a href="#" class="btn-primary" style="width: 100%; text-align: center;">Generate Report</a>
+        </div>
+      </div>
+      
+      <div class="section-header">
+        <h2>Bulk Actions</h2>
+      </div>
+      
+      <div class="card-container">
+        <div class="subject-card">
+          <h3>Import Students</h3>
+          <p>Import multiple students at once using a CSV file.</p>
+          <input type="file" id="csvImport" style="display: none;">
+          <label for="csvImport" class="btn-outline" style="width: 100%; text-align: center; display: inline-block; cursor: pointer;">Select CSV File</label>
+        </div>
+        
+        <div class="subject-card">
+          <h3>Assign Tutors</h3>
+          <p>Bulk assign tutors to multiple students based on subject needs.</p>
+          <a href="#" class="btn-outline" style="width: 100%; text-align: center;">Begin Assignment</a>
+        </div>
+        
+        <div class="subject-card">
+          <h3>Export Data</h3>
+          <p>Export student data, progress reports, and performance metrics in various formats.</p>
+          <a href="#" class="btn-outline" style="width: 100%; text-align: center;">Export Data</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html> 

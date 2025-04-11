@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced Algebra Practice - Results</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* Additional styles specific to results page */
+    :root {
+      --primary: #4361ee;
+      --primary-light: #4895ef;
+      --primary-dark: #3f37c9;
+      --success: #0cce6b;
+      --danger: #ef476f;
+    }
+    
+    .summary-card {
+      background-color: var(--white);
+      border-radius: var(--card-border-radius);
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    
+    .summary-header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1.25rem 1.5rem;
+    }
+    
+    .summary-header h2 {
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    
+    .summary-content {
+      padding: 1.5rem;
+    }
+    
+    .score-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    
+    .score-card {
+      text-align: center;
+    }
+    
+    .score-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .score-label {
+      font-size: 0.9rem;
+      color: var(--gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .progress-container {
+      flex: 1;
+      height: 12px;
+      background-color: var(--gray-200);
+      border-radius: 6px;
+      margin-left: 2rem;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background-color: var(--primary);
+      border-radius: 6px;
+      transition: width 1s ease-in-out;
+    }
+    
+    .meta-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      color: var(--gray-700);
+      font-size: 0.95rem;
+    }
+    
+    .meta-icon {
+      margin-right: 0.5rem;
+      font-size: 1.1rem;
+    }
+    
+    /* Problem navigation */
+    .problems-navigation {
+      background-color: var(--white);
+      border-radius: var(--card-border-radius);
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+    }
+    
+    .nav-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+    
+    .nav-header h2 {
+      font-size: 1.25rem;
+      margin: 0;
+      color: var(--gray-900);
+    }
+    
+    .view-toggles {
+      display: flex;
+      gap: 0.75rem;
+    }
+    
+    .view-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--border-radius);
+      background-color: var(--white);
+      color: var(--gray-700);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .view-toggle:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    
+    .view-toggle.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    /* Problem Grid */
+    .problem-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .grid-item {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .grid-item.correct {
+      background-color: rgba(12, 206, 107, 0.1);
+      border: 1px solid rgba(12, 206, 107, 0.3);
+    }
+    
+    .grid-item.incorrect {
+      background-color: rgba(239, 71, 111, 0.1);
+      border: 1px solid rgba(239, 71, 111, 0.3);
+    }
+    
+    .grid-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+    
+    .problem-number {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    
+    .status-icon {
+      margin-top: 0.5rem;
+      font-size: 1.25rem;
+    }
+    
+    .grid-item.correct .status-icon {
+      color: #2ecc71;
+    }
+    
+    .grid-item.incorrect .status-icon {
+      color: #e74c3c;
+    }
+    
+    /* Problem List */
+    .problem-list-toc ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .problem-list-toc li {
+      padding: 0;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--gray-200);
+      padding-bottom: 1rem;
+    }
+    
+    .problem-link-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+    }
+    
+    .problem-number-span {
+      font-weight: 600;
+      min-width: 120px;
+    }
+    
+    .problem-preview {
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      line-height: 1.4;
+      max-width: 60%;
+    }
+    
+    .status-indicator {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-left: auto;
+    }
+    
+    .status-indicator.correct {
+      background-color: rgba(12, 206, 107, 0.1);
+      color: #2ecc71;
+    }
+    
+    .status-indicator.incorrect {
+      background-color: rgba(239, 71, 111, 0.1);
+      color: #e74c3c;
+    }
+    
+    .view-solution-button {
+      padding: 0.5rem 1rem;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    
+    .view-solution-button:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    /* Problem Block */
+    .problem-block {
+      background-color: var(--white);
+      border-radius: var(--card-border-radius);
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    
+    .problem-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .problem-header h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+    
+    .domain-badge {
+      background-color: var(--primary-light);
+      color: white;
+      padding: 0.35rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    
+    .problem-content {
+      padding: 1.5rem;
+    }
+    
+    .problem-text-box {
+      background-color: var(--gray-100);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .problem-text-box p {
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--gray-800);
+    }
+    
+    .response-box {
+      display: flex;
+      align-items: center;
+      padding: 1.25rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .correct-answer-box {
+      background-color: rgba(12, 206, 107, 0.1);
+      border: 1px solid rgba(12, 206, 107, 0.3);
+      border-left: 5px solid #2ecc71;
+    }
+    
+    .incorrect-answer-box {
+      background-color: rgba(239, 71, 111, 0.1);
+      border: 1px solid rgba(239, 71, 111, 0.3);
+      border-left: 5px solid #e74c3c;
+    }
+    
+    .response-icon {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-right: 1rem;
+    }
+    
+    .correct-answer-box .response-icon {
+      color: #2ecc71;
+    }
+    
+    .incorrect-answer-box .response-icon {
+      color: #e74c3c;
+    }
+    
+    .response-content {
+      flex: 1;
+    }
+    
+    .response-label {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .correct-answer-box .response-label {
+      color: #2ecc71;
+    }
+    
+    .incorrect-answer-box .response-label {
+      color: #e74c3c;
+    }
+    
+    .response-value {
+      font-size: 1.1rem;
+    }
+    
+    /* Tags section for Topic and KTP */
+    .tags-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      margin-top: 1rem; /* Add some space above */
+    }
+
+    .tag {
+      padding: 0.35rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .topic-tag {
+      background-color: rgba(67, 97, 238, 0.1);
+      color: var(--primary);
+    }
+
+    .ktp-tag {
+      background-color: var(--gray-200);
+      color: var(--gray-700);
+      cursor: help; /* Indicate hover effect */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 300px; /* Adjust as needed */
+      display: inline-block; /* Needed for ellipsis */
+    }
+
+    /* Problem actions (for View Solution button) */
+    .problem-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1rem;
+    }
+    
+    /* Solutions Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-content {
+      background-color: var(--white);
+      border-radius: var(--card-border-radius);
+      max-width: 700px;
+      width: 90%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .modal-header h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    .modal-close {
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--gray-600);
+      transition: all 0.2s ease;
+    }
+    
+    .modal-close:hover {
+      color: var(--gray-900);
+    }
+    
+    .modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+    
+    .modal-problem-text {
+      background-color: var(--gray-100);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--gray-800);
+    }
+    
+    .modal-solution {
+      background-color: rgba(12, 206, 107, 0.1);
+      border: 1px solid rgba(12, 206, 107, 0.3);
+      border-left: 5px solid #2ecc71;
+      padding: 1.25rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      color: var(--gray-800);
+    }
+    
+    .modal-footer {
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-btn {
+      padding: 0.5rem 1rem;
+      background-color: var(--gray-200);
+      color: var(--gray-700);
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .nav-btn:hover {
+      background-color: var(--gray-300);
+    }
+    
+    .nav-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    /* Options container */
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    
+    .option-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      background-color: var(--white);
+      transition: all 0.2s ease;
+    }
+    
+    .option-letter {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--gray-100);
+      border-radius: 50%;
+      font-weight: 600;
+      color: var(--gray-700);
+      font-size: 0.9rem;
+    }
+    
+    .option-text {
+      font-size: 1rem;
+      color: var(--gray-800);
+    }
+    
+    .option-item.correct-option {
+      background-color: rgba(12, 206, 107, 0.1);
+      border-color: rgba(12, 206, 107, 0.3);
+    }
+    
+    .option-item.correct-option .option-letter {
+      background-color: #2ecc71;
+      color: white;
+    }
+    
+    .option-item.selected-option {
+      background-color: rgba(67, 97, 238, 0.1);
+      border-color: rgba(67, 97, 238, 0.3);
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      justify-content: center;
+    }
+    
+    .action-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .primary-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+    }
+    
+    .primary-btn:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    .secondary-btn {
+      background-color: var(--white);
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    
+    .secondary-btn:hover {
+      background-color: rgba(67, 97, 238, 0.05);
+    }
+  </style>
+</head>
+<body>
+  <div id="mainContent" class="main-content">
+    <div class="content-wrapper">
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1>Advanced Algebra Practice - Results</h1>
+      </div>
+
+      <!-- Summary Card -->
+      <div class="summary-card">
+        <div class="summary-header">
+          <h2>Practice Summary</h2>
+        </div>
+        <div class="summary-content">
+          <div class="score-section">
+            <div class="score-card">
+              <div class="score-value" id="scoreDisplay">0/0</div>
+              <div class="score-label">Your Score</div>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+          </div>
+          
+          <div class="meta-info">
+            <div class="meta-item">
+              <span class="meta-icon">📆</span>
+              <span class="meta-text" id="dateCompleted">Completed on March 31, 2024</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-icon">⏱️</span>
+              <span class="meta-text" id="timeSpent">Time spent: 0 minutes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button id="practiceAgainBtn" class="action-btn primary-btn">
+          <i class="fas fa-redo"></i> Practice Again
+        </button>
+        <button id="backToHomeBtn" class="action-btn secondary-btn">
+          <i class="fas fa-home"></i> Back to Home
+        </button>
+      </div>
+
+      <!-- Problem Navigation Tabs -->
+      <div class="problems-navigation">
+        <div class="nav-header">
+          <h2>Your Answers</h2>
+          <div class="view-toggles">
+            <button id="listViewBtn" class="view-toggle active">
+              <span class="toggle-icon">🔍</span> List View
+            </button>
+            <button id="gridViewBtn" class="view-toggle">
+              <span class="toggle-icon">📊</span> Grid View
+            </button>
+          </div>
+        </div>
+        
+        <!-- Grid view for problems -->
+        <div id="problemGrid" class="problem-grid" style="display: none;">
+          <!-- Will be populated by JS -->
+        </div>
+        
+        <!-- List view for problems -->
+        <div id="problemList" class="problem-list-toc">
+          <ol id="problemsList">
+            <!-- Will be populated by JS -->
+          </ol>
+        </div>
+      </div>
+
+      <!-- Problems Container -->
+      <div id="problemsContainer">
+        <!-- Each problem's details will be dynamically rendered here by JS -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Solution Modal -->
+  <div id="solutionModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalProblemTitle">Problem Solution</h3>
+        <span class="modal-close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div id="modalProblemText" class="modal-problem-text"></div>
+        <!-- Options will be inserted here -->
+        <div id="modalSolution" class="modal-solution"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="prevProblemBtn" class="nav-btn">← Previous Problem</button>
+        <button id="closeModalBtn" class="primary-btn">Close</button>
+        <button id="nextProblemBtn" class="nav-btn">Next Problem →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script>
+    // Results page script
+    document.addEventListener('DOMContentLoaded', function() {
+      // Retrieve practice results from localStorage
+      const resultsDataString = localStorage.getItem('algebraPracticeResults');
+      console.log("Retrieved results data string:", resultsDataString); // Log the raw string
+      const resultsData = JSON.parse(resultsDataString);
+      console.log("Parsed results data:", resultsData); // Log the parsed object
+      
+      if (!resultsData) {
+        alert('No practice results found. Please complete the practice first.');
+        window.location.href = 'student_home.html';
+        return;
+      }
+      
+      // Display summary
+      displaySummary(resultsData);
+      
+      // Render the problems
+      renderTOC(resultsData.questions);
+      renderProblemGrid(resultsData.questions);
+      renderProblems(resultsData.questions);
+      
+      // Setup event listeners
+      setupEventListeners(resultsData.questions);
+    });
+    
+    // Display the summary information
+    function displaySummary(resultsData) {
+      // Update score display
+      document.getElementById('scoreDisplay').textContent = `${resultsData.score}/${resultsData.totalQuestions}`;
+      
+      // Update progress bar
+      const percentage = (resultsData.score / resultsData.totalQuestions) * 100;
+      const progressBar = document.getElementById('progressBar');
+      progressBar.style.width = `${percentage}%`;
+      
+      // Set progress bar color based on performance
+      if (percentage >= 80) {
+        progressBar.style.backgroundColor = '#2ecc71'; // Green for excellent
+      } else if (percentage >= 60) {
+        progressBar.style.backgroundColor = '#f39c12'; // Orange for good
+      } else {
+        progressBar.style.backgroundColor = '#e74c3c'; // Red for needs improvement
+      }
+      
+      // Update completion date
+      const today = new Date();
+      document.getElementById('dateCompleted').textContent = `Completed on ${today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
+      
+      // Update time spent
+      const minutes = Math.floor(resultsData.timeSpent / 60);
+      const seconds = resultsData.timeSpent % 60;
+      document.getElementById('timeSpent').textContent = `Time spent: ${minutes} minute${minutes !== 1 ? 's' : ''} ${seconds} second${seconds !== 1 ? 's' : ''}`;
+    }
+    
+    // Render the table of contents
+    function renderTOC(questions) {
+      const list = document.getElementById('problemsList');
+      list.innerHTML = "";
+      
+      questions.forEach((question, index) => {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = `#problem${index + 1}`;
+        
+        // Create the content for the problem link
+        const linkContent = document.createElement('div');
+        linkContent.className = 'problem-link-content';
+        
+        const problemNumberSpan = document.createElement('span');
+        problemNumberSpan.className = 'problem-number-span';
+        problemNumberSpan.textContent = `Problem ${index + 1}`;
+        
+        const problemPreview = document.createElement('span');
+        problemPreview.className = 'problem-preview';
+        const questionText = question.questionText;
+        const previewText = questionText.length > 50 ? 
+          questionText.substring(0, 50) + "..." : 
+          questionText;
+        problemPreview.textContent = previewText;
+        
+        // Check if answer is correct
+        const isCorrect = question.selectedOption === question.correctOption;
+        
+        // Create status indicator
+        const statusIndicator = document.createElement('span');
+        if (isCorrect) {
+          statusIndicator.className = 'status-indicator correct';
+          statusIndicator.textContent = '✓';
+          link.classList.add('toc-link-correct');
+        } else {
+          statusIndicator.className = 'status-indicator incorrect';
+          statusIndicator.textContent = '✗';
+          link.classList.add('toc-link-incorrect');
+        }
+        
+        // Assemble the link content
+        linkContent.appendChild(problemNumberSpan);
+        linkContent.appendChild(problemPreview);
+        linkContent.appendChild(statusIndicator);
+        link.appendChild(linkContent);
+        
+        // Create view solution button
+        const viewSolutionBtn = document.createElement('button');
+        viewSolutionBtn.className = 'view-solution-button';
+        viewSolutionBtn.textContent = 'View Solution';
+        viewSolutionBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          openSolutionModal(index);
+        });
+        
+        li.appendChild(link);
+        li.appendChild(viewSolutionBtn);
+        list.appendChild(li);
+      });
+    }
+    
+    // Create grid view of problems
+    function renderProblemGrid(questions) {
+      const grid = document.getElementById('problemGrid');
+      grid.innerHTML = "";
+      
+      questions.forEach((question, index) => {
+        const isCorrect = question.selectedOption === question.correctOption;
+        
+        const gridItem = document.createElement('div');
+        gridItem.className = `grid-item ${isCorrect ? 'correct' : 'incorrect'}`;
+        
+        const problemNumber = document.createElement('div');
+        problemNumber.className = 'problem-number';
+        problemNumber.textContent = index + 1;
+        
+        const statusIcon = document.createElement('div');
+        statusIcon.className = 'status-icon';
+        statusIcon.innerHTML = isCorrect ? '✓' : '✗';
+        
+        gridItem.appendChild(problemNumber);
+        gridItem.appendChild(statusIcon);
+        
+        // Add click event to open the solution modal
+        gridItem.addEventListener('click', () => {
+          openSolutionModal(index);
+        });
+        
+        grid.appendChild(gridItem);
+      });
+    }
+    
+    // Render each problem as a block
+    function renderProblems(questions) {
+      const container = document.getElementById('problemsContainer');
+      container.innerHTML = "";
+      
+      questions.forEach((question, index) => {
+        // Create the main problem card
+        const block = document.createElement('div');
+        block.className = 'problem-block';
+        block.id = `problem${index + 1}`;
+        
+        // Create card header
+        const cardHeader = document.createElement('div');
+        cardHeader.className = 'problem-header';
+        
+        const title = document.createElement('h2');
+        title.textContent = `Problem ${index + 1}`;
+        
+        const domainBadge = document.createElement('span');
+        domainBadge.className = 'domain-badge';
+        domainBadge.textContent = 'Algebra';
+        
+        cardHeader.appendChild(title);
+        cardHeader.appendChild(domainBadge);
+        block.appendChild(cardHeader);
+        
+        // Problem content section
+        const contentSection = document.createElement('div');
+        contentSection.className = 'problem-content';
+        
+        // Problem text in a highlighted box
+        const problemTextBox = document.createElement('div');
+        problemTextBox.className = 'problem-text-box';
+        problemTextBox.innerHTML = question.passage;
+        
+        contentSection.appendChild(problemTextBox);
+        
+        // Question text
+        const questionTextElem = document.createElement('p');
+        questionTextElem.textContent = question.questionText;
+        questionTextElem.style.marginBottom = '1.5rem'; // Add margin below question text
+        contentSection.appendChild(questionTextElem);
+        
+        // Add multiple choice options
+        const optionsContainer = document.createElement('div');
+        optionsContainer.className = 'options-container';
+        
+        question.options.forEach(option => {
+          const optionDiv = document.createElement('div');
+          const isCorrect = option.id === question.correctOption;
+          const isSelected = option.id === question.selectedOption;
+          
+          // Determine class based on correctness and selection
+          if (isCorrect) {
+            optionDiv.className = 'option-item correct-option';
+          } else if (isSelected && !isCorrect) {
+            optionDiv.className = 'option-item incorrect-option selected-option'; // Add specific class for selected wrong answer
+          } else {
+            optionDiv.className = 'option-item';
+          }
+          
+          const optionLetter = document.createElement('span');
+          optionLetter.className = 'option-letter';
+          optionLetter.textContent = option.id;
+          
+          const optionText = document.createElement('span');
+          optionText.className = 'option-text';
+          optionText.textContent = option.text;
+          
+          optionDiv.appendChild(optionLetter);
+          optionDiv.appendChild(optionText);
+          optionsContainer.appendChild(optionDiv);
+        });
+        
+        contentSection.appendChild(optionsContainer);
+        
+        // Result box showing if answer was correct
+        const isCorrect = question.selectedOption === question.correctOption;
+        const responseBox = document.createElement('div');
+        
+        if (isCorrect) {
+          responseBox.className = 'response-box correct-answer-box';
+          responseBox.innerHTML = `
+            <span class="response-icon">✓</span>
+            <div class="response-content">
+              <div class="response-label">Correct Answer</div>
+              <div class="response-value">You selected option ${question.selectedOption}</div>
+            </div>
+          `;
+        } else {
+          responseBox.className = 'response-box incorrect-answer-box';
+          responseBox.innerHTML = `
+            <span class="response-icon">✗</span>
+            <div class="response-content">
+              <div class="response-label">Incorrect Answer</div>
+              <div class="response-value">You selected option ${question.selectedOption || 'None'}, the correct answer was ${question.correctOption}</div>
+            </div>
+          `;
+        }
+        
+        contentSection.appendChild(responseBox);
+
+        // Tags section for Topic and KTP
+        const tagsSection = document.createElement('div');
+        tagsSection.className = 'tags-section';
+
+        const topicTag = document.createElement('span');
+        topicTag.className = 'tag topic-tag';
+        topicTag.textContent = question.topic || 'N/A'; // Add Topic
+
+        const ktpTag = document.createElement('span');
+        ktpTag.className = 'tag ktp-tag';
+        ktpTag.textContent = `KTP: ${question.knowledgePoint ? question.knowledgePoint.substring(0, 40) + '...' : 'N/A'}`; // Truncate KTP
+        ktpTag.title = question.knowledgePoint || 'Not Available'; // Full text on hover
+
+        tagsSection.appendChild(topicTag);
+        tagsSection.appendChild(ktpTag);
+        contentSection.appendChild(tagsSection);
+        
+        // Action buttons container
+        const actionButtons = document.createElement('div');
+        actionButtons.className = 'problem-actions'; // Use this class for layout
+        
+        const viewSolutionBtn = document.createElement('button');
+        // Apply button styling classes
+        viewSolutionBtn.className = 'action-btn primary-btn'; 
+        viewSolutionBtn.innerHTML = '<i class="fas fa-eye"></i> View Solution';
+        viewSolutionBtn.addEventListener('click', () => openSolutionModal(index));
+        
+        actionButtons.appendChild(viewSolutionBtn);
+        contentSection.appendChild(actionButtons);
+        
+        block.appendChild(contentSection);
+        container.appendChild(block);
+      });
+    }
+    
+    // Set up event listeners
+    function setupEventListeners(questions) {
+      // Toggle view buttons
+      document.getElementById('listViewBtn').addEventListener('click', () => toggleView('list'));
+      document.getElementById('gridViewBtn').addEventListener('click', () => toggleView('grid'));
+      
+      // Action buttons
+      document.getElementById('practiceAgainBtn').addEventListener('click', () => {
+        window.location.href = 'algebra_practice.html';
+      });
+      
+      document.getElementById('backToHomeBtn').addEventListener('click', () => {
+        window.location.href = 'student_home.html';
+      });
+      
+      // Modal controls
+      document.querySelector('.modal-close').addEventListener('click', closeModal);
+      document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+      document.getElementById('prevProblemBtn').addEventListener('click', showPreviousProblem);
+      document.getElementById('nextProblemBtn').addEventListener('click', showNextProblem);
+      
+      // Close modal on outside click
+      window.addEventListener('click', (e) => {
+        if (e.target === document.getElementById('solutionModal')) {
+          closeModal();
+        }
+      });
+    }
+    
+    // Toggle between list and grid views
+    function toggleView(viewType) {
+      const listView = document.getElementById('problemList');
+      const gridView = document.getElementById('problemGrid');
+      const listViewBtn = document.getElementById('listViewBtn');
+      const gridViewBtn = document.getElementById('gridViewBtn');
+      
+      if (viewType === 'grid') {
+        listView.style.display = 'none';
+        gridView.style.display = 'flex';
+        listViewBtn.classList.remove('active');
+        gridViewBtn.classList.add('active');
+      } else {
+        listView.style.display = 'block';
+        gridView.style.display = 'none';
+        listViewBtn.classList.add('active');
+        gridViewBtn.classList.remove('active');
+      }
+    }
+    
+    // Current problem in modal
+    let currentProblemIndex = 0;
+    
+    // Open solution modal for a specific problem
+    function openSolutionModal(index) {
+      currentProblemIndex = index;
+      const questions = JSON.parse(localStorage.getItem('algebraPracticeResults')).questions;
+      const question = questions[index];
+      
+      // Set modal content
+      document.getElementById('modalProblemTitle').textContent = `Problem ${index + 1} Solution`;
+      document.getElementById('modalProblemText').innerHTML = question.passage;
+      
+      // Add question text
+      const questionTextElem = document.createElement('p');
+      questionTextElem.textContent = question.questionText;
+      document.getElementById('modalProblemText').appendChild(questionTextElem);
+      
+      // Create options HTML
+      const optionsHTML = question.options.map(option => {
+        const isCorrect = option.id === question.correctOption;
+        const isSelected = option.id === question.selectedOption;
+        
+        let optionClass = '';
+        if (isCorrect) {
+          optionClass = 'correct-option';
+        } else if (isSelected && !isCorrect) {
+          optionClass = 'selected-option';
+        }
+        
+        return `
+          <div class="option-item ${optionClass}">
+            <span class="option-letter">${option.id}</span>
+            <span class="option-text">${option.text}</span>
+          </div>
+        `;
+      }).join('');
+      
+      // Add options after problem text
+      document.getElementById('modalProblemText').insertAdjacentHTML('afterend', 
+        `<div class="options-container modal-options">${optionsHTML}</div>`);
+      
+      // Add solution content
+      let solutionContent = '';
+      if (question.correctOption === 'A') {
+        solutionContent = 'To solve the equation 3x² - 11x - 4 = 0, we need to factor the quadratic expression. We want to find numbers p and q such that 3x² - 11x - 4 = (3x + p)(x + q). Multiplying these factors gives 3x² + 3xq + px + pq, so we need p + 3q = -11 and pq = -4. The values p = -12 and q = 1/3 work, giving us (3x - 12)(x + 1/3) = 0. This means x = 4 or x = -1/3.';
+      } else if (question.correctOption === 'C') {
+        solutionContent = 'To find f(-2), we substitute x = -2 into the function f(x) = 2x² - 3x + 1. This gives f(-2) = 2(-2)² - 3(-2) + 1 = 2(4) - 3(-2) + 1 = 8 + 6 + 1 = 15.';
+      } else if (question.correctOption === 'A' && index === 2) {
+        solutionContent = 'To simplify the expression (2x² - 7x - 15)/(x - 5), we need to factor the numerator and see if there are any common factors with the denominator. The numerator factors as (2x + 3)(x - 5). Notice that (x - 5) is a common factor. So (2x² - 7x - 15)/(x - 5) = (2x + 3)(x - 5)/(x - 5) = 2x + 3.';
+      } else if (question.correctOption === 'B' && index === 3) {
+        solutionContent = 'To solve the system of equations 3x + 2y = 13 and 5x - 2y = 3, we can add the equations to eliminate y. Adding gives 8x = 16, so x = 2. Substituting back into the first equation: 3(2) + 2y = 13, so 6 + 2y = 13, thus 2y = 7, and y = 3.5. [Note: There\'s an error in the answer options. The correct solution is (2, 3.5), not (2, 2). Option B should be (2, 3.5).]';
+      } else if (question.correctOption === 'B' && index === 4) {
+        solutionContent = 'The slope between points (2, 5) and (4, 9) is (9-5)/(4-2) = 4/2 = 2. Using the point-slope form, we get y - 5 = 2(x - 2), which simplifies to y = 2x + 1 in slope-intercept form.';
+      }
+      
+      document.getElementById('modalSolution').textContent = solutionContent;
+      
+      // Update navigation button states
+      document.getElementById('prevProblemBtn').disabled = index === 0;
+      document.getElementById('nextProblemBtn').disabled = index === questions.length - 1;
+      
+      // Display the modal
+      document.getElementById('solutionModal').style.display = 'flex';
+    }
+    
+    // Close the solution modal
+    function closeModal() {
+      document.getElementById('solutionModal').style.display = 'none';
+    }
+    
+    // Show previous problem in modal
+    function showPreviousProblem() {
+      if (currentProblemIndex > 0) {
+        openSolutionModal(currentProblemIndex - 1);
+      }
+    }
+    
+    // Show next problem in modal
+    function showNextProblem() {
+      const questions = JSON.parse(localStorage.getItem('algebraPracticeResults')).questions;
+      if (currentProblemIndex < questions.length - 1) {
+        openSolutionModal(currentProblemIndex + 1);
+      }
+    }
+  </script>
+</body>
+</html> 

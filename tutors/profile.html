@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutor Dashboard - Profile Settings</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Tutor Portal</h2>
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="tutor_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="create_practice_students.html"><i class="fas fa-plus-circle"></i> Create a Practice Set</a></li>
+      <li><a href="my_practice_sets.html"><i class="fas fa-book"></i> My Practice Sets</a></li>
+      <li><a href="students.html"><i class="fas fa-user-graduate"></i> Students</a></li>
+      <li class="active"><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h1>Profile & Settings</h1>
+      </div>
+
+      <!-- Tabs for different sections -->
+      <div class="profile-tabs">
+        <button class="tab-btn active" data-tab="profile">Profile</button>
+        <button class="tab-btn" data-tab="account">Account</button>
+        <button class="tab-btn" data-tab="teaching">Teaching Preferences</button>
+        <button class="tab-btn" data-tab="notifications">Notifications</button>
+      </div>
+
+      <!-- Profile Tab Content -->
+      <div class="tab-content active" id="profile-tab">
+        <div class="profile-header">
+          <div class="profile-avatar">
+            <img id="avatar-preview" src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff&size=200" alt="Profile Image">
+            <div class="avatar-upload">
+              <label for="avatar-upload-input">
+                <span class="upload-icon">📷</span>
+              </label>
+              <input type="file" id="avatar-upload-input" accept="image/*" style="display: none;">
+            </div>
+          </div>
+          <div class="profile-info">
+            <h2 id="profile-name">John Doe</h2>
+            <p id="profile-title">SAT Math & English Tutor</p>
+            <p id="profile-location">Scarsdale Tutoring Center</p>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Personal Information</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" value="John">
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" value="Doe">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" value="john.doe@example.com">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" value="(555) 123-4567">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="bio">Professional Bio</label>
+            <textarea id="bio" rows="4">Experienced SAT tutor with over 5 years of experience helping students achieve their target scores. Specializing in Math and English preparation with a proven track record of score improvements.</textarea>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Education & Qualifications</h3>
+          <div class="form-group">
+            <label for="education">Highest Education</label>
+            <select id="education">
+              <option value="bachelors">Bachelor's Degree</option>
+              <option value="masters" selected>Master's Degree</option>
+              <option value="phd">PhD</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="certifications">Certifications</label>
+            <input type="text" id="certifications" value="SAT Instructor Certification, ESL Teaching Certificate">
+          </div>
+
+          <div class="form-group">
+            <label for="experience">Years of Experience</label>
+            <input type="number" id="experience" value="5" min="0" max="50">
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button id="save-profile" class="save-btn">Save Profile</button>
+        </div>
+      </div>
+
+      <!-- Account Tab Content -->
+      <div class="tab-content" id="account-tab">
+        <div class="form-section">
+          <h3>Account Settings</h3>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" value="johndoe_tutor" disabled>
+            <small>Username cannot be changed</small>
+          </div>
+
+          <div class="form-group">
+            <label for="account-email">Account Email</label>
+            <input type="email" id="account-email" value="john.doe@example.com">
+            <small>This email is used for account login</small>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Change Password</h3>
+          <div class="form-group">
+            <label for="current-password">Current Password</label>
+            <input type="password" id="current-password">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="new-password">New Password</label>
+              <input type="password" id="new-password">
+            </div>
+            <div class="form-group">
+              <label for="confirm-password">Confirm New Password</label>
+              <input type="password" id="confirm-password">
+            </div>
+          </div>
+          <div class="password-requirements">
+            <p>Password requirements:</p>
+            <ul>
+              <li>At least 8 characters long</li>
+              <li>Must include at least one uppercase letter</li>
+              <li>Must include at least one number</li>
+              <li>Must include at least one special character</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="form-section danger-zone">
+          <h3>Danger Zone</h3>
+          <div class="form-group">
+            <button id="delete-account" class="danger-btn">Delete Account</button>
+            <small>This action is permanent and cannot be undone</small>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button id="save-account" class="save-btn">Save Changes</button>
+        </div>
+      </div>
+
+      <!-- Teaching Preferences Tab -->
+      <div class="tab-content" id="teaching-tab">
+        <div class="form-section">
+          <h3>Subjects</h3>
+          <p>Select the subjects you're qualified to teach:</p>
+          
+          <div class="checkbox-grid">
+            <div class="checkbox-item">
+              <input type="checkbox" id="math" checked>
+              <label for="math">Mathematics</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="english" checked>
+              <label for="english">English</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="science">
+              <label for="science">Science</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="history">
+              <label for="history">History</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="foreign-lang">
+              <label for="foreign-lang">Foreign Languages</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="test-prep" checked>
+              <label for="test-prep">Test Preparation</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Grade Levels</h3>
+          <p>Select the grade levels you work with:</p>
+          
+          <div class="checkbox-grid">
+            <div class="checkbox-item">
+              <input type="checkbox" id="elementary">
+              <label for="elementary">Elementary (K-5)</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="middle">
+              <label for="middle">Middle School (6-8)</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="high" checked>
+              <label for="high">High School (9-12)</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="college">
+              <label for="college">College</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Availability</h3>
+          <div class="form-group">
+            <label for="max-students">Maximum Active Students</label>
+            <input type="number" id="max-students" value="15" min="1" max="50">
+          </div>
+
+          <div class="form-group">
+            <label for="session-length">Preferred Session Length (minutes)</label>
+            <select id="session-length">
+              <option value="30">30 minutes</option>
+              <option value="45">45 minutes</option>
+              <option value="60" selected>60 minutes</option>
+              <option value="90">90 minutes</option>
+              <option value="120">120 minutes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button id="save-teaching" class="save-btn">Save Preferences</button>
+        </div>
+      </div>
+
+      <!-- Notifications Tab -->
+      <div class="tab-content" id="notifications-tab">
+        <div class="form-section">
+          <h3>Email Notifications</h3>
+          
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <h4>New Assignment Notifications</h4>
+              <p>Receive emails when you're assigned to a new student</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <h4>Student Progress Updates</h4>
+              <p>Receive weekly summary of your students' progress</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <h4>Schedule Changes</h4>
+              <p>Get notified when your teaching schedule is updated</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <h4>Marketing Updates</h4>
+              <p>Receive promotional emails about new features and updates</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>In-App Notifications</h3>
+          
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <h4>New Messages</h4>
+              <p>Get notified when you receive messages from students or administrators</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <h4>Practice Set Completion</h4>
+              <p>Get notified when students complete assigned practice sets</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button id="save-notifications" class="save-btn">Save Preferences</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal for Delete Account -->
+  <div id="deleteAccountModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <h3>Confirm Account Deletion</h3>
+      <p>Are you absolutely sure you want to delete your account? This action is permanent and cannot be undone.</p>
+      <p>Please type <strong>DELETE</strong> to confirm:</p>
+      <input type="text" id="delete-confirmation" placeholder="Type DELETE here">
+      <div class="modal-actions">
+        <button id="cancel-delete-account" class="cancel-btn">Cancel</button>
+        <button id="confirm-delete-account" class="danger-btn" disabled>Delete Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Notification -->
+  <div id="saveNotification" class="notification" style="display: none;">
+    <div class="notification-content">
+      <span class="notification-icon">✓</span>
+      <span class="notification-message">Changes saved successfully!</span>
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script_profile.js"></script>
+</body>
+</html>
+
