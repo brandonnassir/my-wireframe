@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutor Dashboard - Students</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Tutor Portal</h2>
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="tutor_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="create_practice_students.html"><i class="fas fa-plus-circle"></i> Create a Practice Set</a></li>
+      <li><a href="my_practice_sets.html"><i class="fas fa-book"></i> My Practice Sets</a></li>
+      <li class="active"><a href="students.html"><i class="fas fa-user-graduate"></i> Students</a></li>
+      <li><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <!-- Added an optional header container for styling -->
+      <div class="page-header">
+        <h1>Students</h1>
+      </div>
+
+      <!-- Top Controls: Filter Dropdown and Search Bar -->
+      <div class="controls-container">
+        <select id="centerFilter">
+          <option value="All">All Centers</option>
+          <option value="C2 Education">C2 Education</option>
+          <option value="1-1 Tutoring">1-1 Tutoring</option>
+          <option value="Whiz Kidz Tutoring">Whiz Kidz Tutoring</option>
+        </select>
+
+        <input 
+          type="text" 
+          id="studentSearch" 
+          placeholder="Search students by name..." 
+        />
+      </div>
+
+      <!-- Container where student cards will render -->
+      <div class="card-container" id="cardContainer">
+        <!-- Student cards are generated dynamically by script_students.js -->
+      </div>
+
+      <!-- Message if no students are found -->
+      <div class="no-results" id="noResults" style="display: none;">
+        <p>No students match your search or filter.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script_students.js"></script>
+</body>
+</html>

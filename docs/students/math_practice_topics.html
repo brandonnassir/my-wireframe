@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard - Math Practice Topics</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="practice_styles.css" />
+  <style>
+    /* Custom styles for the math practice topics page */
+    .back-navigation {
+      margin-bottom: 1.5rem;
+    }
+    
+    .back-navigation button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .practice-set-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .practice-set-card {
+      background-color: var(--white);
+      border-radius: var(--card-border-radius);
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      cursor: pointer;
+      border: 1px solid transparent;
+      position: relative;
+    }
+    
+    .practice-set-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(67, 97, 238, 0.15);
+      border-color: rgba(67, 97, 238, 0.1);
+    }
+    
+    .practice-set-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--gray-800);
+    }
+    
+    .practice-set-card p {
+      color: var(--gray-700);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .practice-set-card .difficulty {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    
+    .practice-set-card .difficulty.easy {
+      background-color: rgba(79, 193, 233, 0.15);
+      color: #4FC1E9;
+    }
+    
+    .practice-set-card .difficulty.medium {
+      background-color: rgba(72, 207, 173, 0.15);
+      color: #48CFAD;
+    }
+    
+    .practice-set-card .difficulty.hard {
+      background-color: rgba(255, 206, 84, 0.15);
+      color: #FFCE54;
+    }
+    
+    .practice-set-card .difficulty.advanced {
+      background-color: rgba(237, 85, 101, 0.15);
+      color: #ED5565;
+    }
+    
+    .recommended-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--primary);
+      color: white;
+      border-radius: 20px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(76, 81, 191, 0.3);
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Student Portal</h2>
+      <!-- Close/hide button for mobile -->
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="student_home.html">Home</a></li>
+      <li><a href="my_performance.html">My Performance</a></li>
+      <li><a href="assignments.html">Assignments</a></li>
+      <li class="active"><a href="practice.html">Practice</a></li>
+      <li><a href="profile.html">Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h1 id="topicTitle">Algebra Practice</h1>
+        <p>Choose a practice set to improve your skills in this topic.</p>
+      </div>
+      
+      <!-- Back navigation -->
+      <div class="back-navigation">
+        <button class="secondary-btn" onclick="goBackToPractice()">
+          ← Back to Math Practice
+        </button>
+      </div>
+      
+      <!-- Practice sets organized by difficulty -->
+      <div class="section-header">
+        <h2>Easy Level</h2>
+      </div>
+      <div class="practice-set-grid">
+        <div class="practice-set-card" id="easy-level-1">
+          <span class="difficulty easy">Easy</span>
+          <h3>Introduction to Linear Equations</h3>
+          <p>Fundamental concepts and basic problem-solving techniques.</p>
+          <p>10 problems • Estimated time: 15 min</p>
+          <a href="#" class="view-details-btn">Start Practice</a>
+        </div>
+        
+        <div class="practice-set-card" id="easy-level-2">
+          <span class="difficulty easy">Easy</span>
+          <h3>Systems of Linear Equations</h3>
+          <p>Learn how to solve simple systems using substitution and elimination.</p>
+          <p>8 problems • Estimated time: 12 min</p>
+          <a href="#" class="view-details-btn">Start Practice</a>
+        </div>
+      </div>
+      
+      <div class="section-header">
+        <h2>Medium Level</h2>
+      </div>
+      <div class="practice-set-grid">
+        <div class="practice-set-card" id="medium-level-1">
+          <span class="difficulty medium">Medium</span>
+          <h3>Linear Functions and Graphs</h3>
+          <p>Understanding slopes, intercepts, and graphing linear equations.</p>
+          <p>12 problems • Estimated time: 20 min</p>
+          <a href="#" class="view-details-btn">Start Practice</a>
+        </div>
+        
+        <div class="practice-set-card" id="medium-level-2">
+          <span class="difficulty medium">Medium</span>
+          <h3>Linear Inequalities</h3>
+          <p>Solving and graphing linear inequalities in one and two variables.</p>
+          <p>10 problems • Estimated time: 18 min</p>
+          <a href="#" class="view-details-btn">Start Practice</a>
+        </div>
+      </div>
+      
+      <div class="section-header">
+        <h2>Hard Level</h2>
+      </div>
+      <div class="practice-set-grid">
+        <div class="practice-set-card" id="hard-level-1">
+          <span class="difficulty hard">Hard</span>
+          <h3>Complex Systems of Equations</h3>
+          <p>Advanced systems with multiple variables and parameters.</p>
+          <p>8 problems • Estimated time: 25 min</p>
+          <a href="#" class="view-details-btn">Start Practice</a>
+        </div>
+        
+        <div class="practice-set-card" id="hard-level-2">
+          <span class="difficulty hard">Hard</span>
+          <h3>Linear Equations in Word Problems</h3>
+          <p>Apply linear equations to solve complex real-world scenarios.</p>
+          <p>10 problems • Estimated time: 30 min</p>
+          <a href="#" class="view-details-btn">Start Practice</a>
+        </div>
+      </div>
+      
+      <div class="section-header">
+        <h2>Advanced Level</h2>
+      </div>
+      <div class="practice-set-grid">
+        <div class="practice-set-card" id="advanced-level-1">
+          <span class="difficulty advanced">Advanced</span>
+          <h3>Linear Algebra Foundations</h3>
+          <p>Matrix operations and their applications to systems of equations.</p>
+          <p>6 problems • Estimated time: 30 min</p>
+          <a href="#" class="view-details-btn">Start Practice</a>
+        </div>
+        
+        <div class="practice-set-card" id="advanced-level-2">
+          <span class="difficulty advanced">Advanced</span>
+          <h3>SAT-Level Linear Relationships</h3>
+          <p>Hard SAT problems involving advanced linear functions and relationships.</p>
+          <p>8 problems • Estimated time: 35 min</p>
+          <a href="#" class="view-details-btn">Start Practice</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript Files -->
+  <script src="script.js"></script>
+  <script src="practice_script.js"></script>
+</body>
+</html> 

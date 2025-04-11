@@ -1,0 +1,638 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2821
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 LucidaGrande;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww30800\viewh11060\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /***************************************\
+  script_problem_selection.js\
+***************************************/\
+\
+// Toggle sidebar for mobile\
+function toggleSidebar() \{\
+  const sidebar = document.getElementById("sidebar");\
+  const closeBtn = document.getElementById("closebtn");\
+  if (sidebar.style.width === "250px") \{\
+    sidebar.style.width = "0";\
+    closeBtn.style.display = "none";\
+  \} else \{\
+    sidebar.style.width = "250px";\
+    closeBtn.style.display = "block";\
+  \}\
+\}\
+\
+/****************************\
+  FILTER DATA STRUCTURES\
+****************************/\
+\
+// Filter categories (demo data)\
+const difficulties = ["Easy", "Medium", "Hard", "Advanced"];\
+const domains = ["Algebra", "Advanced Math", "Problem Solving and Data Analysis", "Geometry and Trigonometry"];\
+\
+/*\
+  For "Select a Topic", each domain has subtopics.\
+  We'll only show them if that domain is selected.\
+*/\
+const topicsData = [\
+  \{\
+    domain: "Algebra",\
+    subtopics: [\
+      "Linear Equations in Two Variables",\
+      "Linear Functions",\
+      "Linear Inequalities in One or Two Variables",\
+      "Systems of Two Linear Equations in Two Variables"\
+    ]\
+  \},\
+  \{\
+    domain: "Advanced Math",\
+    subtopics: [\
+      "Equivalent Expressions",\
+      "Nonlinear Equations in One Variable and Systems of Equations in Two Variables",\
+      "Nonlinear Functions"\
+    ]\
+  \},\
+  \{\
+    domain: "Problem Solving and Data Analysis",\
+    subtopics: [\
+      "Evaluating Statistical Claims",\
+      "Observational Studies and Experiments",\
+      "Inference from Sample Statistics and Margin of Error",\
+      "One-Variable Data Distributions and Measures of Center and Spread",\
+      "Percentages",\
+      "Probability and Conditional Probability",\
+      "Ratios, Rates, Proportional Relationships, and Units",\
+      "Two-Variable Data - Models and Scatterplots"\
+    ]\
+  \},\
+  \{\
+    domain: "Geometry and Trigonometry",\
+    subtopics: [\
+      "Area and Volume",\
+      "Circles",\
+      "Lines, Angles, and Triangles",\
+      "Right Triangles and Trigonometry"\
+    ]\
+  \}\
+];\
+\
+/*\
+  "Select a Knowledge Testing Point" is now dynamic:\
+  We'll gather the union of all KTPs that appear in the problem data\
+  for the currently selected topics.\
+*/\
+let allKTPs = []; // We'll populate from problem data, or we can keep some dummy data\
+// For microSkills, we keep it always visible\
+const microSkills = ["In Context", "Tables", "Graphs", "Short Answer", "Images"];\
+\
+/****************************\
+  USER SELECTIONS\
+****************************/\
+let selectedDifficulties = [];\
+let selectedDomains = [];\
+let selectedTopics = [];\
+// We'll track selected KTP. We'll display these only if the KTP is relevant to the chosen topics.\
+let selectedKnowledgePoints = [];\
+\
+// For problem inclusion\
+let includedProblemIds = new Set();  // store unique keys for each included problem\
+\
+/****************************\
+  PROBLEMS DATA\
+****************************/\
+const problems = [\
+  \{\
+    "ProblemText": "Solve for y in 2y + 3 = 9",\
+    "ContentDomain": "Algebra",\
+    "Topic": "Linear Functions",\
+    "KnowledgeTestingPoint": "Fluently manipulate linear expressions to solve for unknown variables",\
+    "Difficulty": "Easy",\
+    "Attempts": 1\
+  \},\
+  \{\
+    "ProblemText": "If f(x) = 3x + 1, find f(4)",\
+    "ContentDomain": "Algebra",\
+    "Topic": "Linear Functions",\
+    "KnowledgeTestingPoint": "Evaluate linear functions for given inputs",\
+    "Difficulty": "Easy",\
+    "Attempts": 0\
+  \},\
+  \{\
+    "ProblemText": "Solve the system of equations: y = 2x and x + y = 6",\
+    "ContentDomain": "Algebra",\
+    "Topic": "Systems of Two Linear Equations in Two Variables",\
+    "KnowledgeTestingPoint": "Apply substitution or elimination methods to find solutions to linear systems",\
+    "Difficulty": "Medium",\
+    "Attempts": 2\
+  \},\
+  \{\
+    "ProblemText": "Solve the inequality 5x - 2 > 3",\
+    "ContentDomain": "Algebra",\
+    "Topic": "Linear Inequalities in One or Two Variables",\
+    "KnowledgeTestingPoint": "Manipulate inequalities to isolate the variable",\
+    "Difficulty": "Easy",\
+    "Attempts": 0\
+  \},\
+  \{\
+    "ProblemText": "Find the slope of the line passing through the points (1, 2) and (4, 8)",\
+    "ContentDomain": "Algebra",\
+    "Topic": "Linear Equations in Two Variables",\
+    "KnowledgeTestingPoint": "Identify the rate of change in a linear relationship",\
+    "Difficulty": "Medium",\
+    "Attempts": 3\
+  \},\
+  \{\
+    "ProblemText": "Graph the solution set of x + 2y = 6",\
+    "ContentDomain": "Algebra",\
+    "Topic": "Linear Equations in Two Variables",\
+    "KnowledgeTestingPoint": "Translate linear equations into graphical form",\
+    "Difficulty": "Hard",\
+    "Attempts": 4\
+  \},\
+  \{\
+    "ProblemText": "Solve the system of equations: 3x + y = 5 and 2x - y = 1",\
+    "ContentDomain": "Algebra",\
+    "Topic": "Systems of Two Linear Equations in Two Variables",\
+    "KnowledgeTestingPoint": "Use elimination or substitution to solve for multiple variables",\
+    "Difficulty": "Medium",\
+    "Attempts": 2\
+  \},\
+  \{\
+    "ProblemText": "Factor the polynomial 2x^2 + 6x",\
+    "ContentDomain": "Advanced Math",\
+    "Topic": "Equivalent Expressions",\
+    "KnowledgeTestingPoint": "Identify and factor out the greatest common factor from a polynomial",\
+    "Difficulty": "Easy",\
+    "Attempts": 1\
+  \},\
+  \{\
+    "ProblemText": "Factor the polynomial x^2 - 4",\
+    "ContentDomain": "Advanced Math",\
+    "Topic": "Equivalent Expressions",\
+    "KnowledgeTestingPoint": "Rewrite expressions using the difference of squares",\
+    "Difficulty": "Medium",\
+    "Attempts": 2\
+  \},\
+  \{\
+    "ProblemText": "Solve the quadratic equation x^2 - 5x + 6 = 0",\
+    "ContentDomain": "Advanced Math",\
+    "Topic": "Nonlinear Equations in One Variable and Systems of Equations in Two Variables",\
+    "KnowledgeTestingPoint": "Use factoring to find roots of quadratic equations",\
+    "Difficulty": "Easy",\
+    "Attempts": 2\
+  \},\
+  \{\
+    "ProblemText": "Solve the equation |2x - 1| = 5",\
+    "ContentDomain": "Advanced Math",\
+    "Topic": "Nonlinear Equations in One Variable and Systems of Equations in Two Variables",\
+    "KnowledgeTestingPoint": "Apply properties of absolute value to solve linear absolute value equations",\
+    "Difficulty": "Medium",\
+    "Attempts": 3\
+  \},\
+  \{\
+    "ProblemText": "Solve the system of equations: y = x^2 + 1 and y = 3x - 2",\
+    "ContentDomain": "Advanced Math",\
+    "Topic": "Nonlinear Equations in One Variable and Systems of Equations in Two Variables",\
+    "KnowledgeTestingPoint": "Find intersection points between linear and quadratic functions",\
+    "Difficulty": "Hard",\
+    "Attempts": 4\
+  \},\
+  \{\
+    "ProblemText": "If f(x) = 2^x, find f(3)",\
+    "ContentDomain": "Advanced Math",\
+    "Topic": "Nonlinear Functions",\
+    "KnowledgeTestingPoint": "Evaluate exponential functions at given points",\
+    "Difficulty": "Easy",\
+    "Attempts": 0\
+  \},\
+  \{\
+    "ProblemText": "Find the x-value for which the quadratic function f(x) = x^2 - 4x + 4 has its minimum",\
+    "ContentDomain": "Advanced Math",\
+    "Topic": "Nonlinear Functions",\
+    "KnowledgeTestingPoint": "Identify the vertex of a quadratic function using vertex formula or completing the square",\
+    "Difficulty": "Medium",\
+    "Attempts": 2\
+  \},\
+  \{\
+    "ProblemText": "A survey of 100 people found that 40 prefer chocolate over vanilla. What percentage prefer vanilla?",\
+    "ContentDomain": "Problem Solving and Data Analysis",\
+    "Topic": "Percentages",\
+    "KnowledgeTestingPoint": "Compute percentage given a part of the total",\
+    "Difficulty": "Easy",\
+    "Attempts": 1\
+  \},\
+  \{\
+    "ProblemText": "A bag contains 5 red marbles and 7 blue marbles. If one marble is drawn at random, what is the probability of drawing a red marble?",\
+    "ContentDomain": "Problem Solving and Data Analysis",\
+    "Topic": "Probability and Conditional Probability",\
+    "KnowledgeTestingPoint": "Determine probability as favorable outcomes over total outcomes",\
+    "Difficulty": "Easy",\
+    "Attempts": 0\
+  \},\
+  \{\
+    "ProblemText": "A car travels 150 miles in 3 hours. What is its rate in miles per hour?",\
+    "ContentDomain": "Problem Solving and Data Analysis",\
+    "Topic": "Ratios, Rates, Proportional Relationships, and Units",\
+    "KnowledgeTestingPoint": "Use ratios to find unit rates",\
+    "Difficulty": "Easy",\
+    "Attempts": 1\
+  \},\
+  \{\
+    "ProblemText": "A researcher wants to test a new medication. She randomly assigns 50 volunteers to receive the medication and another 50 to receive a placebo. What type of study is this?",\
+    "ContentDomain": "Problem Solving and Data Analysis",\
+    "Topic": "Observational Studies and Experiments",\
+    "KnowledgeTestingPoint": "Distinguish between observational studies and experiments",\
+    "Difficulty": "Medium",\
+    "Attempts": 2\
+  \},\
+  \{\
+    "ProblemText": "In a study, 35 out of 200 people tested had a particular gene. Based on this sample, estimate the percentage of the population with that gene.",\
+    "ContentDomain": "Problem Solving and Data Analysis",\
+    "Topic": "Inference from Sample Statistics and Margin of Error",\
+    "KnowledgeTestingPoint": "Use sample proportions to estimate population proportions",\
+    "Difficulty": "Medium",\
+    "Attempts": 3\
+  \},\
+  \{\
+    "ProblemText": "You have a data set: 2, 5, 5, 9, 10. What is the median of this set?",\
+    "ContentDomain": "Problem Solving and Data Analysis",\
+    "Topic": "One-Variable Data Distributions and Measures of Center and Spread",\
+    "KnowledgeTestingPoint": "Identify measures of central tendency from data",\
+    "Difficulty": "Easy",\
+    "Attempts": 1\
+  \},\
+  \{\
+    "ProblemText": "In a scatterplot showing the relationship between hours studied and test scores, the points appear to rise from left to right. What kind of correlation is indicated?",\
+    "ContentDomain": "Problem Solving and Data Analysis",\
+    "Topic": "Two-Variable Data - Models and Scatterplots",\
+    "KnowledgeTestingPoint": "Interpret correlation from a visual representation of data",\
+    "Difficulty": "Medium",\
+    "Attempts": 2\
+  \},\
+  \{\
+    "ProblemText": "A study claims that eating an apple a day reduces doctor visits by 15 percent. What would you need to confirm before accepting this claim?",\
+    "ContentDomain": "Problem Solving and Data Analysis",\
+    "Topic": "Evaluating Statistical Claims",\
+    "KnowledgeTestingPoint": "Assess the validity and reliability of statistical claims in context",\
+    "Difficulty": "Hard",\
+    "Attempts": 5\
+  \},\
+  \{\
+    "ProblemText": "Find the area of a rectangle with length 8 and width 3",\
+    "ContentDomain": "Geometry and Trigonometry",\
+    "Topic": "Area and Volume",\
+    "KnowledgeTestingPoint": "Calculate area using length times width",\
+    "Difficulty": "Easy",\
+    "Attempts": 0\
+  \}\
+];\
+\
+// On page load, build filter cards. Then parse problem data for possible KTPs & do an initial render.\
+window.addEventListener("DOMContentLoaded", () => \{\
+  buildDifficultyCards();\
+  buildDomainCards();\
+  buildMicroSkillCards(); // always visible\
+\
+  // We do NOT build topics or KTP yet. We'll handle them dynamically based on selection.\
+  // But we can parse the problem array for all unique KTP if you prefer to have them on hand:\
+  parseAllKTPsFromProblems();\
+\
+  renderProblemList(); // initial list (maybe everything or nothing, depending on no selection)\
+\});\
+\
+/********************************************\
+  BUILD CARDS FOR EACH FILTER CATEGORY\
+*********************************************/\
+function buildDifficultyCards() \{\
+  const container = document.getElementById("difficultyContainer");\
+  difficulties.forEach(diff => \{\
+    const card = document.createElement("div");\
+    card.className = "filter-card";\
+    card.textContent = diff;\
+\
+    card.addEventListener("click", () => \{\
+      toggleSelection(selectedDifficulties, diff, card);\
+    \});\
+\
+    container.appendChild(card);\
+  \});\
+\}\
+\
+function buildDomainCards() \{\
+  const container = document.getElementById("domainContainer");\
+  domains.forEach(dom => \{\
+    const card = document.createElement("div");\
+    card.className = "filter-card";\
+    card.textContent = dom;\
+\
+    card.addEventListener("click", () => \{\
+      toggleSelection(selectedDomains, dom, card);\
+      updateTopicVisibility(); // show/hide 'Select a Topic' & rebuild the topic UI\
+    \});\
+\
+    container.appendChild(card);\
+  \});\
+\}\
+\
+function buildMicroSkillCards() \{\
+  const container = document.getElementById("microSkillContainer");\
+  microSkills.forEach(ms => \{\
+    const card = document.createElement("div");\
+    card.className = "filter-card";\
+    card.textContent = ms;\
+    card.addEventListener("click", () => \{\
+      toggleSelection(selectedMicroSkills, ms, card);\
+    \});\
+    container.appendChild(card);\
+  \});\
+\}\
+\
+/********************************************\
+  TOPICS: Only shown if one or more domains\
+  are selected. Rebuild "topicSection" each time.\
+*********************************************/\
+function updateTopicVisibility() \{\
+  const topicBlock = document.getElementById("topicBlock");\
+\
+  if (selectedDomains.length === 0) \{\
+    // hide the entire block\
+    topicBlock.style.display = "none";\
+    // also clear any topic selections\
+    selectedTopics.length = 0;\
+    // hide KTP block as well\
+    document.getElementById("ktpBlock").style.display = "none";\
+  \} else \{\
+    // show the block\
+    topicBlock.style.display = "block";\
+  \}\
+\
+  // Rebuild the "topicSection"\
+  buildTopicSection();\
+\
+  // After we rebuild topics, re-render the problem list\
+  renderProblemList();\
+\}\
+\
+/* Build the "Select a Topic" UI dynamically \
+   based on the domain(s) that are selected. */\
+function buildTopicSection() \{\
+  const topicSection = document.getElementById("topicSection");\
+  topicSection.innerHTML = ""; // Clear existing\
+\
+  // For each domain in topicsData, if it's selected, show domain heading + subtopics\
+  topicsData.forEach(data => \{\
+    if (selectedDomains.includes(data.domain)) \{\
+      // domain heading\
+      const domainHeading = document.createElement("div");\
+      domainHeading.className = "topic-domain-heading";\
+      domainHeading.textContent = data.domain;\
+      topicSection.appendChild(domainHeading);\
+\
+      // card container\
+      const scrollDiv = document.createElement("div");\
+      scrollDiv.className = "card-scroll-container";\
+\
+      data.subtopics.forEach(sub => \{\
+        const card = document.createElement("div");\
+        card.className = "filter-card";\
+        card.textContent = sub;\
+\
+        // check if already selected\
+        if (selectedTopics.includes(sub)) \{\
+          card.classList.add("selected");\
+        \}\
+\
+        card.addEventListener("click", () => \{\
+          toggleSelection(selectedTopics, sub, card);\
+          updateKTPVisibility(); // manage KTP after topic change\
+        \});\
+\
+        scrollDiv.appendChild(card);\
+      \});\
+\
+      topicSection.appendChild(scrollDiv);\
+    \}\
+  \});\
+\}\
+\
+/********************************************\
+  KTP: Only appear if one or more topics \
+  are selected. We gather the union of \
+  possible KTP from the problem array \
+  for the chosen topics.\
+*********************************************/\
+function parseAllKTPsFromProblems() \{\
+  // We can store all KTP from the entire problem set\
+  // but we'll only display the relevant ones once topics are chosen\
+  const setKTP = new Set();\
+  problems.forEach(prob => \{\
+    setKTP.add(prob.KnowledgeTestingPoint);\
+  \});\
+  allKTPs = Array.from(setKTP);\
+\}\
+\
+/* Show/hide KTP block based on topic selection \
+   and build the subset of KTP that actually match\
+   the currently selected topics.\
+*/\
+function updateKTPVisibility() \{\
+  const ktpBlock = document.getElementById("ktpBlock");\
+\
+  if (selectedTopics.length === 0) \{\
+    // hide\
+    ktpBlock.style.display = "none";\
+    selectedKnowledgePoints.length = 0;\
+  \} else \{\
+    // show\
+    ktpBlock.style.display = "block";\
+  \}\
+  buildKTPCards();\
+  renderProblemList();\
+\}\
+\
+/* Build the actual KTP container \
+   The KTPs we show = union of \
+   all KTP that appear in the problem array\
+   for the selected topics.\
+*/\
+function buildKTPCards() \{\
+  const container = document.getElementById("ktpContainer");\
+  container.innerHTML = ""; // clear old\
+\
+  // gather union of KTP from the problem set for selected topics\
+  const relevantKTP = new Set();\
+  problems.forEach(prob => \{\
+    if (selectedTopics.includes(prob.Topic)) \{\
+      relevantKTP.add(prob.KnowledgeTestingPoint);\
+    \}\
+  \});\
+\
+  const relevantKTPArray = Array.from(relevantKTP);\
+\
+  relevantKTPArray.forEach(kpt => \{\
+    const card = document.createElement("div");\
+    card.className = "filter-card";\
+    card.textContent = kpt;\
+\
+    // if already selected, highlight\
+    if (selectedKnowledgePoints.includes(kpt)) \{\
+      card.classList.add("selected");\
+    \}\
+\
+    card.addEventListener("click", () => \{\
+      toggleSelection(selectedKnowledgePoints, kpt, card);\
+    \});\
+\
+    container.appendChild(card);\
+  \});\
+\
+  // if none are relevant, we might display a small message or just remain empty\
+\}\
+\
+/********************************************\
+  TOGGLE SELECTION LOGIC\
+*********************************************/\
+function toggleSelection(selectionArray, value, cardElement) \{\
+  const index = selectionArray.indexOf(value);\
+  if (index === -1) \{\
+    // Not selected yet, so select it\
+    selectionArray.push(value);\
+    cardElement.classList.add("selected");\
+  \} else \{\
+    // Already selected, remove it\
+    selectionArray.splice(index, 1);\
+    cardElement.classList.remove("selected");\
+  \}\
+\
+  // We re-render problem list after every selection\
+  renderProblemList();\
+\}\
+\
+/********************************************\
+  RENDER PROBLEM LIST\
+  - Filter based on selections\
+*********************************************/\
+function renderProblemList() \{\
+  const container = document.getElementById("problemList");\
+  container.innerHTML = "";\
+\
+  // Filter logic:\
+  // 1) If difficulties are selected, must match problem's Difficulty\
+  // 2) If domains are selected, must match problem's ContentDomain\
+  // 3) If topics are selected, must match problem's Topic\
+  // 4) If knowledgePoints are selected, do partial or exact match\
+  // 5) MicroSkills are not in problem data, so we skip them for filtering in this demo\
+\
+  const filteredProblems = problems.filter((prob) => \{\
+    // Difficulty filter\
+    if (selectedDifficulties.length > 0 && !selectedDifficulties.includes(prob.Difficulty)) \{\
+      return false;\
+    \}\
+    // Domain filter\
+    if (selectedDomains.length > 0 && !selectedDomains.includes(prob.ContentDomain)) \{\
+      return false;\
+    \}\
+    // Topic filter\
+    if (selectedTopics.length > 0 && !selectedTopics.includes(prob.Topic)) \{\
+      return false;\
+    \}\
+    // KTP filter (partial or exact match)\
+    if (selectedKnowledgePoints.length > 0) \{\
+      let matchKP = false;\
+      for (let kp of selectedKnowledgePoints) \{\
+        // We do a partial text match\
+        if (prob.KnowledgeTestingPoint.toLowerCase().includes(kp.toLowerCase())) \{\
+          matchKP = true;\
+          break;\
+        \}\
+      \}\
+      if (!matchKP) return false;\
+    \}\
+\
+    return true;\
+  \});\
+\
+  // Display results\
+  if (filteredProblems.length === 0) \{\
+    const msg = document.createElement("p");\
+    msg.textContent = "No problems match your current filters.";\
+    container.appendChild(msg);\
+  \} else \{\
+    filteredProblems.forEach((prob, idx) => \{\
+      const card = document.createElement("div");\
+      card.className = "problem-card";\
+\
+      // 1) Problem text (centered)\
+      const title = document.createElement("h3");\
+      title.textContent = prob.ProblemText;\
+      card.appendChild(title);\
+\
+      // 2) Lines for KTP, Difficulty, Attempts\
+      const ktpLine = document.createElement("p");\
+      ktpLine.className = "ktp-line";\
+      ktpLine.textContent = `KTP: $\{prob.KnowledgeTestingPoint\}`;\
+      card.appendChild(ktpLine);\
+\
+      const diffLine = document.createElement("p");\
+      diffLine.className = "difficulty-line";\
+      diffLine.textContent = `Difficulty: $\{prob.Difficulty\}`;\
+      card.appendChild(diffLine);\
+\
+      const attLine = document.createElement("p");\
+      attLine.className = "attempts-line";\
+      attLine.textContent = `Attempts: $\{prob.Attempts\}`;\
+      card.appendChild(attLine);\
+\
+      // 3) Button row: "View Solution" & "Include"\
+      const btnRow = document.createElement("div");\
+      btnRow.className = "btn-row";\
+\
+      // "View Solution" button\
+      const solutionBtn = document.createElement("button");\
+      solutionBtn.className = "view-solution-btn";\
+      solutionBtn.textContent = "View Solution";\
+      solutionBtn.addEventListener("click", () => \{\
+        alert(`Solution for: $\{prob.ProblemText\}`);\
+      \});\
+      btnRow.appendChild(solutionBtn);\
+\
+      // "Include" button\
+      const includeBtn = document.createElement("button");\
+      includeBtn.className = "include-btn";\
+\
+      // Unique key for each problem\
+      const problemKey = `$\{prob.ProblemText\}-$\{idx\}`;\
+\
+      // If already included, style it\
+      if (includedProblemIds.has(problemKey)) \{\
+        includeBtn.classList.add("included");\
+        includeBtn.textContent = "
+\f1 \uc0\u10003 
+\f0  Included";\
+      \} else \{\
+        includeBtn.textContent = "Include";\
+      \}\
+\
+      // Toggle on click\
+      includeBtn.addEventListener("click", () => \{\
+        if (includedProblemIds.has(problemKey)) \{\
+          includedProblemIds.delete(problemKey);\
+          includeBtn.classList.remove("included");\
+          includeBtn.textContent = "Include";\
+        \} else \{\
+          includedProblemIds.add(problemKey);\
+          includeBtn.classList.add("included");\
+          includeBtn.textContent = "
+\f1 \uc0\u10003 
+\f0  Included";\
+        \}\
+      \});\
+\
+      btnRow.appendChild(includeBtn);\
+\
+      card.appendChild(btnRow);\
+      container.appendChild(card);\
+    \});\
+  \}\
+\}\
+}

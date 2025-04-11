@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutor Dashboard - Student Detail</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Tutor Portal</h2>
+      <!-- Close/hide button for mobile -->
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="tutor_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="create_practice_students.html"><i class="fas fa-plus-circle"></i> Create a Practice Set</a></li>
+      <li><a href="#"><i class="fas fa-book"></i> My Practice Sets</a></li>
+      <!-- 'active' class for Students section -->
+      <li class="active"><a href="students.html"><i class="fas fa-user-graduate"></i> Students</a></li>
+      <li><a href="#"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1>Student Details</h1>
+      </div>
+
+      <!-- Student Info Block -->
+      <div class="student-info-block">
+        <h2>Cole Stone</h2>
+        <p><strong>Grade:</strong> 9th</p>
+        <p><strong>Age:</strong> 14 y/o</p>
+        <p><strong>School:</strong> Scarsdale Highschool</p>
+      </div>
+
+      <!-- Subject Cards -->
+      <div class="page-subheader">
+        <h2>Current Subjects</h2>
+      </div>
+      <div class="card-container" id="subjectCards">
+        <!-- Each subject is a card. Two subjects in this demo: SAT English, SAT Math -->
+        <div class="subject-card" id="satEngCard">
+          <h3>SAT English</h3>
+          <p>View resources, assignments, and progress tracking for SAT English.</p>
+        </div>
+        <div class="subject-card" id="satMathCard">
+            <h3>SAT Math</h3>
+            <p>View resources, assignments, and progress tracking for SAT Math.</p>
+        </div>
+        <div class="subject-card" id="satMathCard">
+          <h3>Geometry</h3>
+          <p>View resources, assignments, and progress tracking for Geometry.</p>
+      </div> 
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script_student_detail.js"></script>
+</body>
+</html>

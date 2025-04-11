@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Student for Practice Set</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Tutor Portal</h2>
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="tutor_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <!-- Keep "Create a Practice Set" as active to highlight the current flow -->
+      <li class="active"><a href="create_practice_set.html"><i class="fas fa-plus-circle"></i> Create a Practice Set</a></li>
+      <li><a href="my_practice_sets.html"><i class="fas fa-book"></i> My Practice Sets</a></li>
+      <li><a href="students.html"><i class="fas fa-user-graduate"></i> Students</a></li>
+      <li><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <h1>Select a Student for Your New Practice Set</h1>
+      
+      <p>
+        Use the search bar below to find the student you would like to create a practice set for. 
+        Click on the card corresponding to the student to proceed.
+      </p>
+
+      <!-- Optional Controls: Filter or Search Bar (like the original 'students.html') -->
+      <div class="controls-container">
+        <!-- If you'd like a drop-down filter, you can maintain it. For now, let's keep it simple. -->
+        <input 
+          type="text" 
+          id="studentSearch" 
+          placeholder="Search student by name..."
+        />
+      </div>
+
+      <!-- Student Cards Container -->
+      <div class="card-container" id="studentCards">
+        <!-- We'll only display Cole Stone as the single "demo" student. -->
+      </div>
+
+      <!-- If no results found, show a message (hidden by default) -->
+      <div class="no-results" id="noResults" style="display: none;">
+        <p>No students match your search.</p>
+      </div>
+
+    </div> <!-- end content-wrapper -->
+  </div> <!-- end main-content -->
+
+  <!-- Include JavaScript for dynamic card creation & search -->
+  <script src="script_select_student.js"></script>
+</body>
+</html>

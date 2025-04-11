@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard - Home</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .video-container {
+      margin: 2rem 0;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--card-border-radius);
+      box-shadow: var(--card-shadow);
+    }
+    
+    .video-container iframe {
+      width: 100%;
+      height: 420px;
+      border: none;
+    }
+    
+    .learn-section {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .learn-card {
+      flex: 1;
+      background: var(--white);
+      padding: 1.75rem;
+      border-radius: var(--card-border-radius);
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .learn-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(76, 81, 191, 0.15);
+    }
+    
+    .learn-card img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+    
+    .learn-card h3 {
+      margin-bottom: 1rem;
+      color: var(--gray-900);
+    }
+    
+    .subject-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .subject-category {
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    @media screen and (max-width: 768px) {
+      .learn-section {
+        flex-direction: column;
+      }
+      
+      .video-container iframe {
+        height: 240px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Student Portal</h2>
+      <!-- Close/hide button for mobile -->
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <!-- The "active" class here designates that we are on the Home page -->
+      <li class="active"><a href="student_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="my_performance.html"><i class="fas fa-chart-line"></i> My Performance</a></li>
+      <li><a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a></li>
+      <li><a href="practice.html"><i class="fas fa-book"></i> Practice</a></li>
+      <li><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <h1>Welcome to Your SAT Prep Portal</h1>
+      <p>
+        This platform is designed to help you prepare effectively for standardized tests
+        with personalized practice, performance tracking, and targeted assignments from your tutor.
+      </p>
+      
+      <!-- Site Navigation Video Guide -->
+      <div class="section-header">
+        <h2>How to Use This Platform</h2>
+      </div>
+      
+      <div class="video-container">
+        <!-- Replace with actual video source when available -->
+        <iframe src="https://youtu.be/oPuJG6AJOlQ?si=dlEpr7XJkjpI3xCJ" title="Platform Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      
+      <!-- Learn About Section -->
+      <div class="section-header">
+        <h2>Learn About</h2>
+      </div>
+      
+      <div class="learn-section">
+        <div class="learn-card">
+          <img src="images/SAT.jpeg" alt="SAT Icon">
+          <h3>SAT Exam</h3>
+          <p>Learn more about the SAT format, scoring, and preparation strategies.</p>
+          <a href="#" class="view-details-btn">Learn More</a>
+        </div>
+        
+        <div class="learn-card">
+          <img src="images/ACT.png" alt="ACT Icon">
+          <h3>ACT Exam</h3>
+          <p>Understand the differences between ACT and SAT, and how to prepare effectively.</p>
+          <a href="#" class="view-details-btn">Learn More</a>
+        </div>
+      </div>
+      
+      <!-- Upcoming Assignments Section -->
+      <div class="section-header">
+        <h2>Your Upcoming Assignments</h2>
+      </div>
+      
+      <div class="horizontal-scroll-container">
+        <div class="card">
+          <div class="diagnostic-title">Advanced Algebra</div>
+          <div class="diagnostic-subscore">Module 3: Quadratic Equations</div>
+          <div class="diagnostic-date">Due: Tomorrow</div>
+          <a href="#" class="view-details-btn">Start Now</a>
+        </div>
+        
+        <div class="card">
+          <div class="diagnostic-title">Reading Comprehension</div>
+          <div class="diagnostic-subscore">Practice Set: Science Passages</div>
+          <div class="diagnostic-date">Due: In 3 days</div>
+          <a href="#" class="view-details-btn">Start Now</a>
+        </div>
+        
+        <div class="card">
+          <div class="diagnostic-title">Weekly Assessment</div>
+          <div class="diagnostic-subscore">Full-length Practice Test</div>
+          <div class="diagnostic-date">Due: Next Monday</div>
+          <a href="#" class="view-details-btn">Start Now</a>
+        </div>
+      </div>
+      
+      <!-- Study Recommendations Section organized by subject -->
+      <div class="section-header">
+        <h2>Study Recommendations by Subject</h2>
+      </div>
+      
+      <!-- Math Subject -->
+      <div class="section-header subject-header">
+        <h3 class="subject-category">SAT Math</h3>
+      </div>
+      
+      <div class="card-container">
+        <div class="subject-card">
+          <h3>Linear Equations</h3>
+          <p>Based on your recent performance, we recommend focusing on linear equations and systems.</p>
+          <a href="#" class="view-details-btn">Practice Now</a>
+        </div>
+        
+        <div class="subject-card">
+          <h3>Advanced Algebra</h3>
+          <p>Your tutor has suggested additional practice with quadratics and polynomials.</p>
+          <a href="#" class="view-details-btn">Practice Now</a>
+        </div>
+        
+        <div class="subject-card">
+          <h3>Data Analysis</h3>
+          <p>You're doing well here! Consider more challenging problems to solidify your skills.</p>
+          <a href="#" class="view-details-btn">Practice Now</a>
+        </div>
+      </div>
+      
+      <!-- Reading/Writing Subject -->
+      <div class="section-header subject-header">
+        <h3 class="subject-category">SAT Reading & Writing</h3>
+      </div>
+      
+      <div class="card-container">
+        <div class="subject-card">
+          <h3>Vocabulary in Context</h3>
+          <p>Practice identifying the meaning of words based on how they're used in passages.</p>
+          <a href="#" class="view-details-btn">Practice Now</a>
+        </div>
+        
+        <div class="subject-card">
+          <h3>Evidence-Based Reading</h3>
+          <p>Work on finding textual evidence to support answers to previous questions.</p>
+          <a href="#" class="view-details-btn">Practice Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>

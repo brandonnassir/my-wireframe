@@ -1,0 +1,214 @@
+/* Practice Page Custom Styles */
+
+/* Performance Bar Styles */
+.performance-bar {
+  display: flex;
+  gap: 5px;
+  margin: 0.5rem 0;
+}
+
+.segment {
+  height: 8px;
+  flex: 1;
+  background-color: var(--gray-200);
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.segment.filled {
+  background-color: var(--primary);
+}
+
+/* Color schema for skill levels */
+.easy-level .segment.filled {
+  background-color: #4FC1E9; /* Light blue */
+}
+
+.medium-level .segment.filled {
+  background-color: #48CFAD; /* Mint green */
+}
+
+.hard-level .segment.filled {
+  background-color: #FFCE54; /* Yellow */
+}
+
+.advanced-level .segment.filled {
+  background-color: #ED5565; /* Red */
+}
+
+.performance-label {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  margin-top: 0.25rem;
+}
+
+.performance-label.easy-level-text {
+  color: #4FC1E9; /* Light blue */
+  font-weight: 500;
+}
+
+.performance-label.medium-level-text {
+  color: #48CFAD; /* Mint green */
+  font-weight: 500;
+}
+
+.performance-label.hard-level-text {
+  color: #FFCE54; /* Yellow */
+  font-weight: 500;
+}
+
+.performance-label.advanced-level-text {
+  color: #ED5565; /* Red */
+  font-weight: 500;
+}
+
+/* Domain Performance Styles */
+.domain-performance-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.domain-performance-card {
+  background-color: var(--gray-50);
+  border-radius: 10px;
+  padding: 1.25rem;
+  border: 1px solid var(--gray-200);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.domain-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.topic-performance-item {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: var(--card-border-radius);
+  background-color: var(--white);
+  border: 1px solid var(--gray-200);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.topic-performance-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(67, 97, 238, 0.15);
+  border-color: rgba(67, 97, 238, 0.1);
+}
+
+.topic-performance-item:last-child {
+  margin-bottom: 1rem;
+}
+
+.topic-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: 0.75rem;
+}
+
+/* Practice Set Card Styles */
+.practice-set-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.practice-set-card {
+  background-color: var(--white);
+  border-radius: var(--card-border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+  cursor: pointer;
+  border: 1px solid transparent;
+  position: relative;
+}
+
+.practice-set-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(67, 97, 238, 0.15);
+  border-color: rgba(67, 97, 238, 0.1);
+}
+
+.practice-set-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--gray-800);
+}
+
+.practice-set-card p {
+  color: var(--gray-700);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.practice-set-card .difficulty {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.practice-set-card .difficulty.easy {
+  background-color: rgba(79, 193, 233, 0.15);
+  color: #4FC1E9;
+}
+
+.practice-set-card .difficulty.medium {
+  background-color: rgba(72, 207, 173, 0.15);
+  color: #48CFAD;
+}
+
+.practice-set-card .difficulty.hard {
+  background-color: rgba(255, 206, 84, 0.15);
+  color: #FFCE54;
+}
+
+.practice-set-card .difficulty.advanced {
+  background-color: rgba(237, 85, 101, 0.15);
+  color: #ED5565;
+}
+
+.recommended-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--primary);
+  color: white;
+  border-radius: 20px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(76, 81, 191, 0.3);
+  z-index: 1;
+}
+
+/* Performance Chart Styles */
+.performance-chart {
+  background-color: var(--white);
+  border-radius: var(--card-border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .domain-performance-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .practice-set-grid {
+    grid-template-columns: 1fr;
+  }
+} 

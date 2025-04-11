@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard - My Performance</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="performance.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Add Chart.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Student Portal</h2>
+      <!-- Close/hide button for mobile -->
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="student_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li class="active"><a href="my_performance.html"><i class="fas fa-chart-line"></i> My Performance</a></li>
+      <li><a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a></li>
+      <li><a href="practice.html"><i class="fas fa-book"></i> Practice</a></li>
+      <li><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h1>My Performance</h1>
+        <p>Track your progress across subjects and identify your strengths and areas for improvement.</p>
+      </div>
+      
+      <!-- Performance Level Key -->
+      <div class="performance-key">
+        <h3>Performance Level Guide</h3>
+        <div class="performance-key-container">
+          <div class="key-item">
+            <div class="performance-bar easy-level">
+              <div class="segment filled"></div>
+              <div class="segment"></div>
+              <div class="segment"></div>
+              <div class="segment"></div>
+            </div>
+            <div class="key-label">
+              <span class="key-title easy-level-text">Easy Level</span>
+              <span class="key-description">Students at this level usually score between 200-400 on SAT Math</span>
+            </div>
+          </div>
+          
+          <div class="key-item">
+            <div class="performance-bar medium-level">
+              <div class="segment filled"></div>
+              <div class="segment filled"></div>
+              <div class="segment"></div>
+              <div class="segment"></div>
+            </div>
+            <div class="key-label">
+              <span class="key-title medium-level-text">Medium Level</span>
+              <span class="key-description">Students at this level usually score between 400-650 on SAT Math</span>
+            </div>
+          </div>
+          
+          <div class="key-item">
+            <div class="performance-bar hard-level">
+              <div class="segment filled"></div>
+              <div class="segment filled"></div>
+              <div class="segment filled"></div>
+              <div class="segment"></div>
+            </div>
+            <div class="key-label">
+              <span class="key-title hard-level-text">Hard Level</span>
+              <span class="key-description">Students at this level usually score between 650-750 on SAT Math</span>
+            </div>
+          </div>
+          
+          <div class="key-item">
+            <div class="performance-bar advanced-level">
+              <div class="segment filled"></div>
+              <div class="segment filled"></div>
+              <div class="segment filled"></div>
+              <div class="segment filled"></div>
+            </div>
+            <div class="key-label">
+              <span class="key-title advanced-level-text">Advanced Level</span>
+              <span class="key-description">Students at this level usually score between 750-800 on SAT Math</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Subject Selection View - Initially visible -->
+      <div id="subjectSelectionView">
+        <!-- Overall Performance Chart -->
+        <div class="student-info-block">
+          <h2>Overall Performance</h2>
+          <div class="performance-charts-container">
+            <div class="performance-chart chart-container">
+              <h3>Math Performance</h3>
+              <canvas id="mathChart"></canvas>
+            </div>
+            <div class="performance-chart chart-container">
+              <h3>Reading/Writing Performance</h3>
+              <canvas id="readingChart"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <div class="page-subheader">
+          <h2>My Subjects</h2>
+          <p>Select a subject to view detailed performance analytics</p>
+        </div>
+        
+        <!-- Subject Cards -->
+        <div class="card-container" id="subjectCards">
+          <div class="subject-card" onclick="showSubjectDetails('sat-math')">
+            <h3>SAT Math</h3>
+            <p>View detailed breakdown of your SAT Math performance and topic strengths.</p>
+          </div>
+          
+          <div class="subject-card" onclick="showSubjectDetails('sat-reading')">
+            <h3>SAT Reading/Writing</h3>
+            <p>View detailed breakdown of your SAT Reading/Writing performance and topic strengths.</p>
+          </div>
+          
+          <div class="subject-card" onclick="showSubjectDetails('geometry')">
+            <h3>Geometry</h3>
+            <p>View detailed breakdown of your Geometry performance and topic strengths.</p>
+          </div>
+        </div>
+        
+        <div class="section-header">
+          <h2>Recent Test History</h2>
+        </div>
+        
+        <div class="card-container">
+          <div class="subject-card">
+            <h3>SAT Practice Test #5</h3>
+            <p>Completed: April 4, 2023</p>
+            <p>Total Score: 1390/1600</p>
+            <p>Math: 680/800 | Reading/Writing: 710/800</p>
+            <a href="#" class="view-details-btn">View Details</a>
+          </div>
+          
+          <div class="subject-card">
+            <h3>SAT Practice Test #4</h3>
+            <p>Completed: March 21, 2023</p>
+            <p>Total Score: 1350/1600</p>
+            <p>Math: 650/800 | Reading/Writing: 700/800</p>
+            <a href="#" class="view-details-btn">View Details</a>
+          </div>
+          
+          <div class="subject-card">
+            <h3>SAT Practice Test #3</h3>
+            <p>Completed: March 7, 2023</p>
+            <p>Total Score: 1320/1600</p>
+            <p>Math: 630/800 | Reading/Writing: 690/800</p>
+            <a href="#" class="view-details-btn">View Details</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Subject Details View - Initially hidden -->
+      <div id="subjectDetailsView" style="display: none;">
+        <!-- Back button -->
+        <div class="back-navigation">
+          <button class="secondary-btn" onclick="showSubjectSelection()">
+            ← Back to Subjects
+          </button>
+        </div>
+        
+        <!-- Subject details will be loaded here -->
+        <div id="subjectDetailsContent">
+          <!-- Content will be dynamically populated based on selected subject -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript Files -->
+  <script src="script.js"></script>
+  <script src="performance.js"></script>
+</body>
+</html> 

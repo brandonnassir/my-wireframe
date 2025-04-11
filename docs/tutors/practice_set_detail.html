@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutor Dashboard - Practice Set Detail</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Tutor Portal</h2>
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="tutor_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="create_practice_students.html"><i class="fas fa-plus-circle"></i> Create a Practice Set</a></li>
+      <li><a href="my_practice_sets.html"><i class="fas fa-book"></i> My Practice Sets</a></li>
+      <!-- 'active' because we are still in the Students workflow -->
+      <li class="active"><a href="students.html"><i class="fas fa-user-graduate"></i> Students</a></li>
+      <li><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1>Problem Solving and Data Analysis - Practice Set</h1>
+      </div>
+
+      <!-- Summary Card -->
+      <div class="summary-card">
+        <div class="summary-header">
+          <h2>Practice Set Summary</h2>
+        </div>
+        <div class="summary-content">
+          <div class="student-info">
+            <div class="student-avatar">
+              <img src="https://ui-avatars.com/api/?name=Cole+Stone&background=4361ee&color=fff&size=64" alt="Student Avatar">
+            </div>
+            <div class="student-details">
+              <h3>Cole Stone</h3>
+              <p>9th Grade • Scarsdale High School</p>
+            </div>
+          </div>
+          
+          <div class="score-section">
+            <div class="score-card">
+              <div class="score-value" id="scoreDisplay">0/0</div>
+              <div class="score-label">Overall Score</div>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+          </div>
+          
+          <div class="meta-info">
+            <div class="meta-item">
+              <span class="meta-icon">📆</span>
+              <span class="meta-text">Completed on June 25, 2023</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-icon">⏱️</span>
+              <span class="meta-text">Time spent: 35 minutes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="top-actions">
+        <button id="printBtn" class="action-btn print-btn">
+          <span class="btn-icon">🖨️</span> Print Practice Set
+        </button>
+        <button id="assignAgainBtn" class="action-btn primary-btn">
+          <span class="btn-icon">↻</span> Assign Again
+        </button>
+      </div>
+
+      <!-- Problem Navigation Tabs -->
+      <div class="problems-navigation">
+        <div class="nav-header">
+          <h2>Problems</h2>
+          <div class="view-toggles">
+            <button id="listViewBtn" class="view-toggle active">
+              <span class="toggle-icon">🔍</span> List View
+            </button>
+            <button id="gridViewBtn" class="view-toggle">
+              <span class="toggle-icon">📊</span> Grid View
+            </button>
+          </div>
+        </div>
+        
+        <!-- Table of Contents for Problems -->
+        <div id="problemGrid" class="problem-grid" style="display: none;">
+          <!-- Will be populated by JS -->
+        </div>
+        
+        <div id="problemList" class="problem-list-toc">
+          <ol id="problemsList">
+            <!-- Leave this empty for JS to populate -->
+          </ol>
+        </div>
+      </div>
+
+      <!-- Problems Container -->
+      <div id="problemsContainer">
+        <!-- Each problem's details will be dynamically rendered here by JS -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Solution Modal -->
+  <div id="solutionModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalProblemTitle">Problem Solution</h3>
+        <span class="modal-close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div id="modalProblemText" class="modal-problem-text"></div>
+        <div id="modalSolution" class="modal-solution"></div>
+        <div id="modalMetadata" class="modal-metadata">
+          <div class="metadata-item">
+            <strong>Domain:</strong> <span id="modalDomain"></span>
+          </div>
+          <div class="metadata-item">
+            <strong>Topic:</strong> <span id="modalTopic"></span>
+          </div>
+          <div class="metadata-item">
+            <strong>Knowledge Point:</strong> <span id="modalKTP"></span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="prevProblemBtn" class="nav-btn">← Previous Problem</button>
+        <button id="closeModalBtn" class="primary-btn">Close</button>
+        <button id="nextProblemBtn" class="nav-btn">Next Problem →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script_practice_set_detail.js"></script>
+</body>
+</html>

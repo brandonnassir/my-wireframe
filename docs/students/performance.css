@@ -1,0 +1,224 @@
+/* Custom styles for the performance page */
+.back-navigation {
+  margin-bottom: 1.5rem;
+}
+
+.back-navigation button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.page-subheader {
+  margin-bottom: 1.5rem;
+}
+
+.page-subheader h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.page-subheader p {
+  color: var(--gray-600);
+}
+
+/* Performance Bar Styles */
+.performance-bar {
+  display: flex;
+  gap: 5px;
+  margin: 0.5rem 0;
+}
+
+.segment {
+  height: 8px;
+  flex: 1;
+  background-color: var(--gray-200);
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.segment.filled {
+  background-color: var(--primary);
+}
+
+/* Color schema for skill levels */
+.easy-level .segment.filled {
+  background-color: #4FC1E9; /* Light blue */
+}
+
+.medium-level .segment.filled {
+  background-color: #48CFAD; /* Mint green */
+}
+
+.hard-level .segment.filled {
+  background-color: #FFCE54; /* Yellow */
+}
+
+.advanced-level .segment.filled {
+  background-color: #ED5565; /* Red */
+}
+
+.performance-label {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  margin-top: 0.25rem;
+}
+
+.performance-label.easy-level-text {
+  color: #4FC1E9; /* Light blue */
+  font-weight: 500;
+}
+
+.performance-label.medium-level-text {
+  color: #48CFAD; /* Mint green */
+  font-weight: 500;
+}
+
+.performance-label.hard-level-text {
+  color: #FFCE54; /* Yellow */
+  font-weight: 500;
+}
+
+.performance-label.advanced-level-text {
+  color: #ED5565; /* Red */
+  font-weight: 500;
+}
+
+/* Performance Key Styles */
+.performance-key {
+  background-color: var(--white);
+  border-radius: var(--card-border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 2rem;
+}
+
+.performance-key h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--gray-800);
+  border-bottom: 1px solid var(--gray-200);
+  padding-bottom: 0.75rem;
+}
+
+.performance-key-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.25rem;
+}
+
+.key-item {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--gray-50);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid var(--gray-200);
+}
+
+.key-label {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+}
+
+.key-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.key-description {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  line-height: 1.4;
+}
+
+/* Performance Trend Styles */
+.performance-chart {
+  background-color: var(--white);
+  border-radius: var(--card-border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 2rem;
+}
+
+.domain-performance-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.domain-performance-card {
+  background-color: var(--gray-50);
+  border-radius: 10px;
+  padding: 1.25rem;
+  border: 1px solid var(--gray-200);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.domain-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.topic-performance-item {
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed var(--gray-200);
+}
+
+.topic-performance-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.topic-name {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--gray-700);
+  margin-bottom: 0.5rem;
+}
+
+/* Chart container styles */
+.performance-charts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.chart-container {
+  height: 300px;
+  background-color: #f4f6fa;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.chart-container h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--gray-800);
+}
+
+@media (max-width: 768px) {
+  .domain-performance-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .performance-key-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .performance-charts-container {
+    grid-template-columns: 1fr;
+  }
+} 

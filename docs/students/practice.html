@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard - Practice</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="practice_styles.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* Custom styles for the practice page */
+    .back-navigation {
+      margin-bottom: 1.5rem;
+    }
+    
+    .back-navigation button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .page-subheader {
+      margin-bottom: 1.5rem;
+    }
+    
+    .page-subheader h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .page-subheader p {
+      color: var(--gray-600);
+    }
+    
+    .practice-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .practice-option-card {
+      background-color: var(--white);
+      border-radius: var(--card-border-radius);
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    
+    .practice-option-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(67, 97, 238, 0.15);
+      border-color: rgba(67, 97, 238, 0.1);
+    }
+    
+    .practice-option-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+    
+    .practice-option-card p {
+      color: var(--gray-700);
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Student Portal</h2>
+      <!-- Close/hide button for mobile -->
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="student_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="my_performance.html"><i class="fas fa-chart-line"></i> My Performance</a></li>
+      <li><a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a></li>
+      <li class="active"><a href="practice.html"><i class="fas fa-book"></i> Practice</a></li>
+      <li><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h1>Practice</h1>
+        <p>Strengthen your skills with targeted practice sessions.</p>
+      </div>
+      
+      <!-- Subject Selection View - Initially visible -->
+      <div id="subjectSelectionView">
+        <div class="page-subheader">
+          <h2>Choose a Subject</h2>
+          <p>Select a subject to view available practice options</p>
+        </div>
+        
+        <!-- Subject Cards -->
+        <div class="card-container" id="subjectCards">
+          <div class="subject-card" onclick="showSubjectPractice('math')">
+            <h3>Math</h3>
+            <p>Practice SAT Math problems across various topics. Choose your difficulty level and focus areas.</p>
+          </div>
+          
+          <div class="subject-card" onclick="showSubjectPractice('reading')">
+            <h3>Reading & Writing</h3>
+            <p>Improve your reading comprehension, grammar, and writing skills with targeted practice.</p>
+          </div>
+          
+          <div class="subject-card" onclick="showSubjectPractice('full-test')">
+            <h3>Full SAT Practice Test</h3>
+            <p>Take a complete timed SAT practice test with all sections to simulate the real exam experience.</p>
+          </div>
+        </div>
+        
+        <!-- Recent Practice Sets -->
+        <div class="section-header">
+          <h2>Recent Practice Sets</h2>
+        </div>
+        
+        <div class="card-container">
+          <div class="subject-card">
+            <h3>Algebra Practice</h3>
+            <p>Completed: April 6, 2023</p>
+            <p>Score: 16/20 (80%)</p>
+            <p>Topics: Linear equations, Inequalities, Systems</p>
+            <a href="#" class="view-details-btn">View Details</a>
+          </div>
+          
+          <div class="subject-card">
+            <h3>Reading Comprehension</h3>
+            <p>Completed: April 4, 2023</p>
+            <p>Score: 12/15 (80%)</p>
+            <p>Topics: Main ideas, Supporting details, Inference</p>
+            <a href="#" class="view-details-btn">View Details</a>
+          </div>
+          
+          <div class="subject-card">
+            <h3>Data Analysis</h3>
+            <p>Completed: April 2, 2023</p>
+            <p>Score: 18/20 (90%)</p>
+            <p>Topics: Statistics, Probability, Data interpretation</p>
+            <a href="#" class="view-details-btn">View Details</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Subject Practice View - Initially hidden -->
+      <div id="subjectPracticeView" style="display: none;">
+        <!-- Back button -->
+        <div class="back-navigation">
+          <button class="secondary-btn" onclick="showSubjectSelection()">
+            ← Back to Subjects
+          </button>
+        </div>
+        
+        <!-- Subject practice content will be loaded here -->
+        <div id="subjectPracticeContent">
+          <!-- Content will be dynamically populated based on selected subject -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include JavaScript Files -->
+  <script src="script.js"></script>
+  <script src="practice_script.js"></script>
+  <script src="practice_content.js"></script>
+</body>
+</html> 

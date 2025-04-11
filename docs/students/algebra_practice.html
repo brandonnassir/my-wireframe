@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced Algebra Practice</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="diagnostic_styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <div id="examContainer" class="exam-container">
+    <!-- Exam Header -->
+    <div class="exam-header">
+      <div class="exam-title" id="moduleTitle">Advanced Algebra Practice</div>
+      <div class="exam-timer" id="timerDisplay">0:00</div>
+      <div class="exam-controls">
+        <span class="exam-status" id="questionCounter">Question 1 of 5</span>
+        <div id="toolsBtn" style="cursor: pointer; font-size: 1.25rem;">
+          <i class="fas fa-ellipsis-v"></i>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Exam Tools Box (Initially Hidden) -->
+    <div id="examToolsBox" class="exam-tools-box">
+      <div class="tools-header">Tools</div>
+      <div class="tools-content">
+        <div class="tools-option">
+          <i class="fas fa-calculator tools-option-icon"></i>
+          <span>Calculator</span>
+        </div>
+        <div class="tools-option">
+          <i class="fas fa-pen tools-option-icon"></i>
+          <span>Notes</span>
+        </div>
+        <div class="tools-option">
+          <i class="fas fa-pause tools-option-icon"></i>
+          <span>Pause Practice</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Exam Body: Two-Panel Layout -->
+    <div class="exam-body">
+      <!-- Left Panel: Problem Statement -->
+      <div class="passage-panel">
+        <div class="passage-content" id="passageContent">
+          <!-- Will be filled by JS -->
+        </div>
+      </div>
+      
+      <!-- Right Panel: Question -->
+      <div class="question-panel">
+        <div class="question-content">
+          <div class="question-number">
+            <div class="question-number-circle" id="questionNumber">1</div>
+            <div class="question-number-text">Mark for Review</div>
+            <div class="question-mark-review" id="markReviewBtn">
+              <i class="far fa-bookmark"></i>
+              <span>Mark for Review</span>
+            </div>
+          </div>
+          
+          <div class="question-text" id="questionText">
+            <!-- Will be filled by JS -->
+          </div>
+          
+          <div class="question-options" id="questionOptions">
+            <!-- Will be filled by JS -->
+          </div>
+          
+          <div class="question-navigation">
+            <button class="nav-btn nav-btn-secondary" id="prevBtn" disabled>
+              <i class="fas fa-chevron-left nav-btn-icon"></i>
+              <span class="nav-btn-text">Previous Question</span>
+            </button>
+            <button class="nav-btn nav-btn-primary" id="nextBtn">
+              <span class="nav-btn-text">Next Question</span>
+              <i class="fas fa-chevron-right nav-btn-icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Exam Footer: Question Progress Indicator -->
+    <div class="exam-footer">
+      <div class="question-indicator active" data-question="0">1</div>
+      <div class="question-indicator" data-question="1">2</div>
+      <div class="question-indicator" data-question="2">3</div>
+      <div class="question-indicator" data-question="3">4</div>
+      <div class="question-indicator" data-question="4">5</div>
+    </div>
+  </div>
+  
+  <!-- Include JavaScript Files -->
+  <script src="algebra_practice_script.js"></script>
+</body>
+</html> 

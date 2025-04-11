@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutor Dashboard - Subject Selection</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar (fixed navigation) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Tutor Portal</h2>
+      <!-- Close/hide button for mobile -->
+      <span class="closebtn" id="closebtn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="tutor_home.html"><i class="fas fa-home"></i> Home</a></li>
+      <!-- 'active' class for Create a Practice Set section -->
+      <li class="active"><a href="create_practice_students.html"><i class="fas fa-plus-circle"></i> Create a Practice Set</a></li>
+      <li><a href="my_practice_sets.html"><i class="fas fa-book"></i> My Practice Sets</a></li>
+      <li><a href="students.html"><i class="fas fa-user-graduate"></i> Students</a></li>
+      <li><a href="profile.html"><i class="fas fa-user-cog"></i> Profile/Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Mobile toggle button -->
+    <button class="openbtn" id="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="content-wrapper">
+      
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1>Select a Subject</h1>
+      </div>
+
+      <!-- Instructions Box -->
+      <div class="instructions-box">
+        <p>
+          Please select a subject for which you'd like to create a practice set. Once selected, 
+          you'll be able to customize the problem set based on specific topics and difficulty levels.
+        </p>
+      </div>
+
+      <!-- Subject Cards -->
+      <div class="page-subheader">
+        <h2>Available Subjects</h2>
+      </div>
+      <div class="card-container" id="subjectCards">
+        <!-- Each subject is a card -->
+        <div class="subject-card" id="satEnglishCard">
+          <h3>SAT English</h3>
+          <p>Create practice sets for SAT English topics including Reading, Writing and Language.</p>
+        </div>
+        <div class="subject-card" id="satMathCard">
+          <h3>SAT Math</h3>
+          <p>Create practice sets for SAT Math topics including Algebra, Problem Solving, and Data Analysis.</p>
+        </div>
+        <div class="subject-card" id="actCard">
+          <h3>ACT</h3>
+          <p>Create practice sets for ACT topics including English, Math, Reading, and Science.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Include JavaScript File -->
+  <script src="script_subject_selection.js"></script>
+</body>
+</html> 
