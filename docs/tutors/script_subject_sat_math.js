@@ -14,6 +14,30 @@ function toggleSidebar() {
     }
   }
   
+// Function to handle tab switching
+function openTab(tabName) {
+  // Hide all tab content
+  const tabContents = document.querySelectorAll('.tab-content');
+  tabContents.forEach(tab => {
+    tab.classList.remove('active');
+  });
+  
+  // Remove active class from all tab buttons
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  tabButtons.forEach(button => {
+    button.classList.remove('active');
+  });
+  
+  // Show the selected tab content and set the button as active
+  document.getElementById(tabName).classList.add('active');
+  
+  // Find and activate the button that corresponds to this tab
+  const activeButton = document.querySelector(`.tab-btn[onclick="openTab('${tabName}')"]`);
+  if (activeButton) {
+    activeButton.classList.add('active');
+  }
+}
+  
 // Function to handle assigning practice for a specific domain
 function assignPracticeDomain(domain) {
   // Redirect to problem selection with the domain pre-selected
@@ -52,12 +76,12 @@ function viewTopicDetail(topic) {
       - 1/5/25 (Algebra)
   */
   const practiceSets = [
-    { domain: "Advanced Math", score: "60%", date: "2/13/25" },
-    { domain: "Algebra", score: "80%", date: "2/5/25" },
-    { domain: "Advanced Math", score: "70%", date: "1/28/25" },
-    { domain: "Geometry and Trigonometry", score: "60%", date: "1/24/25" },
-    { domain: "Problem Solving and Data Analysis", score: "80%", date: "1/21/25" },
-    { domain: "Algebra", score: "50%", date: "1/5/25" }
+    { domain: "Advanced Math", score: "60%", date: "2/13/25", teacher: "Ms. Chen" },
+    { domain: "Algebra", score: "80%", date: "2/5/25", teacher: "Mr. Johnson" },
+    { domain: "Mixed Problems", score: "70%", date: "1/28/25", teacher: "Ms. Chen" },
+    { domain: "Geometry and Trigonometry", score: "60%", date: "1/24/25", teacher: "Dr. Patel" },
+    { domain: "Problem Solving and Data Analysis", score: "80%", date: "1/21/25", teacher: "Mr. Rodriguez" },
+    { domain: "Algebra", score: "50%", date: "1/5/25", teacher: "Mr. Johnson" }
   ];
   
   window.addEventListener("DOMContentLoaded", () => {
@@ -140,53 +164,85 @@ function viewTopicDetail(topic) {
   
     practiceSets.forEach((set) => {
       const card = document.createElement("div");
-      card.className = "subject-card";
+      card.className = "assignment-card";
+      card.style.cursor = "pointer"; // Make the card appear clickable
+      
+      // Add click event to the entire card
+      card.addEventListener("click", (e) => {
+        if (set.domain === "Problem Solving and Data Analysis") {
+          window.location.href = "practice_set_detail.html";
+        } else {
+          alert(`Viewing details for ${set.domain} practice set!`);
+        }
+      });
   
+      // Assignment header section
+      const headerDiv = document.createElement("div");
+      headerDiv.className = "assignment-header";
+      
       // Content Domain as heading
       const domainHeading = document.createElement("h3");
       domainHeading.textContent = set.domain;
-  
-      // Score as paragraph
-      const scorePara = document.createElement("p");
-      scorePara.textContent = `Score: ${set.score}`;
       
-      // Add color to score based on percentage
+      // Add "Completed" status badge
+      const statusSpan = document.createElement("span");
+      statusSpan.className = "assignment-status completed";
+      statusSpan.textContent = "Completed";
+      
+      headerDiv.appendChild(domainHeading);
+      headerDiv.appendChild(statusSpan);
+      
+      // Assignment details section
+      const detailsDiv = document.createElement("div");
+      detailsDiv.className = "assignment-details";
+      
+      // Add teacher info
+      const teacherInfo = document.createElement("p");
+      teacherInfo.innerHTML = `<strong>Assigned by:</strong> ${set.teacher}`;
+      
+      // Date completed
+      const dateInfo = document.createElement("p");
+      dateInfo.innerHTML = `<strong>Completed:</strong> ${set.date}`;
+      
+      detailsDiv.appendChild(teacherInfo);
+      detailsDiv.appendChild(dateInfo);
+      
+      // Assignment progress section to match the incomplete cards
+      const progressDiv = document.createElement("div");
+      progressDiv.className = "assignment-progress";
+      
+      const progressBar = document.createElement("div");
+      progressBar.className = "progress-bar";
+      
       const scoreValue = parseInt(set.score);
+      let scoreClass = "danger";
+      
       if (scoreValue >= 80) {
-        scorePara.innerHTML = `Score: <span style="color: var(--success);">${set.score}</span>`;
+        scoreClass = "success";
       } else if (scoreValue >= 70) {
-        scorePara.innerHTML = `Score: <span style="color: var(--primary);">${set.score}</span>`;
+        scoreClass = "primary";
       } else if (scoreValue >= 60) {
-        scorePara.innerHTML = `Score: <span style="color: var(--warning);">${set.score}</span>`;
-      } else {
-        scorePara.innerHTML = `Score: <span style="color: var(--danger);">${set.score}</span>`;
+        scoreClass = "warning";
       }
-  
-      // Date as paragraph
-      const datePara = document.createElement("p");
-      datePara.textContent = `Completed: ${set.date}`;
-  
-      // View details link
-      const viewDetailsBtn = document.createElement("a");
-      viewDetailsBtn.className = "view-details-btn";
-      viewDetailsBtn.textContent = "View Details";
-      viewDetailsBtn.href = "#"; // Placeholder
-  
-      viewDetailsBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (set.domain === "Problem Solving and Data Analysis") {
-          // Only navigate if this subject domain is 'Problem Solving and Data Analysis'
-          window.location.href = "practice_set_detail.html";
-        } else {
-            alert(`Viewing details for ${set.domain} practice set!`);
-        }
-      });
+      
+      const progressFill = document.createElement("div");
+      progressFill.className = "progress-fill";
+      progressFill.style.width = set.score; // Use the score as the fill width
+      progressFill.style.backgroundColor = `var(--${scoreClass})`; // Color based on score
+      
+      progressBar.appendChild(progressFill);
+      
+      const progressText = document.createElement("span");
+      progressText.className = "progress-text";
+      progressText.innerHTML = `<span style="color: var(--${scoreClass});">${set.score}</span> Score`;
+      
+      progressDiv.appendChild(progressBar);
+      progressDiv.appendChild(progressText);
       
       // Assemble card
-      card.appendChild(domainHeading);
-      card.appendChild(scorePara);
-      card.appendChild(datePara);
-      card.appendChild(viewDetailsBtn);
+      card.appendChild(headerDiv);
+      card.appendChild(detailsDiv);
+      card.appendChild(progressDiv);
   
       container.appendChild(card);
     });
