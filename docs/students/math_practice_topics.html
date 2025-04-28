@@ -98,7 +98,134 @@
       box-shadow: 0 2px 8px rgba(76, 81, 191, 0.3);
       z-index: 1;
     }
+
+    .secondary-btn {
+      background-color: var(--white);
+      color: var(--primary);
+      border: 1px solid var(--primary);
+      border-radius: var(--border-radius);
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .secondary-btn:hover {
+      background-color: rgba(67, 97, 238, 0.05);
+      transform: translateY(-2px);
+    }
+
+    /* Diagnostic section styles */
+    .diagnostic-section {
+      background-color: var(--white);
+      border-radius: var(--card-border-radius);
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--primary);
+    }
+    
+    .diagnostic-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    
+    .diagnostic-details {
+      flex: 1;
+    }
+    
+    .diagnostic-details h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    
+    .diagnostic-section p {
+      color: var(--gray-700);
+      margin-bottom: 0.5rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: var(--border-radius);
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .btn-primary:hover {
+      background-color: #3651D8;
+      transform: translateY(-2px);
+    }
+    
+    .diagnostic-icon {
+      background-color: rgba(67, 97, 238, 0.1);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1.5rem;
+    }
+    
+    .diagnostic-icon i {
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+
+    /* Locked practice set styles */
+    .practice-set-card.locked {
+      opacity: 0.8;
+      background-color: rgba(0, 0, 0, 0.02);
+      border: 1px dashed rgba(0, 0, 0, 0.15);
+      cursor: not-allowed;
+    }
+    
+    .practice-set-card.locked:hover {
+      transform: none;
+      box-shadow: var(--card-shadow);
+    }
+    
+    .practice-set-card.locked h3, 
+    .practice-set-card.locked p {
+      color: var(--gray-500);
+    }
+    
+    .lock-icon {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: var(--gray-400);
+      font-size: 1.25rem;
+    }
+    
+    .locked-message {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      background-color: rgba(0, 0, 0, 0.05);
+      color: var(--gray-600);
+    }
+
+    /* Hide content initially to prevent flashing */
+    #regularPracticeSets, #equivalentExpressionsPracticeSets {
+      display: none;
+    }
+
   </style>
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
 
@@ -125,8 +252,8 @@
     
     <div class="content-wrapper">
       <div class="page-header">
-        <h1 id="topicTitle">Algebra Practice</h1>
-        <p>Choose a practice set to improve your skills in this topic.</p>
+        <h1 id="topicTitle">Math Practice</h1>
+        <p id="topicDescription">Choose a practice set to improve your skills in this topic.</p>
       </div>
       
       <!-- Back navigation -->
@@ -136,88 +263,205 @@
         </button>
       </div>
       
-      <!-- Practice sets organized by difficulty -->
+      <!-- Diagnostic Quiz Section -->
       <div class="section-header">
-        <h2>Easy Level</h2>
+        <h2>Skill Assessment</h2>
       </div>
-      <div class="practice-set-grid">
-        <div class="practice-set-card" id="easy-level-1">
-          <span class="difficulty easy">Easy</span>
-          <h3>Introduction to Linear Equations</h3>
-          <p>Fundamental concepts and basic problem-solving techniques.</p>
-          <p>10 problems • Estimated time: 15 min</p>
-          <a href="#" class="view-details-btn">Start Practice</a>
-        </div>
-        
-        <div class="practice-set-card" id="easy-level-2">
-          <span class="difficulty easy">Easy</span>
-          <h3>Systems of Linear Equations</h3>
-          <p>Learn how to solve simple systems using substitution and elimination.</p>
-          <p>8 problems • Estimated time: 12 min</p>
-          <a href="#" class="view-details-btn">Start Practice</a>
+      <div class="diagnostic-section">
+        <div class="diagnostic-info">
+          <div class="diagnostic-icon">
+            <i class="fas fa-clipboard-check"></i>
+          </div>
+          <div class="diagnostic-details">
+            <h3 id="diagnosticTitle">Math Diagnostic Quiz</h3>
+            <p id="diagnosticDescription">Not sure where to start? Take this 10-minute diagnostic quiz to help us identify your strengths and areas for improvement.</p>
+            <p>We'll recommend specific practice sets based on your performance.</p>
+          </div>
+          <a href="diagnostic_exam.html" id="diagnosticLink" class="btn-primary">Start Diagnostic</a>
         </div>
       </div>
       
-      <div class="section-header">
-        <h2>Medium Level</h2>
-      </div>
-      <div class="practice-set-grid">
-        <div class="practice-set-card" id="medium-level-1">
-          <span class="difficulty medium">Medium</span>
-          <h3>Linear Functions and Graphs</h3>
-          <p>Understanding slopes, intercepts, and graphing linear equations.</p>
-          <p>12 problems • Estimated time: 20 min</p>
-          <a href="#" class="view-details-btn">Start Practice</a>
+      <!-- Regular Practice Sets - Default content -->
+      <div id="regularPracticeSets">
+        <!-- Practice sets organized by difficulty -->
+        <div class="section-header">
+          <h2>Easy Level</h2>
+        </div>
+        <div class="practice-set-grid">
+          <div class="practice-set-card" id="easy-level-1">
+            <span class="difficulty easy">Easy</span>
+            <h3>Introduction to Linear Equations</h3>
+            <p>Fundamental concepts and basic problem-solving techniques.</p>
+            <p>10 problems • Estimated time: 15 min</p>
+            <a href="#" class="view-details-btn">Start Practice</a>
+          </div>
+          
+          <div class="practice-set-card" id="easy-level-2">
+            <span class="difficulty easy">Easy</span>
+            <h3>Systems of Linear Equations</h3>
+            <p>Learn how to solve simple systems using substitution and elimination.</p>
+            <p>8 problems • Estimated time: 12 min</p>
+            <a href="#" class="view-details-btn">Start Practice</a>
+          </div>
         </div>
         
-        <div class="practice-set-card" id="medium-level-2">
-          <span class="difficulty medium">Medium</span>
-          <h3>Linear Inequalities</h3>
-          <p>Solving and graphing linear inequalities in one and two variables.</p>
-          <p>10 problems • Estimated time: 18 min</p>
-          <a href="#" class="view-details-btn">Start Practice</a>
+        <div class="section-header">
+          <h2>Medium Level</h2>
+        </div>
+        <div class="practice-set-grid">
+          <div class="practice-set-card" id="medium-level-1">
+            <span class="difficulty medium">Medium</span>
+            <h3>Linear Functions and Graphs</h3>
+            <p>Understanding slopes, intercepts, and graphing linear equations.</p>
+            <p>12 problems • Estimated time: 20 min</p>
+            <a href="#" class="view-details-btn">Start Practice</a>
+          </div>
+          
+          <div class="practice-set-card" id="medium-level-2">
+            <span class="difficulty medium">Medium</span>
+            <h3>Linear Inequalities</h3>
+            <p>Solving and graphing linear inequalities in one and two variables.</p>
+            <p>10 problems • Estimated time: 18 min</p>
+            <a href="#" class="view-details-btn">Start Practice</a>
+          </div>
+        </div>
+        
+        <div class="section-header">
+          <h2>Hard Level</h2>
+        </div>
+        <div class="practice-set-grid">
+          <div class="practice-set-card" id="hard-level-1">
+            <span class="difficulty hard">Hard</span>
+            <h3>Complex Systems of Equations</h3>
+            <p>Advanced systems with multiple variables and parameters.</p>
+            <p>8 problems • Estimated time: 25 min</p>
+            <a href="#" class="view-details-btn">Start Practice</a>
+          </div>
+          
+          <div class="practice-set-card" id="hard-level-2">
+            <span class="difficulty hard">Hard</span>
+            <h3>Linear Equations in Word Problems</h3>
+            <p>Apply linear equations to solve complex real-world scenarios.</p>
+            <p>10 problems • Estimated time: 30 min</p>
+            <a href="#" class="view-details-btn">Start Practice</a>
+          </div>
+        </div>
+        
+        <div class="section-header">
+          <h2>Advanced Level</h2>
+        </div>
+        <div class="practice-set-grid">
+          <div class="practice-set-card" id="advanced-level-1">
+            <span class="difficulty advanced">Advanced</span>
+            <h3>Linear Algebra Foundations</h3>
+            <p>Matrix operations and their applications to systems of equations.</p>
+            <p>6 problems • Estimated time: 30 min</p>
+            <a href="#" class="view-details-btn">Start Practice</a>
+          </div>
+          
+          <div class="practice-set-card" id="advanced-level-2">
+            <span class="difficulty advanced">Advanced</span>
+            <h3>SAT-Level Linear Relationships</h3>
+            <p>Hard SAT problems involving advanced linear functions and relationships.</p>
+            <p>8 problems • Estimated time: 35 min</p>
+            <a href="#" class="view-details-btn">Start Practice</a>
+          </div>
         </div>
       </div>
       
-      <div class="section-header">
-        <h2>Hard Level</h2>
-      </div>
-      <div class="practice-set-grid">
-        <div class="practice-set-card" id="hard-level-1">
-          <span class="difficulty hard">Hard</span>
-          <h3>Complex Systems of Equations</h3>
-          <p>Advanced systems with multiple variables and parameters.</p>
-          <p>8 problems • Estimated time: 25 min</p>
-          <a href="#" class="view-details-btn">Start Practice</a>
+      <!-- Equivalent Expressions Practice Sets - Only shown for this topic -->
+      <div id="equivalentExpressionsPracticeSets">
+        <!-- Practice sets organized by difficulty -->
+        <div class="section-header">
+          <h2>Easy Level</h2>
+        </div>
+        <div class="practice-set-grid">
+          <div class="practice-set-card locked">
+            <i class="fas fa-lock lock-icon"></i>
+            <span class="difficulty easy">Easy</span>
+            <h3>Introduction to Equivalent Expressions</h3>
+            <p>Learn to identify and create equivalent algebraic expressions.</p>
+            <p>8 problems • Estimated time: 12 min</p>
+            <div class="locked-message">Complete diagnostic to unlock</div>
+          </div>
+          
+          <div class="practice-set-card locked">
+            <i class="fas fa-lock lock-icon"></i>
+            <span class="difficulty easy">Easy</span>
+            <h3>Properties of Operations</h3>
+            <p>Practice with commutative, associative, and distributive properties.</p>
+            <p>10 problems • Estimated time: 15 min</p>
+            <div class="locked-message">Complete diagnostic to unlock</div>
+          </div>
         </div>
         
-        <div class="practice-set-card" id="hard-level-2">
-          <span class="difficulty hard">Hard</span>
-          <h3>Linear Equations in Word Problems</h3>
-          <p>Apply linear equations to solve complex real-world scenarios.</p>
-          <p>10 problems • Estimated time: 30 min</p>
-          <a href="#" class="view-details-btn">Start Practice</a>
+        <div class="section-header">
+          <h2>Medium Level</h2>
         </div>
-      </div>
-      
-      <div class="section-header">
-        <h2>Advanced Level</h2>
-      </div>
-      <div class="practice-set-grid">
-        <div class="practice-set-card" id="advanced-level-1">
-          <span class="difficulty advanced">Advanced</span>
-          <h3>Linear Algebra Foundations</h3>
-          <p>Matrix operations and their applications to systems of equations.</p>
-          <p>6 problems • Estimated time: 30 min</p>
-          <a href="#" class="view-details-btn">Start Practice</a>
+        <div class="practice-set-grid">
+          <div class="practice-set-card locked">
+            <i class="fas fa-lock lock-icon"></i>
+            <span class="difficulty medium">Medium</span>
+            <h3>Polynomial Expressions</h3>
+            <p>Learn to manipulate polynomial expressions and identify equivalence.</p>
+            <p>12 problems • Estimated time: 20 min</p>
+            <div class="locked-message">Complete diagnostic to unlock</div>
+          </div>
+          
+          <div class="practice-set-card locked">
+            <i class="fas fa-lock lock-icon"></i>
+            <span class="difficulty medium">Medium</span>
+            <h3>Factoring Expressions</h3>
+            <p>Practice factoring algebraic expressions into equivalent forms.</p>
+            <p>10 problems • Estimated time: 18 min</p>
+            <div class="locked-message">Complete diagnostic to unlock</div>
+          </div>
         </div>
         
-        <div class="practice-set-card" id="advanced-level-2">
-          <span class="difficulty advanced">Advanced</span>
-          <h3>SAT-Level Linear Relationships</h3>
-          <p>Hard SAT problems involving advanced linear functions and relationships.</p>
-          <p>8 problems • Estimated time: 35 min</p>
-          <a href="#" class="view-details-btn">Start Practice</a>
+        <div class="section-header">
+          <h2>Hard Level</h2>
+        </div>
+        <div class="practice-set-grid">
+          <div class="practice-set-card locked">
+            <i class="fas fa-lock lock-icon"></i>
+            <span class="difficulty hard">Hard</span>
+            <h3>Complex Algebraic Expressions</h3>
+            <p>Work with more complex expressions requiring multiple operations.</p>
+            <p>8 problems • Estimated time: 25 min</p>
+            <div class="locked-message">Complete diagnostic to unlock</div>
+          </div>
+          
+          <div class="practice-set-card locked">
+            <i class="fas fa-lock lock-icon"></i>
+            <span class="difficulty hard">Hard</span>
+            <h3>Rational Expressions</h3>
+            <p>Practice with expressions containing rational terms and operations.</p>
+            <p>10 problems • Estimated time: 30 min</p>
+            <div class="locked-message">Complete diagnostic to unlock</div>
+          </div>
+        </div>
+        
+        <div class="section-header">
+          <h2>Advanced Level</h2>
+        </div>
+        <div class="practice-set-grid">
+          <div class="practice-set-card locked">
+            <i class="fas fa-lock lock-icon"></i>
+            <span class="difficulty advanced">Advanced</span>
+            <h3>Advanced Factoring Techniques</h3>
+            <p>Master complex factoring strategies and expression manipulation.</p>
+            <p>6 problems • Estimated time: 30 min</p>
+            <div class="locked-message">Complete diagnostic to unlock</div>
+          </div>
+          
+          <div class="practice-set-card locked">
+            <i class="fas fa-lock lock-icon"></i>
+            <span class="difficulty advanced">Advanced</span>
+            <h3>SAT-Level Equivalent Expressions</h3>
+            <p>Challenging SAT problems involving advanced algebraic manipulations.</p>
+            <p>8 problems • Estimated time: 35 min</p>
+            <div class="locked-message">Complete diagnostic to unlock</div>
+          </div>
         </div>
       </div>
     </div>
@@ -226,5 +470,40 @@
   <!-- Include JavaScript Files -->
   <script src="script.js"></script>
   <script src="practice_script.js"></script>
+  <script>
+    // Function to check URL parameters and load correct content
+    window.onload = function() {
+      // Get URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const topic = urlParams.get('topic');
+      
+      // Update page content based on topic
+      if (topic && topic.includes('Equivalent')) {
+        // Show Equivalent Expressions content
+        document.getElementById('topicTitle').textContent = 'Equivalent Expressions Practice';
+        document.getElementById('topicDescription').textContent = 'Complete the diagnostic quiz to unlock practice sets for this topic.';
+        document.getElementById('diagnosticTitle').textContent = 'Equivalent Expressions Diagnostic Quiz';
+        document.getElementById('diagnosticDescription').textContent = 'Take this 10-minute diagnostic quiz to unlock practice sets for Equivalent Expressions.';
+        document.getElementById('diagnosticLink').setAttribute('href', 'diagnostic_exam.html?topic=equivalent_expressions');
+        
+        // Show locked practice sets for Equivalent Expressions
+        document.getElementById('equivalentExpressionsPracticeSets').style.display = 'block';
+        document.getElementById('regularPracticeSets').style.display = 'none';
+      } else {
+        // Update page title if other topic is provided
+        if (topic) {
+          document.getElementById('topicTitle').textContent = decodeURIComponent(topic) + ' Practice';
+          document.getElementById('diagnosticTitle').textContent = decodeURIComponent(topic) + ' Diagnostic Quiz';
+          document.getElementById('diagnosticLink').setAttribute('href', 'diagnostic_exam.html?topic=' + topic);
+        } else {
+          document.getElementById('topicTitle').textContent = 'Math Practice';
+        }
+        
+        // Show regular practice sets for other topics
+        document.getElementById('regularPracticeSets').style.display = 'block';
+        document.getElementById('equivalentExpressionsPracticeSets').style.display = 'none';
+      }
+    }
+  </script>
 </body>
 </html> 

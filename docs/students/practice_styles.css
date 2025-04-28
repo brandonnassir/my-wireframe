@@ -52,6 +52,11 @@
   font-weight: 500;
 }
 
+.performance-label.medium-level-text2 {
+  color: #474747; /* Mint green */
+  font-weight: 500;
+}
+
 .performance-label.hard-level-text {
   color: #FFCE54; /* Yellow */
   font-weight: 500;

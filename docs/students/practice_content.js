@@ -101,12 +101,12 @@ function getMathPracticeHTML() {
           <div class="topic-performance-item" onclick="window.location.href='math_practice_topics.html?topic=Equivalent%20Expressions&level=medium'">
             <div class="topic-name">Equivalent Expressions</div>
             <div class="performance-bar medium-level">
-              <div class="segment filled"></div>
-              <div class="segment filled"></div>
+              <div class="segment"></div>
+              <div class="segment"></div>
               <div class="segment"></div>
               <div class="segment"></div>
             </div>
-            <div class="performance-label medium-level-text">Medium Level</div>
+            <div class="performance-label medium-level-text2">Take the Diagnostic Quiz</div>
           </div>
           
           <div class="topic-performance-item" onclick="window.location.href='math_practice_topics.html?topic=Nonlinear%20Equations&level=easy'">
