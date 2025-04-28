@@ -37,6 +37,9 @@
 
       <!-- Action Buttons Row -->
       <div class="top-actions">
+        <button id="autogenerateSetBtn" class="auto-generate-btn">
+          <span class="btn-icon">⚡️</span> Autogenerate Set
+        </button>
         <button id="clearSelectionsBtn" class="clear-btn">
           <span class="btn-icon">↺</span> Clear All Selections
         </button>
@@ -191,6 +194,195 @@
         <button id="prevProblemBtn" class="nav-btn">← Previous Problem</button>
         <button id="closeModalBtn" class="primary-btn">Close</button>
         <button id="nextProblemBtn" class="nav-btn">Next Problem →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Autogenerate Set Modal -->
+  <div id="autogenerateModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-bolt"></i> Autogenerate Practice Set</h3>
+        <span class="modal-close" id="closeAutogenerateModal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">Generate a practice set automatically based on content domain or topic.</p>
+        
+        <!-- Generate Options -->
+        <div class="generate-options">
+          <h4>Generate by:</h4>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="generateType" value="domain" checked> Content Domain
+            </label>
+            <label>
+              <input type="radio" name="generateType" value="topic"> Topic
+            </label>
+          </div>
+          
+          <!-- Domain Selection (visible by default) -->
+          <div id="domainSelection" class="selection-container">
+            <h4>Select a Content Domain:</h4>
+            <div class="option-cards">
+              <div class="option-card" data-domain="Algebra">
+                <div class="card-title">Algebra</div>
+              </div>
+              <div class="option-card" data-domain="Advanced Math">
+                <div class="card-title">Advanced Math</div>
+              </div>
+              <div class="option-card" data-domain="Problem Solving and Data Analysis">
+                <div class="card-title">Problem Solving and Data Analysis</div>
+              </div>
+              <div class="option-card" data-domain="Geometry and Trigonometry">
+                <div class="card-title">Geometry and Trigonometry</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Topic Selection (hidden by default) -->
+          <div id="topicSelection" class="selection-container" style="display: none;">
+            <h4>Select a Topic:</h4>
+            <div class="topic-selection-grid">
+              <!-- Algebra Topics -->
+              <div class="domain-topic-group">
+                <h5>Algebra</h5>
+                <div class="topic-options">
+                  <div class="option-card" data-topic="Linear Equations in Two Variables">
+                    <div class="card-title">Linear Equations in Two Variables</div>
+                  </div>
+                  <div class="option-card" data-topic="Linear Functions">
+                    <div class="card-title">Linear Functions</div>
+                  </div>
+                  <div class="option-card" data-topic="Linear Inequalities in One or Two Variables">
+                    <div class="card-title">Linear Inequalities in One or Two Variables</div>
+                  </div>
+                  <div class="option-card" data-topic="Systems of Two Linear Equations in Two Variables">
+                    <div class="card-title">Systems of Two Linear Equations in Two Variables</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Advanced Math Topics -->
+              <div class="domain-topic-group">
+                <h5>Advanced Math</h5>
+                <div class="topic-options">
+                  <div class="option-card" data-topic="Equivalent Expressions">
+                    <div class="card-title">Equivalent Expressions</div>
+                  </div>
+                  <div class="option-card" data-topic="Nonlinear Equations in One Variable and Systems of Equations">
+                    <div class="card-title">Nonlinear Equations in One Variable and Systems of Equations</div>
+                  </div>
+                  <div class="option-card" data-topic="Nonlinear Functions">
+                    <div class="card-title">Nonlinear Functions</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Problem Solving and Data Analysis Topics -->
+              <div class="domain-topic-group">
+                <h5>Problem Solving and Data Analysis</h5>
+                <div class="topic-options">
+                  <div class="option-card" data-topic="Evaluating Statistical Claims">
+                    <div class="card-title">Evaluating Statistical Claims</div>
+                  </div>
+                  <div class="option-card" data-topic="Inference from Sample Statistics and Margin of Error">
+                    <div class="card-title">Inference from Sample Statistics and Margin of Error</div>
+                  </div>
+                  <div class="option-card" data-topic="One-Variable Data: Distributions and Measures">
+                    <div class="card-title">One-Variable Data: Distributions and Measures</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Geometry and Trigonometry Topics -->
+              <div class="domain-topic-group">
+                <h5>Geometry and Trigonometry</h5>
+                <div class="topic-options">
+                  <div class="option-card" data-topic="Area and Volume">
+                    <div class="card-title">Area and Volume</div>
+                  </div>
+                  <div class="option-card" data-topic="Circles">
+                    <div class="card-title">Circles</div>
+                  </div>
+                  <div class="option-card" data-topic="Lines, Angles, and Triangles">
+                    <div class="card-title">Lines, Angles, and Triangles</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Set Options -->
+          <div class="set-options">
+            <h4>Set Options:</h4>
+            <div class="options-grid">
+              <div class="option-group">
+                <label for="problemsCount">Number of Problems:</label>
+                <input type="number" id="problemsCount" min="5" max="30" value="10">
+              </div>
+              <div class="option-group">
+                <label for="difficultyLevel">Difficulty Level:</label>
+                <select id="difficultyLevel">
+                  <option value="any">Any Difficulty</option>
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                  <option value="mixed">Mixed (Balanced)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button id="cancelAutoGenerate" class="cancel-btn">Cancel</button>
+        <button id="generateSet" class="generate-btn">Generate Practice Set</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Generated Set Review Modal -->
+  <div id="reviewGeneratedSetModal" class="modal" style="display: none;">
+    <div class="modal-content card-stack-modal">
+      <div class="modal-header">
+        <h3><i class="fas fa-clipboard-check"></i> Review Generated Set</h3>
+        <span class="modal-close" id="closeReviewModal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">Review the automatically generated problems. You can remove any problems you don't want to include.</p>
+        
+        <!-- Problem Set Info -->
+        <div class="set-info">
+          <div id="setTypeInfo" class="set-info-item">
+            <strong>Domain/Topic:</strong> <span id="setContentInfo">Algebra</span>
+          </div>
+          <div class="set-info-item">
+            <strong>Problems:</strong> <span id="reviewTotalCount">0</span> problems
+          </div>
+        </div>
+        
+        <!-- Card stack navigator -->
+        <div class="card-stack-container">
+          <div class="card-counter">
+            Problem <span id="reviewCurrentCard">1</span> of <span id="reviewTotalCards">0</span>
+          </div>
+          
+          <div id="reviewCardContent" class="review-card-content">
+            <!-- Problem cards will be displayed here -->
+          </div>
+          
+          <!-- Card Navigation -->
+          <div class="card-navigation">
+            <button id="reviewPrevCard" class="nav-btn"><i class="fas fa-chevron-left"></i></button>
+            <button id="removeProblem" class="remove-btn"><i class="fas fa-trash"></i> Remove</button>
+            <button id="reviewNextCard" class="nav-btn"><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="cancelReview" class="cancel-btn">Cancel</button>
+        <button id="createFromGenerated" class="primary-btn">Create Practice Set</button>
       </div>
     </div>
   </div>

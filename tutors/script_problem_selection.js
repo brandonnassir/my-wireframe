@@ -357,6 +357,271 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Add custom styles to make problem cards more aesthetic
   addCustomStyles();
+
+  // Autogenerate Set functionality
+  const autogenerateBtn = document.getElementById('autogenerateSetBtn');
+  const autogenerateModal = document.getElementById('autogenerateModal');
+  const closeAutogenerateModal = document.getElementById('closeAutogenerateModal');
+  const generateTypeRadios = document.querySelectorAll('input[name="generateType"]');
+  const domainSelection = document.getElementById('domainSelection');
+  const topicSelection = document.getElementById('topicSelection');
+  const cancelAutoGenerate = document.getElementById('cancelAutoGenerate');
+  const generateSetBtn = document.getElementById('generateSet');
+  
+  // Review Generated Set Modal elements
+  const reviewGeneratedSetModal = document.getElementById('reviewGeneratedSetModal');
+  const closeReviewModal = document.getElementById('closeReviewModal');
+  const reviewPrevCard = document.getElementById('reviewPrevCard');
+  const reviewNextCard = document.getElementById('reviewNextCard');
+  const removeProblem = document.getElementById('removeProblem');
+  const cancelReview = document.getElementById('cancelReview');
+  const createFromGenerated = document.getElementById('createFromGenerated');
+  const reviewCurrentCard = document.getElementById('reviewCurrentCard');
+  const reviewTotalCards = document.getElementById('reviewTotalCards');
+  const reviewTotalCount = document.getElementById('reviewTotalCount');
+  const setContentInfo = document.getElementById('setContentInfo');
+  const reviewCardContent = document.getElementById('reviewCardContent');
+  
+  // Track current card in review modal
+  let currentReviewCardIndex = 0;
+  let generatedProblems = [];
+  
+  // Open autogenerate modal
+  autogenerateBtn.addEventListener('click', function() {
+    autogenerateModal.style.display = 'block';
+  });
+  
+  // Close autogenerate modal
+  closeAutogenerateModal.addEventListener('click', function() {
+    autogenerateModal.style.display = 'none';
+  });
+  
+  // Toggle between domain and topic selection
+  generateTypeRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      if (this.value === 'domain') {
+        domainSelection.style.display = 'block';
+        topicSelection.style.display = 'none';
+      } else {
+        domainSelection.style.display = 'none';
+        topicSelection.style.display = 'block';
+      }
+    });
+  });
+  
+  // Handle domain and topic selection
+  const domainCards = document.querySelectorAll('#domainSelection .option-card');
+  const topicCards = document.querySelectorAll('#topicSelection .option-card');
+  
+  function clearSelections(cards) {
+    cards.forEach(card => card.classList.remove('selected'));
+  }
+  
+  domainCards.forEach(card => {
+    card.addEventListener('click', function() {
+      clearSelections(domainCards);
+      this.classList.add('selected');
+    });
+  });
+  
+  topicCards.forEach(card => {
+    card.addEventListener('click', function() {
+      clearSelections(topicCards);
+      this.classList.add('selected');
+    });
+  });
+  
+  // Cancel autogenerate
+  cancelAutoGenerate.addEventListener('click', function() {
+    autogenerateModal.style.display = 'none';
+  });
+  
+  // Generate practice set
+  generateSetBtn.addEventListener('click', function() {
+    // Get selected domain or topic
+    const generateType = document.querySelector('input[name="generateType"]:checked').value;
+    let selectedContent = '';
+    
+    if (generateType === 'domain') {
+      const selectedDomain = document.querySelector('#domainSelection .option-card.selected');
+      if (!selectedDomain) {
+        alert('Please select a content domain');
+        return;
+      }
+      selectedContent = selectedDomain.dataset.domain;
+    } else {
+      const selectedTopic = document.querySelector('#topicSelection .option-card.selected');
+      if (!selectedTopic) {
+        alert('Please select a topic');
+        return;
+      }
+      selectedContent = selectedTopic.dataset.topic;
+    }
+    
+    // Get number of problems and difficulty
+    const problemsCount = document.getElementById('problemsCount').value;
+    const difficultyLevel = document.getElementById('difficultyLevel').value;
+    
+    // Generate dummy problems (for demo purposes)
+    generateDummyProblems(selectedContent, problemsCount, difficultyLevel, generateType);
+    
+    // Close autogenerate modal and open review modal
+    autogenerateModal.style.display = 'none';
+    openReviewModal(selectedContent, generateType);
+  });
+  
+  // Generate dummy problems for demo purposes
+  function generateDummyProblems(content, count, difficulty, type) {
+    generatedProblems = [];
+    
+    for (let i = 0; i < count; i++) {
+      const problemDifficulty = difficulty === 'mixed' ? 
+        ['easy', 'medium', 'hard'][Math.floor(Math.random() * 3)] : 
+        difficulty === 'any' ? 
+          ['easy', 'medium', 'hard'][Math.floor(Math.random() * 3)] : 
+          difficulty;
+      
+      generatedProblems.push({
+        id: 'problem_' + (i + 1),
+        title: `Problem ${i + 1}`,
+        text: generateProblemText(content, problemDifficulty),
+        difficulty: problemDifficulty,
+        content: content,
+        contentType: type
+      });
+    }
+  }
+  
+  // Generate placeholder problem text
+  function generateProblemText(content, difficulty) {
+    const difficultyDescriptions = {
+      'easy': 'straightforward problem testing basic understanding',
+      'medium': 'problem requiring application of multiple concepts',
+      'hard': 'challenging problem requiring deep understanding and analysis'
+    };
+    
+    return `<div class="problem-content">
+      <p class="problem-text">This is a sample ${difficultyDescriptions[difficulty]} related to ${content}.</p>
+      <div class="problem-image-placeholder">
+        <div class="placeholder-icon"><i class="fas fa-square-root-alt"></i></div>
+        <p>Problem image or diagram would appear here</p>
+      </div>
+      <div class="problem-options">
+        <div class="option"><span class="option-letter">A.</span> Sample option 1</div>
+        <div class="option"><span class="option-letter">B.</span> Sample option 2</div>
+        <div class="option"><span class="option-letter">C.</span> Sample option 3</div>
+        <div class="option"><span class="option-letter">D.</span> Sample option 4</div>
+      </div>
+      <div class="solution-preview" style="margin-top: 15px; border-top: 1px dashed #ccc; padding-top: 10px;">
+        <p><strong>Solution:</strong> The correct answer is <span class="correct-answer">C</span>.</p>
+        <p>Explanation: This is where a detailed explanation of the solution would appear.</p>
+      </div>
+    </div>`;
+  }
+  
+  // Open review modal
+  function openReviewModal(content, type) {
+    setContentInfo.textContent = content;
+    updateReviewCardCount();
+    displayReviewCard(0);
+    reviewGeneratedSetModal.style.display = 'block';
+  }
+  
+  // Update card count in review modal
+  function updateReviewCardCount() {
+    reviewTotalCards.textContent = generatedProblems.length;
+    reviewTotalCount.textContent = generatedProblems.length;
+    
+    // Disable navigation buttons if needed
+    reviewPrevCard.disabled = currentReviewCardIndex === 0;
+    reviewNextCard.disabled = currentReviewCardIndex === generatedProblems.length - 1;
+  }
+  
+  // Display a specific problem card
+  function displayReviewCard(index) {
+    if (index < 0 || index >= generatedProblems.length) return;
+    
+    currentReviewCardIndex = index;
+    reviewCurrentCard.textContent = index + 1;
+    
+    const problem = generatedProblems[index];
+    reviewCardContent.innerHTML = `
+      <div class="problem-card" data-id="${problem.id}">
+        <div class="problem-header">
+          <h4>${problem.title}</h4>
+          <div class="problem-meta">
+            <span class="difficulty-badge ${problem.difficulty}-level">${problem.difficulty}</span>
+            <span class="content-badge">${problem.content}</span>
+          </div>
+        </div>
+        ${problem.text}
+      </div>
+    `;
+    
+    updateReviewCardCount();
+  }
+  
+  // Navigate to previous card
+  reviewPrevCard.addEventListener('click', function() {
+    if (currentReviewCardIndex > 0) {
+      displayReviewCard(currentReviewCardIndex - 1);
+    }
+  });
+  
+  // Navigate to next card
+  reviewNextCard.addEventListener('click', function() {
+    if (currentReviewCardIndex < generatedProblems.length - 1) {
+      displayReviewCard(currentReviewCardIndex + 1);
+    }
+  });
+  
+  // Remove current problem
+  removeProblem.addEventListener('click', function() {
+    if (generatedProblems.length <= 1) {
+      alert('You cannot remove all problems from the set. At least one problem must remain.');
+      return;
+    }
+    
+    generatedProblems.splice(currentReviewCardIndex, 1);
+    
+    // Adjust current index if removing the last problem
+    if (currentReviewCardIndex >= generatedProblems.length) {
+      currentReviewCardIndex = generatedProblems.length - 1;
+    }
+    
+    displayReviewCard(currentReviewCardIndex);
+    updateReviewCardCount();
+  });
+  
+  // Close review modal
+  closeReviewModal.addEventListener('click', function() {
+    reviewGeneratedSetModal.style.display = 'none';
+  });
+  
+  // Cancel review
+  cancelReview.addEventListener('click', function() {
+    reviewGeneratedSetModal.style.display = 'none';
+  });
+  
+  // Create practice set from generated problems
+  createFromGenerated.addEventListener('click', function() {
+    // For demo purposes, show a success message
+    alert('Practice set created successfully with ' + generatedProblems.length + ' problems!');
+    reviewGeneratedSetModal.style.display = 'none';
+    
+    // In a real implementation, this would save the set to the database
+    // and redirect to the practice set detail page
+  });
+  
+  // Close modals when clicking outside
+  window.addEventListener('click', function(event) {
+    if (event.target === autogenerateModal) {
+      autogenerateModal.style.display = 'none';
+    }
+    if (event.target === reviewGeneratedSetModal) {
+      reviewGeneratedSetModal.style.display = 'none';
+    }
+  });
 });
 
 /********************************************
